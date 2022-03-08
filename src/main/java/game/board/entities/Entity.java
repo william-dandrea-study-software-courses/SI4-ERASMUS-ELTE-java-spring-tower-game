@@ -9,7 +9,6 @@ public class Entity {
 
     private Position position;
 
-    private boolean isDestructible;
 
     public Entity(Position position) {
         this.position = position;

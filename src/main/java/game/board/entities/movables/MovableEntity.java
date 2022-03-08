@@ -1,5 +1,6 @@
-package game.board.entities;
+package game.board.entities.movables;
 
+import game.board.entities.Entity;
 import game.utils.Position;
 
 /**

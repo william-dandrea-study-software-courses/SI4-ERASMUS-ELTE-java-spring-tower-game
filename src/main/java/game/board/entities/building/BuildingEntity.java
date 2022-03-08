@@ -1,17 +1,15 @@
-package game.board.entities.towers;
+package game.board.entities.building;
 
-import game.board.Tile;
 import game.board.entities.Entity;
 import game.utils.Position;
 
 /**
  * @author D'Andréa William
  */
-public class Tower extends Entity {
+public class BuildingEntity extends Entity {
 
 
-
-    public Tower(Position position) {
+    public BuildingEntity(Position position) {
         super(position);
     }
 }
