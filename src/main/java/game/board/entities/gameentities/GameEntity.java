@@ -1,4 +1,4 @@
-package game.board.entities.movables;
+package game.board.entities.gameentities;
 
 import game.board.entities.Entity;
 import game.utils.Position;
@@ -6,10 +6,8 @@ import game.utils.Position;
 /**
  * @author D'Andréa William
  */
-public class MovableEntity extends Entity {
-
-
-    public MovableEntity(Position position) {
+public class GameEntity extends Entity {
+    public GameEntity(Position position) {
         super(position);
     }
 }

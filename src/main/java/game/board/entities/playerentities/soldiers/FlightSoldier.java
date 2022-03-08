@@ -1,4 +1,4 @@
-package game.board.entities.movables.soldiers;
+package game.board.entities.playerentities.soldiers;
 
 import game.utils.Position;
 
