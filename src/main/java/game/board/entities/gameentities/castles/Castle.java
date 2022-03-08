@@ -1,6 +1,5 @@
 package game.board.entities.gameentities.castles;
 
-import game.board.entities.Entity;
 import game.board.entities.gameentities.GameEntity;
 import game.utils.Position;
 
@@ -13,8 +12,19 @@ import game.utils.Position;
  */
 public class Castle extends GameEntity {
 
+    private int healthPoint;
 
-    public Castle(Position position) {
+
+    public Castle(Position position, int healthPoint) {
         super(position);
+        this.healthPoint = healthPoint;
+    }
+
+    public int getHealthPoint() {
+        return healthPoint;
+    }
+
+    public void setHealthPoint(int healthPoint) {
+        this.healthPoint = healthPoint;
     }
 }

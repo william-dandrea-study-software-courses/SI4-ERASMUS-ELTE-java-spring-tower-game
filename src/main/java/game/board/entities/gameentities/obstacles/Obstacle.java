@@ -10,6 +10,8 @@ import game.utils.Position;
  * - Radius of obstacles
  */
 public class Obstacle extends GameEntity {
+
+
     public Obstacle(Position position) {
         super(position);
     }

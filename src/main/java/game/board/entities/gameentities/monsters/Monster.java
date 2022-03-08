@@ -11,6 +11,9 @@ import game.utils.Position;
  * - Number of monsters on the map
  */
 public class Monster extends GameEntity {
+
+
+
     public Monster(Position position) {
         super(position);
     }
