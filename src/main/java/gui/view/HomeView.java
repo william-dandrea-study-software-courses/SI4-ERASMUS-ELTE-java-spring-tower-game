@@ -1,37 +1,40 @@
 package gui.view;
 
 import gui.controler.AbstractController;
+import gui.controler.HomeController;
+import gui.framework.Pages;
 import gui.framework.observer.Observer;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 /**
  * @author D'Andréa William
  */
-public class HomeView extends JFrame implements Observer {
-
-    private JPanel container = new JPanel();
-
-    private JLabel screen = new JLabel();
-
-    //Instance of our controller
-    private AbstractController controller;
+public class HomeView extends JFrame {
 
 
-    public HomeView(AbstractController controller){
+    private JButton settingsButton= new JButton("Settings");
+    private JButton playButton = new JButton("Play");
 
-        this.initComponent();
-        this.controller = controller;
-        this.setContentPane(this.container);
-        this.setVisible(true);
 
+    public HomeView() {
+
+        JPanel homePanel = new JPanel();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(600, 200);
+
+        homePanel.add(this.settingsButton);
+        homePanel.add(this.playButton);
+
+        this.add(homePanel);
     }
 
-    private void initComponent() {
+    public void addSettingsButtonListener(ActionListener listenForSettingsButton) {
+        this.settingsButton.addActionListener(listenForSettingsButton);
     }
 
-    @Override
-    public void update(String str) {
-
+    public void addPlayButtonListener(ActionListener listenForPlayButton) {
+        this.playButton.addActionListener(listenForPlayButton);
     }
 }
