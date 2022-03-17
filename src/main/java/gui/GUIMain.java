@@ -1,27 +1,26 @@
 package gui;
 
-import gui.controler.HomeController;
-import gui.framework.Application;
-import gui.model.HomeModel;
-import gui.view.HomeView;
 
-import javax.swing.*;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 /**
  * @author D'Andréa William
  */
 public class GUIMain {
 
-    public GUIMain() {}
+    public GUIMain() {
+
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setIdleFPS(60);
+        config.useVsync(true);
+        config.setTitle("The Knight Game");
+
+        config.setWindowedMode(1920, 1080);
+
+        new Lwjgl3Application(new Application(), config);
 
 
-    public void start() {
-        // frame.setTitle("The Knight Game");
 
-        HomeView homeView = new HomeView();
-        HomeModel homeModel = new HomeModel();
-        HomeController homeController = new HomeController(homeView, homeModel);
-
-        homeView.setVisible(true);
     }
 }
