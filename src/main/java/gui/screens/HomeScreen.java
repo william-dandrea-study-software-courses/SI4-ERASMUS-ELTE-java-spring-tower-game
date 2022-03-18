@@ -65,7 +65,6 @@ public class HomeScreen implements Screen {
         menuTable.row();
 
 
-
         menuTable.setFillParent(true);
         // menuTable.setBackground(textureRegionDrawableBg);
         stage.addActor(menuTable);
@@ -142,7 +141,7 @@ public class HomeScreen implements Screen {
     @Override
     public void render(float v) {
         ScreenUtils.clear(1.0f, 1.0f, 1.0f, 1);
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
         stage.draw();
     }
 
