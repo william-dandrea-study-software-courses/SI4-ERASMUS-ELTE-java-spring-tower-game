@@ -23,9 +23,7 @@ public class Application extends Game {
     public static final int WIDTH_WINDOW = 1920;
 
     public OrthographicCamera camera;
-    private SpriteBatch batch;
     public AssetManager assets;
-    public BitmapFont font24;
 
     public HomeScreen homeScreen;
     public PlayGameScreen playGameScreen;
@@ -39,9 +37,7 @@ public class Application extends Game {
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, WIDTH_WINDOW, HEIGHT_WINDOW);
 
-        this.batch = new SpriteBatch();
-
-        initFonts();
+        // this.batch = new SpriteBatch();
 
         this.homeScreen = new HomeScreen(this);
         this.playGameScreen = new PlayGameScreen(this);
@@ -50,16 +46,7 @@ public class Application extends Game {
         this.setScreen(this.homeScreen);
     }
 
-    private void initFonts() {
 
-        /*FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("src/main/resources/fonts/DIN.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
-
-        params.size = 24;
-        params.color = Color.BLACK;
-        font24 = generator.generateFont(params);*/
-        this.font24 = new BitmapFont();
-    }
 
     @Override
     public void render() {
