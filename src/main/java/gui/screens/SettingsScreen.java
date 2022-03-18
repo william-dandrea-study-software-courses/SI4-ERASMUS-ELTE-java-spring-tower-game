@@ -16,6 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import gui.Application;
 import gui.helper.DigitFilter;
+import gui.helper.UISettingsProperties;
+
+import java.util.ArrayList;
 
 /**
  * @author D'Andréa William
@@ -65,19 +68,25 @@ public class SettingsScreen implements Screen {
         Table menuTable = new Table();
         menuTable.add(navMenu());
         menuTable.row().pad(20);
-        menuTable.add(tableLabelAndTextField("Test", 3));
-        menuTable.row().pad(20);
+
+        for (UISettingsProperties uiSettingsProperties : this.allUISettingsProperties) {
+            menuTable.add(tableLabelAndTextField(uiSettingsProperties.title, uiSettingsProperties.value, uiSettingsProperties.textField));
+            menuTable.row().pad(2);
+        }
 
         menuTable.setFillParent(true);
+
+
+
         stage.addActor(menuTable);
     }
 
 
-    private Table tableLabelAndTextField(String titleLabel, int titleTextField) {
+    private Table tableLabelAndTextField(String titleLabel, int titleTextField, TextField textField) {
 
         Label label = new Label(titleLabel, labelStyle);
 
-        TextField textField = new TextField(""+titleTextField, textFieldStyle);
+        textField = new TextField(""+titleTextField, textFieldStyle);
         textField.setSize(200, 14);
 
 
@@ -86,6 +95,7 @@ public class SettingsScreen implements Screen {
         textField.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
+
 
 
                 if (!textField.getText().isEmpty()) {
@@ -189,46 +199,71 @@ public class SettingsScreen implements Screen {
     }
 
 
+    private UISettingsProperties initialHealthPointsUISettingsProperties = new UISettingsProperties("initialHealthPoints",  2, 1, 8);
+    private UISettingsProperties healthPointsRemovedWhenSoldierReachCastleUISettingsProperties = new UISettingsProperties("healthPointsRemovedWhenSoldierReachCastle", 2, 1, 8);
+    private UISettingsProperties widthBoardUISettingsProperties = new UISettingsProperties("widthBoard", 2, 1, 8);
+    private UISettingsProperties lengthBoardUISettingsProperties = new UISettingsProperties("lengthBoard", 2, 1, 8);
+    private UISettingsProperties radiusToPlaceBuildingUISettingsProperties = new UISettingsProperties("radiusToPlaceBuilding", 2, 1, 8);
+    private UISettingsProperties ennemyForbiddenRadiusForBuildingUISettingsProperties = new UISettingsProperties("ennemyForbiddenRadiusForBuilding", 2, 1, 8);
+    private UISettingsProperties poppingMonsterAtEachNRoundsUISettingsProperties = new UISettingsProperties("poppingMonsterAtEachNRounds", 2, 1, 8);
+    private UISettingsProperties roundsFrequencyOfPoppingUISettingsProperties = new UISettingsProperties("roundsFrequencyOfPopping", 2, 1, 8);
+    private UISettingsProperties numberOfObstaclesUISettingsProperties = new UISettingsProperties("numberOfObstacles", 2, 1, 8);
+    private UISettingsProperties radiusOfObstaclesUISettingsProperties = new UISettingsProperties("radiusOfObstacles", 2, 1, 8);
+    private UISettingsProperties fastSoldierPriceUISettingsProperties = new UISettingsProperties("fastSoldierPrice", 2, 1, 8);
+    private UISettingsProperties fastSoldierInitialHealthPointsUISettingsProperties = new UISettingsProperties("fastSoldierInitialHealthPoints", 2, 1, 8);
+    private UISettingsProperties fastSoldierNumberOfMovesAtEachRoundUISettingsProperties = new UISettingsProperties("fastSoldierNumberOfMovesAtEachRound", 2, 1, 8);
+    private UISettingsProperties fastSoldierNumberOfTileHeCanJumpUISettingsProperties = new UISettingsProperties("fastSoldierNumberOfTileHeCanJump", 2, 1, 8);
+    private UISettingsProperties flightSoldierPriceUISettingsProperties = new UISettingsProperties("flightSoldierPrice", 2, 1, 8);
+    private UISettingsProperties flightSoldierInitialHealthPointsUISettingsProperties = new UISettingsProperties("flightSoldierInitialHealthPoints", 2, 1, 8);
+    private UISettingsProperties flightSoldierNumberOfMovesAtEachRoundUISettingsProperties = new UISettingsProperties("flightSoldierNumberOfMovesAtEachRound", 2, 1, 8);
+    private UISettingsProperties killerSoldierPriceUISettingsProperties = new UISettingsProperties("killerSoldierPrice", 2, 1, 8);
+    private UISettingsProperties killerSoldierInitialHealthPointsUISettingsProperties = new UISettingsProperties("killerSoldierInitialHealthPoints", 2, 1, 8);
+    private UISettingsProperties killerSoldierNumberOfMovesAtEachRoundUISettingsProperties = new UISettingsProperties("killerSoldierNumberOfMovesAtEachRound", 2, 1, 8);
+    private UISettingsProperties killerSoldierDamagesInflictedToOtherSoldiersUISettingsProperties = new UISettingsProperties("killerSoldierDamagesInflictedToOtherSoldiers", 2, 1, 8);
+    private UISettingsProperties freezeTowerPriceUISettingsProperties = new UISettingsProperties("freezeTowerPrice", 2, 1, 8);
+    private UISettingsProperties freezeTowerShootingRangeUISettingsProperties = new UISettingsProperties("freezeTowerShootingRange", 2, 1, 8);
+    private UISettingsProperties freezeTowerNumberOfRoundsWhereTheSoldierInTheAreaAreFreezeUISettingsProperties = new UISettingsProperties("freezeTowerNumberOfRoundsWhereTheSoldierInTheAreaAreFreeze", 2, 1, 8);
+    private UISettingsProperties normalTowerPriceUISettingsProperties = new UISettingsProperties("normalTowerPrice", 2, 1, 8);
+    private UISettingsProperties normalTowerShootingRangeUISettingsProperties = new UISettingsProperties("normalTowerShootingRange", 2, 1, 8);
+    private UISettingsProperties normalTowerNumberOfSimultaneousStrikesUISettingsProperties = new UISettingsProperties("normalTowerNumberOfSimultaneousStrikes", 2, 1, 8);
+    private UISettingsProperties sniperTowerPriceUISettingsProperties = new UISettingsProperties("sniperTowerPrice", 2, 1, 8);
+    private UISettingsProperties sniperTowerShootingRangeUISettingsProperties = new UISettingsProperties("sniperTowerShootingRange", 2, 1, 8);
+    private UISettingsProperties sniperTowerNumberOfSimultaneousStrikesMaxUISettingsProperties = new UISettingsProperties("sniperTowerNumberOfSimultaneousStrikesMax", 2, 1, 8);
 
-
-
-    private int initialHealthPoints;
-    private int healthPointsRemovedWhenSoldierReachCastle;
-    private int widthBoard;
-    private int lengthBoard;
-    private int radiusToPlaceBuilding;
-    private int ennemyForbiddenRadiusForBuilding;
-    private int poppingMonsterAtEachNRounds;
-    private int roundsFrequencyOfPopping;
-    private int numberOfObstacles;
-    private int radiusOfObstacles;
-    private int fastSoldierPrice;
-    private int fastSoldierInitialHealthPoints;
-    private int fastSoldierNumberOfMovesAtEachRound;
-    private int fastSoldierNumberOfTileHeCanJump;
-    private int flightSoldierPrice;
-    private int flightSoldierInitialHealthPoints;
-    private int flightSoldierNumberOfMovesAtEachRound;
-    private int killerSoldierPrice;
-    private int killerSoldierInitialHealthPoints;
-    private int killerSoldierNumberOfMovesAtEachRound;
-    private int killerSoldierDamagesInflictedToOtherSoldiers;
-    private int freezeTowerPrice;
-    private int freezeTowerShootingRange;
-    private int freezeTowerNumberOfRoundsWhereTheSoldierInTheAreaAreFreeze;
-    private int normalTowerPrice;
-    private int normalTowerShootingRange;
-    private int normalTowerNumberOfSimultaneousStrikes;
-    private int sniperTowerPrice;
-    private int sniperTowerShootingRange;
-    private int sniperTowerNumberOfSimultaneousStrikes;
-
-
-
-
-
-
-
+    private ArrayList<UISettingsProperties> allUISettingsProperties = new ArrayList<UISettingsProperties>() {
+        {
+            add(initialHealthPointsUISettingsProperties);
+            add(healthPointsRemovedWhenSoldierReachCastleUISettingsProperties);
+            add(widthBoardUISettingsProperties);
+            add(lengthBoardUISettingsProperties);
+            add(radiusToPlaceBuildingUISettingsProperties);
+            add(ennemyForbiddenRadiusForBuildingUISettingsProperties);
+            add(poppingMonsterAtEachNRoundsUISettingsProperties);
+            add(roundsFrequencyOfPoppingUISettingsProperties);
+            add(numberOfObstaclesUISettingsProperties);
+            add(radiusOfObstaclesUISettingsProperties);
+            add(fastSoldierPriceUISettingsProperties);
+            add(fastSoldierInitialHealthPointsUISettingsProperties);
+            add(fastSoldierNumberOfMovesAtEachRoundUISettingsProperties);
+            add(fastSoldierNumberOfTileHeCanJumpUISettingsProperties);
+            add(flightSoldierPriceUISettingsProperties);
+            add(flightSoldierInitialHealthPointsUISettingsProperties);
+            add(flightSoldierNumberOfMovesAtEachRoundUISettingsProperties);
+            add(killerSoldierPriceUISettingsProperties);
+            add(killerSoldierInitialHealthPointsUISettingsProperties);
+            add(killerSoldierNumberOfMovesAtEachRoundUISettingsProperties);
+            add(killerSoldierDamagesInflictedToOtherSoldiersUISettingsProperties);
+            add(freezeTowerPriceUISettingsProperties);
+            add(freezeTowerShootingRangeUISettingsProperties);
+            add(freezeTowerNumberOfRoundsWhereTheSoldierInTheAreaAreFreezeUISettingsProperties);
+            add(normalTowerPriceUISettingsProperties);
+            add(normalTowerShootingRangeUISettingsProperties);
+            add(normalTowerNumberOfSimultaneousStrikesUISettingsProperties);
+            add(sniperTowerPriceUISettingsProperties);
+            add(sniperTowerShootingRangeUISettingsProperties);
+            add(sniperTowerNumberOfSimultaneousStrikesMaxUISettingsProperties);
+        }
+    };
 
 
 }
