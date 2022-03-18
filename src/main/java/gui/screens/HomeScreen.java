@@ -47,7 +47,6 @@ public class HomeScreen implements Screen {
     public void show() {
         System.out.println("HOME_PAGE");
 
-
         Gdx.input.setInputProcessor(stage);
 
         configurePlayButton();
@@ -61,7 +60,7 @@ public class HomeScreen implements Screen {
 
         Table menuTable = new Table();
         menuTable.add(this.playButton);
-        menuTable.row();
+        menuTable.row().pad(20);
         menuTable.add(this.settingsButton);
         menuTable.row();
 
