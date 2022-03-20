@@ -12,9 +12,12 @@ import game.utils.Position;
  */
 public class Monster extends GameEntity {
 
+    private int damage;
+    private int speed;
+    public Monster(Position position, int damage, int speed) {
 
-
-    public Monster(Position position) {
         super(position);
+        this.damage = damage;
+        this.speed = speed;
     }
 }
