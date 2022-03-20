@@ -10,8 +10,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -26,6 +28,8 @@ public class PlayGameScreen implements Screen {
 
     private static final int GRID_WIDTH = 10;
     private static final int GRID_HEIGHT = 10;
+
+    private  Label playerNumber;
 
 
 
@@ -53,7 +57,7 @@ public class PlayGameScreen implements Screen {
         stage.clear();
 
 
-
+        // mainTable.add(new Label("salut", new Label.LabelStyle(new BitmapFont(), Color.BLACK)));
 
 
 
@@ -64,8 +68,9 @@ public class PlayGameScreen implements Screen {
         mainTable.add(headerMenu());
         mainTable.row().padTop(20);
 
-        mainTable.add(generateGrid());
-        mainTable.add(new Label("salut", new Label.LabelStyle(new BitmapFont(), Color.BLACK)));
+        mainTable.add(generateGrid()).padRight(30);
+        mainTable.add(rightSection());
+
 
 
 
@@ -162,10 +167,47 @@ public class PlayGameScreen implements Screen {
         skin.dispose();
     }
 
+
+
+
+
+    private Table rightSection() {
+
+        Button killerUnitButton = buttonAddNewElements("Killer Unit");
+        Button flightUnitButton = buttonAddNewElements("Flight Unit");
+        Button fastUnitButton = buttonAddNewElements("Fast Unit");
+        Button normalTowerButton = buttonAddNewElements("Normal Tower");
+        Button sniperTowerButton = buttonAddNewElements("Sniper Tower");
+        Button freezeTowerButton = buttonAddNewElements("Freeze Tower");
+
+        Table table = new Table();
+        table.setDebug(true);
+
+        table.add(killerUnitButton).padRight(20);
+        table.add(flightUnitButton).padRight(20);
+        table.add(fastUnitButton);
+        table.row().padTop(30);
+        table.add(normalTowerButton).padRight(20);
+        table.add(sniperTowerButton).padRight(20);
+        table.add(freezeTowerButton);
+
+        return table;
+    }
+
+
+
+
+
+
+
+
+
+
+
     private Table headerMenu() {
         Table table = new Table();
 
-        Label playerNumber = new Label("Player 1", new Label.LabelStyle(new BitmapFont(), Color.BLACK));
+        this.playerNumber = new Label("Player 1", new Label.LabelStyle(new BitmapFont(), Color.BLACK));
 
         Pixmap bgGoldAndColor = new Pixmap(1,1, Pixmap.Format.RGB565);
         bgGoldAndColor.setColor(Color.BLUE);
@@ -188,10 +230,50 @@ public class PlayGameScreen implements Screen {
         table.add(goldAndColorSection).padRight(50);
         table.add(playerNumber);
 
+
         return table;
 
     }
 
+
+
+    private Button buttonAddNewElements(String value) {
+        Skin playButtonSkin = new Skin();
+
+        // Generate a 1x1 white texture and store it in the skin named "white".
+        Pixmap pixmap = new Pixmap(100, 300, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.GRAY);
+        pixmap.fill();
+        playButtonSkin.add("button_background", new Texture(pixmap));
+
+        // Font
+        BitmapFont bitmapFont = new BitmapFont();
+        bitmapFont.setColor(Color.BLACK);
+        bitmapFont.getData().setScale(2, 2);
+        playButtonSkin.add("default", bitmapFont);
+
+        // Configure a TextButtonStyle and name it "default". Skin resources are stored by type, so this doesn't overwrite the font.
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = playButtonSkin.newDrawable("button_background", Color.BLACK);
+        textButtonStyle.over = playButtonSkin.newDrawable("button_background", Color.LIGHT_GRAY);
+        textButtonStyle.font = playButtonSkin.getFont("default");
+        playButtonSkin.add("default", textButtonStyle);
+
+        // Create a button withthe "default" TextButtonStyle. A 3rd parameter can be used to specify a name other than "default".
+        Button button = new TextButton(value, playButtonSkin);
+        // stage.addActor(button);
+
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                application.setScreen(application.homeScreen);
+                // playerNumber.setText("Player 2");
+                System.out.println(value);
+            }
+        });
+
+        return button;
+    }
 
 
 
