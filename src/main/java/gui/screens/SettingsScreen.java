@@ -39,7 +39,7 @@ public class SettingsScreen implements Screen {
         this.stage = new Stage(new FitViewport(Application.WIDTH_WINDOW, Application.HEIGHT_WINDOW, this.application.camera));
 
         Pixmap bgPixmap = new Pixmap(1,1, Pixmap.Format.RGB565);
-        bgPixmap.setColor(Color.RED);
+        bgPixmap.setColor(Color.LIGHT_GRAY);
         bgPixmap.fill();
         this.textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
 
@@ -62,9 +62,6 @@ public class SettingsScreen implements Screen {
 
 
 
-
-
-
         Table menuTable = new Table();
         menuTable.add(navMenu());
         menuTable.row().pad(20);
@@ -75,9 +72,6 @@ public class SettingsScreen implements Screen {
         }
 
         menuTable.setFillParent(true);
-
-
-
         stage.addActor(menuTable);
     }
 

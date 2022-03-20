@@ -4,16 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Container;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -26,8 +24,8 @@ import gui.Application;
  */
 public class PlayGameScreen implements Screen {
 
-    private static final int GRID_WIDTH = 5;
-    private static final int GRID_HEIGHT = 5;
+    private static final int GRID_WIDTH = 10;
+    private static final int GRID_HEIGHT = 10;
 
 
 
@@ -54,32 +52,46 @@ public class PlayGameScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
         stage.clear();
 
-        /*Skin tempSkin = new Skin();
-        tempSkin.add("default", new BitmapFont());
-        TextButton.TextButtonStyle tbs = new TextButton.TextButtonStyle();
-        tbs.font = tempSkin.getFont("default");
-        tempSkin.add("default", tbs);
-        Table menuTable = new Table();
-        menuTable.add(new TextButton("salut", tempSkin));
-        menuTable.setFillParent(true);
-        stage.addActor(menuTable);
-        */
+
+
+
+
+
+
+        Table mainTable = new Table();
+        mainTable.setDebug(true);
+
+        mainTable.add(headerMenu());
+        mainTable.row().padTop(20);
+
+        mainTable.add(generateGrid());
+        mainTable.add(new Label("salut", new Label.LabelStyle(new BitmapFont(), Color.BLACK)));
+
+
+
+        mainTable.setFillParent(true);
+        stage.addActor(mainTable);
+
+        // shapeRen = new ShapeRenderer();
+
+
+
+
+
+    }
+
+    private Table generateGrid() {
+
         Pixmap bgPixmap = new Pixmap(1,1, Pixmap.Format.RGB565);
         bgPixmap.setColor(Color.WHITE);
         bgPixmap.fill();
         TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
 
         Pixmap bgGridPixmap = new Pixmap(1,1, Pixmap.Format.RGB565);
-        bgPixmap.setColor(Color.BLACK);
-        bgPixmap.fill();
+        bgGridPixmap.setColor(Color.BLACK);
+        bgGridPixmap.fill();
         TextureRegionDrawable textureRegionDrawableGridBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgGridPixmap)));
 
-        /*
-        table.row().pad(20).size(200, 50);
-        table.add();
-        table.row().pad(20).size(200, 50);
-        table.add();
-        table.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);*/
 
         Skin tempSkin = new Skin();
         tempSkin.add("default", new BitmapFont());
@@ -88,9 +100,9 @@ public class PlayGameScreen implements Screen {
 
         Table table = new Table(tempSkin);
         table.setDebug(true);
-        table.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        // table.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
         table.setBackground(textureRegionDrawableGridBg);
-        table.setSize(size * GRID_WIDTH + 40, size * GRID_WIDTH + 40);
+        table.setSize(size * GRID_WIDTH, size * GRID_WIDTH);
 
 
         Actor[] actors = new Actor[GRID_WIDTH * GRID_HEIGHT];
@@ -106,24 +118,14 @@ public class PlayGameScreen implements Screen {
                 table1.setBackground(textureRegionDrawableBg);
 
 
-                table.add(table1).pad(5).width(size-5).height(size-5);
+                table.add(table1).pad(5).width(size).height(size);
             }
             table.row();
         }
 
-
-        stage.addActor(table);
-        // shapeRen = new ShapeRenderer();
-
-
-
-
-
-
-
+        return table;
 
     }
-
 
 
     @Override
@@ -159,4 +161,40 @@ public class PlayGameScreen implements Screen {
         stage.dispose();
         skin.dispose();
     }
+
+    private Table headerMenu() {
+        Table table = new Table();
+
+        Label playerNumber = new Label("Player 1", new Label.LabelStyle(new BitmapFont(), Color.BLACK));
+
+        Pixmap bgGoldAndColor = new Pixmap(1,1, Pixmap.Format.RGB565);
+        bgGoldAndColor.setColor(Color.BLUE);
+        bgGoldAndColor.fill();
+        TextureRegionDrawable textureRegionDrawableGoldAndColorBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgGoldAndColor)));
+
+        Table goldAndColorSection = new Table();
+        goldAndColorSection.setBackground(textureRegionDrawableGoldAndColorBg);
+
+
+        Texture texture = new Texture(Gdx.files.internal("images/gold_icon.png"));
+        Image image = new Image(texture);
+        image.setHeight(80);
+        image.setWidth(80);
+        Label goldNumber = new Label("1300 GLD", new Label.LabelStyle(new BitmapFont(), Color.GOLD));
+        goldAndColorSection.add(image);
+        goldAndColorSection.add(goldNumber);
+
+
+        table.add(goldAndColorSection).padRight(50);
+        table.add(playerNumber);
+
+        return table;
+
+    }
+
+
+
+
+
+
 }
