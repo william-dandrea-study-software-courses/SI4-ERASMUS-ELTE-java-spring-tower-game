@@ -18,4 +18,18 @@ public class Player {
         this.goldGainedPerRound = goldGainedPerRound;
     }
 
+    public String getName() { return name; }
+
+    public Castle getCastle() { return castle; }
+
+    public int getCurrentGold() { return currentGold; }
+
+    public int getGoldGainedPerRound() { return goldGainedPerRound; }
+
+    public Player getPlayer() { return this; }
+
+    public void addGold(int gold) {
+        currentGold += gold;
+    }
+
 }
