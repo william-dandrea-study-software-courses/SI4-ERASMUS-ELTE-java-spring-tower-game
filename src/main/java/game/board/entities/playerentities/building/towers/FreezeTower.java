@@ -9,8 +9,8 @@ public class FreezeTower extends Tower {
 
     private int numberOfTurnWhereTheSoldierIsFreeze;
 
-    public FreezeTower(Position position, float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed, int numberOfTurnWhereTheSoldierIsFreeze) {
-        super(position, price, shootingRange, simultaneousStrike, percentageRewardIfDestroyed);
+    public FreezeTower(Position position, float price, int shootingRange, int simultaneousStrike, int damageToSoldiers, int refundPrice, int upgradePrice, float percentageRewardIfDestroyed, int healthPoint, int numberOfTurnWhereTheSoldierIsFreeze) {
+        super(position, price, shootingRange, simultaneousStrike, damageToSoldiers, refundPrice, upgradePrice, percentageRewardIfDestroyed, healthPoint);
 
         this.numberOfTurnWhereTheSoldierIsFreeze = numberOfTurnWhereTheSoldierIsFreeze;
     }
