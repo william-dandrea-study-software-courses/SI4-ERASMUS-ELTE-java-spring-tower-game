@@ -8,7 +8,7 @@ import game.utils.Position;
 public class SniperTower extends Tower{
 
 
-    public SniperTower(Position position, float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed) {
-        super(position, price, shootingRange, simultaneousStrike, percentageRewardIfDestroyed);
+    public SniperTower(Position position, float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed, int healthPoint) {
+        super(position, price, shootingRange, simultaneousStrike, percentageRewardIfDestroyed, healthPoint);
     }
 }

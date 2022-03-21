@@ -20,4 +20,13 @@ public class Monster extends GameEntity {
         this.damage = damage;
         this.speed = speed;
     }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
 }

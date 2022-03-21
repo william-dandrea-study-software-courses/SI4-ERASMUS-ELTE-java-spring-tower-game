@@ -15,8 +15,8 @@ public class Tower extends BuildingEntity {
 
 
 
-    public Tower(Position position, float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed) {
-        super(position, price, percentageRewardIfDestroyed);
+    public Tower(Position position, float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed, int healthPoint) {
+        super(position, price, percentageRewardIfDestroyed, healthPoint);
 
         this.shootingRange = shootingRange;
         this.simultaneousStrike = simultaneousStrike;

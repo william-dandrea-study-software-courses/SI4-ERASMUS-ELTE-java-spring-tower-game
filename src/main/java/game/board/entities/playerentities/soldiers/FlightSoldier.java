@@ -7,7 +7,11 @@ import game.utils.Position;
  */
 public class FlightSoldier extends Soldier {
 
+    private boolean ignoreObstacles = true;
+
     public FlightSoldier(Position position, double price, int healthPoint) {
         super(position, price, healthPoint);
     }
+
+    public boolean getIgnoreObstacle() { return ignoreObstacles; }
 }

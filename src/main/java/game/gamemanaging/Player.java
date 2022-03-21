@@ -6,12 +6,12 @@ import game.board.entities.gameentities.castles.Castle;
  */
 public class Player {
 
-    private char[] name;
+    private String name;
     private Castle castle;
     private int currentGold;
     private int goldGainedPerRound;
 
-    public Player(char[] name, Castle castle, int currentGold, int goldGainedPerRound){
+    public Player(String name, Castle castle, int currentGold, int goldGainedPerRound){
         this.name = name;
         this.castle = castle;
         this.currentGold = currentGold;
