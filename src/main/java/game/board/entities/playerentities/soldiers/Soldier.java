@@ -10,13 +10,11 @@ public class Soldier extends PlayerEntity {
 
     private int healthPoint;
     private int numberOfMoveAtEachRound;
-    private int damageToCastle;
 
 
-    public Soldier(Position position, double price, int healthPoint, int damageToCastle) {
+    public Soldier(Position position, double price, int healthPoint) {
         super(position, price);
         this.healthPoint = healthPoint;
-        this.damageToCastle = damageToCastle;
     }
 
     public int getHealthPoint() {
@@ -30,8 +28,6 @@ public class Soldier extends PlayerEntity {
     public int getNumberOfMoveAtEachRound() {
         return numberOfMoveAtEachRound;
     }
-
-    public int getDamageToCastle() { return damageToCastle; }
 
     public void setNumberOfMoveAtEachRound(int numberOfMoveAtEachRound) {
         this.numberOfMoveAtEachRound = numberOfMoveAtEachRound;

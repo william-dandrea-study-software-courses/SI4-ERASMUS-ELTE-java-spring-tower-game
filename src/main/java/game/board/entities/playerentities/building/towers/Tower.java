@@ -14,14 +14,15 @@ public class Tower extends BuildingEntity {
     private int shootingRange;
     private int simultaneousStrike;
     private int damageToSoldiers;
-    private int level = 0;
+    private int level = 1;
+    private int maxLevel = 3;
     private Entity target;
     private int refundPrice;
-    private int upgradePrice
+    private int upgradePrice;
 
 
-    public Tower(Position position, float price, int shootingRange, int simultaneousStrike, int damageToSoldiers, int refundPrice, int upgradePrice, float percentageRewardIfDestroyed, int healthPoint) {
-        super(position, price, percentageRewardIfDestroyed, healthPoint);
+    public Tower(Position position, float price, int shootingRange, int simultaneousStrike, int damageToSoldiers, int refundPrice, int upgradePrice, float percentageRewardIfDestroyed) {
+        super(position, price, percentageRewardIfDestroyed);
 
         this.shootingRange = shootingRange;
         this.simultaneousStrike = simultaneousStrike;
@@ -61,12 +62,16 @@ public class Tower extends BuildingEntity {
     public void setRefundPrice(int refundPrice) { this.refundPrice = refundPrice; }
 
 
-    public void upgrade() {
-        level++;
-        shootingRange++;
-        simultaneousStrike++;
-        damageToSoldiers++;
-        //player.currentGold -= upgradePrice;
+    public boolean upgrade() {
+        if(level < maxLevel){
+            level++;
+            shootingRange++;
+            simultaneousStrike++;
+            damageToSoldiers++;
+            //player.currentGold -= upgradePrice;
+            return true;
+        }
+        return false;
     }
 
     public void refundTower() {
