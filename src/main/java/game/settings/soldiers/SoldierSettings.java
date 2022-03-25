@@ -8,7 +8,7 @@ public class SoldierSettings {
     private final int price;
     private final int initialHealthPoints;
     private final int numberOfMovesAtEachRound;
-
+    private int healthPoints;
     /**
      * The general soldier settings of the game
      * @param price
@@ -21,7 +21,9 @@ public class SoldierSettings {
     public SoldierSettings(int price, int initialHealthPoints, int numberOfMovesAtEachRound) {
         this.price = price;
         this.initialHealthPoints = initialHealthPoints;
+        this.healthPoints = initialHealthPoints;
         this.numberOfMovesAtEachRound = numberOfMovesAtEachRound;
+        
     }
 
     public int getPrice() {
@@ -34,5 +36,14 @@ public class SoldierSettings {
 
     public int getNumberOfMovesAtEachRound() {
         return numberOfMovesAtEachRound;
+    }
+    public void reduceHealth(int damage){
+        this.healthPoints-= damage
+        if (this.healthPoints==0) then{
+                this.destroy()
+        }
+
+
+    }
     }
 }
