@@ -11,6 +11,17 @@ public class Player {
     private int currentGold;
     private int goldGainedPerRound;
 
+    /**
+     * The player class
+     * @param name
+     * Name of the player
+     * @param castle
+     * The castle belongs to the player
+     * @param currentGold
+     * The current gold holding by the player
+     * @param goldGainedPerRound
+     * The amount of gold gained per round by the player
+     */
     public Player(String name, Castle castle, int currentGold, int goldGainedPerRound){
         this.name = name;
         this.castle = castle;
