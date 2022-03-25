@@ -3,15 +3,19 @@ package game.settings.game;
 /**
  * @author D'Andréa William
  */
-public class CastelSettings {
+public class CastleSettings {
 
-    // Castel initial health points
     private final int initialHealthPoints;
-
-    // Number of health points removed when a unit reaches the enemy castle
     private final int healthPointsRemovedWhenSoldierReachCastle;
 
-    public CastelSettings(int initialHealthPoints, int healthPointsRemovedWhenSoldierReachCastle) {
+    /**
+     * The castle settings
+     * @param initialHealthPoints
+     * Castle initial health points
+     * @param healthPointsRemovedWhenSoldierReachCastle
+     * Number of health points removed when a unit reaches the enemy castle
+     */
+    public CastleSettings(int initialHealthPoints, int healthPointsRemovedWhenSoldierReachCastle) {
         this.initialHealthPoints = initialHealthPoints;
         this.healthPointsRemovedWhenSoldierReachCastle = healthPointsRemovedWhenSoldierReachCastle;
     }

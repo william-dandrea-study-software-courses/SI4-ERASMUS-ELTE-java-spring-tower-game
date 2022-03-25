@@ -5,12 +5,16 @@ package game.settings.game;
  */
 public class MonsterSettings {
 
-    // Number of monsters on the map
     private final int poppingMonsterAtEachNRounds;
-
-    // Turn interval for monsters to arrive
     private final int roundsFrequencyOfPopping;
 
+    /**
+     * the monster settings
+     * @param poppingMonsterAtEachNRounds
+     * The number of monsters at a time on the board
+     * @param roundsFrequencyOfPopping
+     * Turn interval for monsters to arrive
+     */
     public MonsterSettings(int poppingMonsterAtEachNRounds, int roundsFrequencyOfPopping) {
         this.poppingMonsterAtEachNRounds = poppingMonsterAtEachNRounds;
         this.roundsFrequencyOfPopping = roundsFrequencyOfPopping;

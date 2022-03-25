@@ -8,6 +8,13 @@ public class FreezeTowerSettings extends TowerSettings {
     // Number of turns where the enemies are freezed
     private final int numberOfRoundsWhereTheSoldierInTheAreaAreFreeze;
 
+    /**
+     * Tower subtype Freeze tower settings
+     * @param price
+     * @param shootingRange
+     * @param numberOfRoundsWhereTheSoldierInTheAreaAreFreeze
+     * The frozen number of rounds of the soldier in the range
+     */
     public FreezeTowerSettings(int price, int shootingRange, int numberOfRoundsWhereTheSoldierInTheAreaAreFreeze) {
         super(price, shootingRange);
         this.numberOfRoundsWhereTheSoldierInTheAreaAreFreeze = numberOfRoundsWhereTheSoldierInTheAreaAreFreeze;

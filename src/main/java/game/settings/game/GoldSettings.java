@@ -7,16 +7,21 @@ public class GoldSettings {
 
 
     private final int initialAmountOfGold;
-
-    // Amount of initial gold in each round
     private final int addedGoldAtEachRound;
-
-    // Price of a gold mine
     private final int priceOfGoldMine;
-
-    // Amount of gold distributed at the beginning of each round for a gold mine
     private final int addedGoldAtEachRoundWithGoldMine;
 
+    /**
+     * The gold related settings
+     * @param initialAmountOfGold
+     * The initial amount of gold of each player
+     * @param addedGoldAtEachRound
+     * Amount of initial gold in each round
+     * @param priceOfGoldMine
+     * The price of a goldmine
+     * @param addedGoldAtEachRoundWithGoldMine
+     * Amount of gold distributed at the beginning of each round for a gold mine
+     */
     public GoldSettings(int initialAmountOfGold, int addedGoldAtEachRound, int priceOfGoldMine, int addedGoldAtEachRoundWithGoldMine) {
         this.initialAmountOfGold = initialAmountOfGold;
         this.addedGoldAtEachRound = addedGoldAtEachRound;

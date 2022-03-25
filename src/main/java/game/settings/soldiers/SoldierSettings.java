@@ -9,6 +9,15 @@ public class SoldierSettings {
     private final int initialHealthPoints;
     private final int numberOfMovesAtEachRound;
 
+    /**
+     * The general soldier settings of the game
+     * @param price
+     * The price of soldier
+     * @param initialHealthPoints
+     * The initial health points of one soldier
+     * @param numberOfMovesAtEachRound
+     * The move the soldier can make each round
+     */
     public SoldierSettings(int price, int initialHealthPoints, int numberOfMovesAtEachRound) {
         this.price = price;
         this.initialHealthPoints = initialHealthPoints;

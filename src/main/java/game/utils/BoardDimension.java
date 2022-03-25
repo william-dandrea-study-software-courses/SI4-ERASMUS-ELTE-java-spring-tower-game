@@ -8,6 +8,13 @@ public class BoardDimension {
     private final int length;
     private final int width;
 
+    /**
+     * Game board size
+     * @param length
+     * board length
+     * @param width
+     * board width
+     */
     public BoardDimension(int length, int width) {
         this.length = length;
         this.width = width;

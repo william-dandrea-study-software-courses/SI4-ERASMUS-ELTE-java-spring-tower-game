@@ -8,6 +8,13 @@ public class Position {
     private int x;
     private int y;
 
+    /**
+     * 2D position representing the entity's position on the board
+     * @param x
+     * x position
+     * @param y
+     * y position
+     */
     public Position(int x, int y) {
         this.x = x;
         this.y = y;

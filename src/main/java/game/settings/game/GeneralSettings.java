@@ -7,16 +7,25 @@ public class GeneralSettings {
 
     private final int widthBoard;
     private final int lengthBoard;
-    // Number of surrounding squares to place a building
     private final int radiusToPlaceBuilding;
-    // Number of surrounding squares of enemy buildings where the opponent cannot place buildings
-    private final int ennemyForbiddenRadiusForBuilding;
+    private final int enemyForbiddenRadiusForBuilding;
 
-    public GeneralSettings(int widthBoard, int lengthBoard, int radiusToPlaceBuilding, int ennemyForbiddenRadiusForBuilding) {
+    /**
+     * The general settings of the game
+     * @param widthBoard
+     * The board width
+     * @param lengthBoard
+     * The board length
+     * @param radiusToPlaceBuilding
+     * Number of surrounding squares to place a building
+     * @param enemyForbiddenRadiusForBuilding
+     * Number of surrounding squares of enemy buildings where the opponent cannot place buildings
+     */
+    public GeneralSettings(int widthBoard, int lengthBoard, int radiusToPlaceBuilding, int enemyForbiddenRadiusForBuilding) {
         this.widthBoard = widthBoard;
         this.lengthBoard = lengthBoard;
         this.radiusToPlaceBuilding = radiusToPlaceBuilding;
-        this.ennemyForbiddenRadiusForBuilding = ennemyForbiddenRadiusForBuilding;
+        this.enemyForbiddenRadiusForBuilding = enemyForbiddenRadiusForBuilding;
     }
 
     public int getLengthBoard() {
@@ -31,7 +40,7 @@ public class GeneralSettings {
         return radiusToPlaceBuilding;
     }
 
-    public int getEnnemyForbiddenRadiusForBuilding() {
-        return ennemyForbiddenRadiusForBuilding;
+    public int getEnemyForbiddenRadiusForBuilding() {
+        return enemyForbiddenRadiusForBuilding;
     }
 }
