@@ -32,4 +32,9 @@ public class Tile {
     public void addEntityOnTheTile(Entity entity) {
         this.entitiesOnTheTile.add(entity);
     }
+
+    
 }
+
+    
+
