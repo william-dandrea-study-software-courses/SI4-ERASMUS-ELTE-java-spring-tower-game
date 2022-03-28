@@ -32,9 +32,22 @@ public class Entity {
         this.position = position;
     }
 
-    public LinkedList<Entity> pathfinding(Tile start,Tile Destination){
+    public LinkedList<Entity> pathfinding(Tile start,Tile destination){
+
+        Set<String> block_entities = new Set<String>(Arrays.asList("Obstacle","Tower")) ;
+
+        return pathfinding(start,destination,block_entities)
+    }
+
+    public LinkedList<Entity> pathfinding(Tile start,Tile destination,String unblock_entity){
 
         Set<String> unpassable_entities = new Set<String>(Arrays.asList("Obstacle","Tower")) ;
+        block_entities.remove(unblock_entity);
+        return pathfinding(start,destination,block_entities)
+    }
+
+    private LinkedList<Entity> pathfinding(Tile start,Tile destination,Set<String> blockunpassable_entities){
+
 
     }
 
