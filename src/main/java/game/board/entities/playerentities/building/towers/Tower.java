@@ -1,6 +1,10 @@
 package game.board.entities.playerentities.building.towers;
 
+import game.board.Board;
+import game.board.Tile;
+import game.board.entities.Entity;
 import game.board.entities.playerentities.building.BuildingEntity;
+import game.board.entities.playerentities.soldiers.Soldier;
 import game.utils.Position;
 
 /**
@@ -12,14 +16,24 @@ public class Tower extends BuildingEntity {
 
     private int shootingRange;
     private int simultaneousStrike;
+    private int initialAttactPoint=1;
 
 
-
-    public Tower(Position position, float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed, int healthPoint) {
-        super(position, price, percentageRewardIfDestroyed, healthPoint);
+    public Tower(Position position, String owner float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed, int healthPoint) {
+        super(position, owner, price, percentageRewardIfDestroyed);
 
         this.shootingRange = shootingRange;
         this.simultaneousStrike = simultaneousStrike;
+    }
+
+    public void attack(Board board){
+        for (Tile tile : board.getTiles()) {
+            for (Entity entity: tile.getEntitiesOnTheTile()) {
+                if(entity instanceof Soldier && entity.getOwner() != this.getOwner()){
+                    ((Soldier) entity).gotHit(1);
+                }
+            }
+        }
     }
 
     public int getShootingRange() {
@@ -37,4 +51,6 @@ public class Tower extends BuildingEntity {
     public void setSimultaneousStrike(int simultaneousStrike) {
         this.simultaneousStrike = simultaneousStrike;
     }
+
+
 }

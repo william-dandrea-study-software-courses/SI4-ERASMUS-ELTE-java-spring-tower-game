@@ -12,8 +12,8 @@ public class BuildingEntity extends PlayerEntity {
     private float percentageRewardIfDestroyed;
 
 
-    public BuildingEntity(Position position, float price, float percentageRewardIfDestroyed) {
-        super(position, price);
+    public BuildingEntity(Position position, String owner, float price, float percentageRewardIfDestroyed) {
+        super(position, owner, price);
         this.percentageRewardIfDestroyed = percentageRewardIfDestroyed;
     }
 

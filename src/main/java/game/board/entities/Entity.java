@@ -17,8 +17,9 @@ public class Entity {
 
     private Position position;
     /*private Tile tile                                */
+    private String owner;
 
-    public Entity(/*Tile tile,*/Position position) {
+    public Entity(/*Tile tile,*/Position position, String owner) {
         //this.tile = tile;
         //this.position=tile.getPosition();
         this.position = position;
@@ -33,7 +34,11 @@ public class Entity {
         this.position = position;
     }
 
-    public LinkedList<Entity> pathfinding(Tile start,Tile destination){
+    public String getOwner() {return owner;}
+
+    public void setOwner(String owner) {this.owner = owner;}
+
+    public LinkedList<Entity> pathfinding(Tile start, Tile destination){
 
         Set<String> block_entities = new Set<String>(Arrays.asList("Obstacle","Tower")) ;
 

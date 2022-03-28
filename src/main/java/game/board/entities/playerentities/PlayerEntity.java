@@ -10,8 +10,8 @@ public class PlayerEntity extends Entity {
 
     private double price;
 
-    public PlayerEntity(Position position, double price) {
-        super(position);
+    public PlayerEntity(Position position, String owner, double price) {
+        super(position, owner);
         this.price = price;
     }
 
