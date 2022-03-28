@@ -1,7 +1,9 @@
 package game.board.entities;
 
 import game.utils.Position;
-
+import java.utils.LinkedList;
+import java.utils.Set;
+import java.utils.Arrays;
 /**
  * @author D'Andréa William
  */
@@ -30,6 +32,11 @@ public class Entity {
         this.position = position;
     }
 
-    public 
+    public LinkedList<Entity> pathfinding(Tile start,Tile Destination){
+
+        Set<String> unpassable_entities = new Set<String>(Arrays.asList("Obstacle","Tower")) ;
+
+    }
+
 
 }
