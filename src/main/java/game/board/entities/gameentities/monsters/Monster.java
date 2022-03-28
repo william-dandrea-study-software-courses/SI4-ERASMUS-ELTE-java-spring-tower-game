@@ -3,6 +3,7 @@ package game.board.entities.gameentities.monsters;
 import game.board.entities.Entity;
 import game.board.entities.gameentities.GameEntity;
 import game.utils.Position;
+import java.util.Random;
 
 /**
  * @author D'Andréa William
@@ -35,5 +36,11 @@ public class Monster extends GameEntity {
 
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public void randomMove() {
+        Random random = new Random();
+        int rand = random.nextInt(3);
+
     }
 }

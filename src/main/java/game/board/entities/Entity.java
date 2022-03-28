@@ -1,5 +1,6 @@
 package game.board.entities;
 
+import game.board.Tile;
 import game.utils.Position;
 import java.utils.LinkedList;
 import java.utils.Set;
@@ -51,5 +52,28 @@ public class Entity {
 
     }
 
+    /**
+     * Get the distance to another entity (double value)
+     * @param e
+     * The target entity
+     * @return
+     */
+    public double getDistanceFromAnotherEntity(Entity e){
+        double x_distance = Math.abs(this.position.getX()-e.getPosition().getX());
+        double y_distance = Math.abs(this.position.getY()-e.getPosition().getY());
+        return Math.sqrt(x_distance * x_distance + y_distance * y_distance);
+    }
+
+    /**
+     * Get the distance to another tile (double value)
+     * @param t
+     * The target tile
+     * @return
+     */
+    public double getDistanceFromAnotherEntity(Tile t){
+        double x_distance = Math.abs(this.position.getX()-t.getPosition().getX());
+        double y_distance = Math.abs(this.position.getY()-t.getPosition().getY());
+        return Math.sqrt(x_distance * x_distance + y_distance * y_distance);
+    }
 
 }
