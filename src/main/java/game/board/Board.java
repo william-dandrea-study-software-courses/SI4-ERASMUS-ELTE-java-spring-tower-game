@@ -15,7 +15,13 @@ public class Board {
     private final BoardDimension dimension;
     private final List<Tile> tiles;
 
-
+    /**
+     * The game board initiation
+     * @param dimension
+     * The dimension of the board (x, y)
+     * @param tiles
+     * Tiles on this board
+     */
     public Board(BoardDimension dimension, List<Tile> tiles) {
         this.dimension = dimension;
         this.tiles = tiles;

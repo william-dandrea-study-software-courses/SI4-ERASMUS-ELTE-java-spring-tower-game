@@ -9,6 +9,12 @@ public class FlightSoldier extends Soldier {
 
     private boolean ignoreObstacles = true;
 
+    /**
+     * Flight soldier entity extended from Soldier
+     * @param position
+     * @param price
+     * @param healthPoint
+     */
     public FlightSoldier(Position position, double price, int healthPoint) {
         super(position, price, healthPoint);
     }

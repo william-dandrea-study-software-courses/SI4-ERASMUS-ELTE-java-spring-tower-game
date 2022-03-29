@@ -18,7 +18,17 @@ public class Tower extends BuildingEntity {
     private int simultaneousStrike;
     private int initialAttactPoint=1;
 
-
+    /**
+     * Tower entity extended from BuildingEntity
+     * @param position
+     * @param owner
+     * @param shootingRange
+     * The shooting range of the tower
+     * @param simultaneousStrike
+     * The number of soldier it can attack at one time
+     * @param percentageRewardIfDestroyed
+     * @param healthPoint
+     */
     public Tower(Position position, String owner float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed, int healthPoint) {
         super(position, owner, price, percentageRewardIfDestroyed);
 

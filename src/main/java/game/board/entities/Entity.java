@@ -19,6 +19,13 @@ public class Entity {
     /*private Tile tile                                */
     private String owner;
 
+    /**
+     * Entity type initiation
+     * @param position
+     * Position of the entity (x, y)
+     * @param owner
+     * Owner of this entity, to better identify between enemy
+     */
     public Entity(/*Tile tile,*/Position position, String owner) {
         //this.tile = tile;
         //this.position=tile.getPosition();

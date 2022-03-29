@@ -15,7 +15,13 @@ public class Tile {
     private final Position position;
     private final List<Entity> entitiesOnTheTile;
 
-
+    /**
+     * Initializing of tile
+     * @param position
+     * position of this tile
+     * @param entitiesOnTheTile
+     * Entities on this tile
+     */
     public Tile(Position position) {
         this.position = position;
         this.entitiesOnTheTile = new ArrayList<>();

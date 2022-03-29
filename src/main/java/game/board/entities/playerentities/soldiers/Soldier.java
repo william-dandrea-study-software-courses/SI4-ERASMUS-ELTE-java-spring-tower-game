@@ -13,7 +13,13 @@ public class Soldier extends PlayerEntity {
     private int killRewards;
     private boolean isAlive;
 
-
+    /**
+     * Soldier entity extended from PlayerEntity
+     * @param position
+     * @param price
+     * @param healthPoint
+     * health point of the soldier
+     */
     public Soldier(Position position, double price, int healthPoint) {
         super(position, price);
         this.healthPoint = healthPoint;
