@@ -1,5 +1,5 @@
 run_unit_test:
     stage: test
-    image: maven:3.3.9-jdk-8
+    image: ubuntu-latest
     script:
         - mvn test
