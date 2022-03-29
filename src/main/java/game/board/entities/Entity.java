@@ -45,39 +45,52 @@ public class Entity {
 
         Set<String> block_entities = new Set<String>(Arrays.asList("Obstacle","Tower")) ;
 
-        return pathfinding(start,destination,block_entities)
+        return pathfinding(start,destination,block_entities);
     }
 
     public LinkedList<Entity> pathfinding(Tile start,Tile destination,String unblock_entity){
 
-        Set<String> unpassable_entities = new Set<String>(Arrays.asList("Obstacle","Tower")) ;
+        Set<String> block_entities = new Set<String>(Arrays.asList("Obstacle","Tower")) ;
         block_entities.remove(unblock_entity);
-        return pathfinding(start,destination,block_entities)
-    }
-
+        return pathfinding(start,destination,block_entities) ;
+    }   
     
-
-        
-    }
 
 
     private LinkedList<Entity> pathfinding(Tile start,Tile destination,Set<String> blockunpassable_entities){
-
+/*Those are the nodes of the algorithm A*,which will we save the save the nescessary information. It is only used at the scope of the algorithm */
         class Algorithm_Node {
         
-        private Tile tile;
-        private Position position ;
-        private int gValue;
-        private int heuristicsValue;
-        private int fValue;
-        private Algorithm_Node parent;
+         Tile tile;
+         Position position ;
+         int gValue;
+         int heuristicsValue;
+         int fValue;
+        Algorithm_Node parent;
         Algorithm_Node (tile tile,Algorithm_Node parent){
             this.tile   = tile;
             this.position = tile.position ;
+            this.parent = parent;
             this.g_Value = parent.getgValue() + 1;
     
-            this.heuristicsValue = tile.getDistanceFromAnotherEntity(start)
+            this.heuristicsValue = tile.getDistanceFromAnotherEntity(start);
+            this.fValue= g_Value+fValue
         }    
+        /*The start node*/
+         Algorithm_Node (tile tile){
+            this.tile   = tile;
+            this.position = tile.position ;
+            this.g_Value = 0;
+            this.parent = null;
+            this.heuristicsValue = tile.getDistanceFromAnotherEntity(start);
+            this.fValue= g_Value+fValue
+        } 
+        }
+
+	Set<Tile> OpenSet = new Set<Tile>();
+	OpenSet.add(start);
+	Set<Tile> ClosedSet = new Set<Tile>();
+       
     }
 
     /**
@@ -101,7 +114,8 @@ public class Entity {
     public double getDistanceFromAnotherEntity(Tile t){
         double x_distance = Math.abs(this.position.getX()-t.getPosition().getX());
         double y_distance = Math.abs(this.position.getY()-t.getPosition().getY());
-        return Math.sqrt(x_distance * x_distance + y_distance * y_distance);
+        return Math.sqrt(x_distance * x_distance + y_distanc
+        e * y_distance);
     }
 
 }
