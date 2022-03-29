@@ -22,6 +22,8 @@ import java.util.ArrayList;
 
 /**
  * @author D'Andréa William
+ * This screen include all the settings of the game, the user can change the parameters and the game save it and transmit
+ * it to the game engine
  */
 public class SettingsScreen implements Screen {
 
@@ -33,7 +35,10 @@ public class SettingsScreen implements Screen {
     private TextField.TextFieldStyle textFieldStyle;
     private Label.LabelStyle labelStyle;
 
-
+    /**
+     * This class represent the main frame of the settings page
+     * @param application the application frame
+     */
     public SettingsScreen(Application application) {
         this.application = application;
         this.stage = new Stage(new FitViewport(Application.WIDTH_WINDOW, Application.HEIGHT_WINDOW, this.application.camera));
@@ -52,15 +57,15 @@ public class SettingsScreen implements Screen {
     }
 
 
+    /**
+     * Method call when externally we call the Settings Screen
+     */
     @Override
     public void show() {
         System.out.println("SETTINGS_PAGE");
 
         Gdx.input.setInputProcessor(stage);
         stage.clear();
-
-
-
 
         Table menuTable = new Table();
         menuTable.add(navMenu());
@@ -76,6 +81,13 @@ public class SettingsScreen implements Screen {
     }
 
 
+    /**
+     * Method who generate one title and one text field
+     * @param titleLabel the title of the label
+     * @param titleTextField the title inside the textfield (initial value)
+     * @param textField the pointer to the textfield
+     * @return the table with the label and textfield
+     */
     private Table tableLabelAndTextField(String titleLabel, int titleTextField, TextField textField) {
 
         Label label = new Label(titleLabel, labelStyle);
@@ -144,7 +156,10 @@ public class SettingsScreen implements Screen {
     }
 
 
-
+    /**
+     * Generation of the table menu
+     * @return Table witht the table menu content
+     */
     private Table navMenu() {
 
         Table menuTable = new Table();
@@ -155,7 +170,9 @@ public class SettingsScreen implements Screen {
     }
 
 
-
+    /**
+     * @return button who call the Home Page
+     */
     private Button buttonBack() {
         Skin playButtonSkin = new Skin();
 

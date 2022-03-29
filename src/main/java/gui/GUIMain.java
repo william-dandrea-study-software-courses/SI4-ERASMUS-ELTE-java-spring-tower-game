@@ -6,6 +6,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 /**
  * @author D'Andréa William
+ * Interface launcher, main informations about the window and launch the game
  */
 public class GUIMain {
 

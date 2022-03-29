@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 /**
  * @author D'Andréa William
+ * This class is used for the textfield and permit to be sure that the user enter only digit into the textfield
  */
 public class DigitFilter implements TextField.TextFieldFilter {
 

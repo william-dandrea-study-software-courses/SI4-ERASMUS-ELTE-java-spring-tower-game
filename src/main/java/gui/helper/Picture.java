@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /**
  * @author D'Andréa William
+ * Class who represent q piture - Probably be deleted in the few next commits
  */
 public class Picture extends Actor {
 

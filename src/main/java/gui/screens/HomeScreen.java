@@ -21,6 +21,7 @@ import gui.Application;
 
 /**
  * @author D'Andréa William
+ * Class who generate the HomeScreen, it is the first thing the user can see when he enter the game
  */
 public class HomeScreen implements Screen {
 
@@ -72,6 +73,9 @@ public class HomeScreen implements Screen {
 
     }
 
+    /**
+     * Generate the play button and when the user click on it, this button redirest to the PlayGameScreen
+     */
     private void configurePlayButton() {
         Skin playButtonSkin = new Skin();
 
@@ -106,6 +110,9 @@ public class HomeScreen implements Screen {
         });
     }
 
+    /**
+     * Generate the play button and when the user click on it, this button redirest to the SettingsScreen
+     */
     private void configureSettingsButton() {
         Skin settingsButtonSkin = new Skin();
 

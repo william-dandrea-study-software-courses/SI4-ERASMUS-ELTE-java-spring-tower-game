@@ -23,6 +23,7 @@ import gui.Application;
 
 /**
  * @author D'Andréa William
+ * This class show the screen when the player are playing together
  */
 public class PlayGameScreen implements Screen {
 
@@ -30,7 +31,6 @@ public class PlayGameScreen implements Screen {
     private static final int GRID_HEIGHT = 10;
 
     private  Label playerNumber;
-
 
 
     private Application application;
@@ -43,9 +43,6 @@ public class PlayGameScreen implements Screen {
     public PlayGameScreen(Application application) {
         this.application = application;
         this.stage = new Stage(new FitViewport(Application.WIDTH_WINDOW, Application.HEIGHT_WINDOW, this.application.camera));
-
-
-
     }
 
 
@@ -85,6 +82,10 @@ public class PlayGameScreen implements Screen {
 
     }
 
+    /**
+     * Method who generate the grid
+     * @return the grid with the size X*Y
+     */
     private Table generateGrid() {
 
         Pixmap bgPixmap = new Pixmap(1,1, Pixmap.Format.RGB565);
@@ -168,9 +169,10 @@ public class PlayGameScreen implements Screen {
     }
 
 
-
-
-
+    /**
+     * Lethod who generate the buttons for the player game (add new unit, new tower ...)
+     * @return
+     */
     private Table rightSection() {
 
         Button killerUnitButton = buttonAddNewElements("Killer Unit");
@@ -195,15 +197,10 @@ public class PlayGameScreen implements Screen {
     }
 
 
-
-
-
-
-
-
-
-
-
+    /**
+     * Method who generate the header of this screen (come back menu)
+     * @return
+     */
     private Table headerMenu() {
         Table table = new Table();
 
@@ -236,7 +233,11 @@ public class PlayGameScreen implements Screen {
     }
 
 
-
+    /**
+     * Button who represent the button for adding a new elements like a unit or a tower
+     * @param value string inside the button
+     * @return button
+     */
     private Button buttonAddNewElements(String value) {
         Skin playButtonSkin = new Skin();
 

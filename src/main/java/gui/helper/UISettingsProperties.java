@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 /**
  * @author D'Andréa William
+ * Settings of the UI
  */
 public class UISettingsProperties {
 

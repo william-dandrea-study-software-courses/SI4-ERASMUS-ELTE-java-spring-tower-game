@@ -15,6 +15,7 @@ import gui.screens.SettingsScreen;
 
 /**
  * @author D'Andréa William
+ * This class represent the application main frame, all the main informations about the game window are here
  */
 public class Application extends Game {
 
@@ -47,11 +48,14 @@ public class Application extends Game {
     }
 
 
-
+    /**
+     * Render method from the Game class
+     */
     @Override
     public void render() {
         super.render();
 
+        // If the ESC key is pressed, we exit the game
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
