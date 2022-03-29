@@ -17,6 +17,7 @@ public class Tower extends BuildingEntity {
     private int shootingRange;
     private int simultaneousStrike;
     private int initialAttactPoint=1;
+    private int upgradePrice;
 
     /**
      * Tower entity extended from BuildingEntity
@@ -29,7 +30,7 @@ public class Tower extends BuildingEntity {
      * @param percentageRewardIfDestroyed
      * @param healthPoint
      */
-    public Tower(Position position, String owner float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed, int healthPoint) {
+    public Tower(Position position, String owner float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed, int healthPoint, int upgradePrice) {
         super(position, owner, price, percentageRewardIfDestroyed);
 
         this.shootingRange = shootingRange;
