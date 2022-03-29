@@ -33,6 +33,14 @@ public class Entity {
         this.position = position;
     }
 
+    /**
+    @author Andreas Tsironis 
+    Creating pathfinding(Tile start,Tile destination) for using algorithm A* at situations that we cannot pass default entities
+    and pathfinding(Tile start,Tile destination,String unblock_entity) for special occasion, like the flying soldier
+    which is able to fly at obstacles 
+
+    */
+
     public LinkedList<Entity> pathfinding(Tile start,Tile destination){
 
         Set<String> block_entities = new Set<String>(Arrays.asList("Obstacle","Tower")) ;
@@ -47,9 +55,29 @@ public class Entity {
         return pathfinding(start,destination,block_entities)
     }
 
+    
+
+        
+    }
+
+
     private LinkedList<Entity> pathfinding(Tile start,Tile destination,Set<String> blockunpassable_entities){
 
-
+        class Algorithm_Node {
+        
+        private Tile tile;
+        private Position position ;
+        private int gValue;
+        private int heuristicsValue;
+        private int fValue;
+        private Algorithm_Node parent;
+        Algorithm_Node (tile tile,Algorithm_Node parent){
+            this.tile   = tile;
+            this.position = tile.position ;
+            this.g_Value = parent.getgValue() + 1;
+    
+            this.heuristicsValue = tile.getDistanceFromAnotherEntity(start)
+        }    
     }
 
     /**
