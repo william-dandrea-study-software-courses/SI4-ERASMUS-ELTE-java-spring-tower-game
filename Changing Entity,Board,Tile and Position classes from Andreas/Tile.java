@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * @author D'Andréa William
  */
-public class Tile implements EntityTileInterface{
+public class Tile {
 
     private final Position position;
     private final List<Entity> entitiesOnTheTile;
