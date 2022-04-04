@@ -2,7 +2,8 @@ package game.board.entities.playerentities.soldiers;
 
 import game.board.entities.playerentities.PlayerEntity;
 import game.utils.Position;
-
+import game.board.Tile;
+import game.board.entities.Entity;
 /**
  * @author D'Andréa William
  */
@@ -10,6 +11,7 @@ public class Soldier extends PlayerEntity {
 
     private int healthPoint;
     private int numberOfMoveAtEachRound;
+    private int numberOfMoveThisRound;
     private int killRewards;
     private boolean isAlive;
 
@@ -20,10 +22,12 @@ public class Soldier extends PlayerEntity {
      * @param healthPoint
      * health point of the soldier
      */
-    public Soldier(Position position, double price, int healthPoint) {
-        super(position, price);
+    public Soldier(Position position,String owner, double price, int healthPoint,int numberOfMoveAtEachRound) {
+        super(position,owner, price);
         this.healthPoint = healthPoint;
         this.isAlive = true;
+        this.numberOfMoveAtEachRound=numberOfMoveAtEachRound;
+        this.numberOfMoveThisRound=numberOfMoveAtEachRound;
     }
 
     public int getHealthPoint() {
@@ -39,6 +43,8 @@ public class Soldier extends PlayerEntity {
     }
 
     public void setNumberOfMoveAtEachRound(int numberOfMoveAtEachRound) {this.numberOfMoveAtEachRound = numberOfMoveAtEachRound; }
+
+    public void refreshMovement(){this.numberOfMoveThisRound=numberOfMoveAtEachRound;}
 
     public int getKillRewards() { return killRewards; }
 
@@ -57,9 +63,23 @@ public class Soldier extends PlayerEntity {
     }
 
     public void gotFrozen(){ this.numberOfMoveAtEachRound = 0; }
+    /**
+     * @author Andreas Tsironis
+     * */
+    public void move(Entity destination){
 
-    public void move(){
-        if(numberOfMoveAtEachRound != 0){
+        this.pathfinding(destination);
+        Tile nextTile;
+        int lastElement= this.getPath().size() - 1 ;
+        if(this.numberOfMoveAtEachRound != 0){
+
+            nextTile = this.getNextTilePath();
+            /**it is basically copies an exact copy of the object at the next tile and deletes it from the previous tile*/
+            nextTile.addEntityOnTheTile(this);
+            this.getTile().removeEntityOnTheTile(this);
+            /**At path,we have the last element as the next one.*/
+            this.getPath().remove(lastElement);
+            this.numberOfMoveAtEachRound--;
 
         }
     }

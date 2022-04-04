@@ -36,9 +36,10 @@ public class Tile {
         return entitiesOnTheTile;
     }
 
-    public void addEntityOnTheTile(Entity entity) {
-        this.entitiesOnTheTile.add(entity);
+    public void addEntityOnTheTile(Entity entity) {this.entitiesOnTheTile.add(entity);
     }
+
+    public void removeEntityOnTheTile(Entity entity ) {this.entitiesOnTheTile.remove(entity);}
 
     public List<Tile> getNeighbourTiles(){
         return this.neighbourTile;

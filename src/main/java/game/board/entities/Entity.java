@@ -55,6 +55,7 @@ public class Entity {
 
     }
 
+
     //*I think the entity should save the tile and get the position from the tile*/
     public Position getPosition() {
 
@@ -64,6 +65,16 @@ public class Entity {
     public Tile getTile() {
 
         return this.tile ;
+    }
+
+    public List <Tile> getPath(){
+
+        return this.path;
+    }
+
+    public Tile getNextTilePath(){
+
+        return this.path.get(this.path.size()-1);
     }
 
     public void setPosition(Position position) {
@@ -97,7 +108,9 @@ public class Entity {
      * towers have gone to the way. If everything has been the same, return true. Else, search for a new path.*/
     public boolean checkPath(Entity destination){
         if (this.path!=null) {
-            if (this.path.get(this.path.size() - 1) == destination.getTile()) {
+            /**The first element has the destination and the last element has the first tile we move to,
+             * as it is easier to remove it*/
+            if (this.path.get(0) == destination.getTile()) {
 
                 if (this.checkExistingPathForUnpassableEntities()) {
 
@@ -303,12 +316,12 @@ public class Entity {
 
         this.path.clear();
         if (PathFound){
-
+            /**We save the first tile as the last index and the destination as the first*/
             while (currentBestNode.parent_node!= null){
 
                 this.path.add(currentBestNode.node);
                 currentBestNode = currentBestNode.parent_node;
-                Collections.reverse(this.path);
+
 
             }
         }
