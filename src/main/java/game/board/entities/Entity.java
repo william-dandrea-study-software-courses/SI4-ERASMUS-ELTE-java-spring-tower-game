@@ -92,19 +92,20 @@ public class Entity {
         return x_distance + y_distance ;
     }
 
+
+    /**Checks for both if it has previous path saved, if the destination was the same as before and if any new
+     * towers have gone to the way. If everything has been the same, return true. Else, search for a new path*/
     public boolean checkPath(Entity destination){
+        if (this.path!=null) {
+            if (this.path.get(this.path.size() - 1) == destination.getTile()) {
 
-        if (this.path.get(this.path.size()-1) == destination.getTile()){
+                if (this.checkExistingPathForUnpassableEntities()) {
 
-            if (this.checkExistingPathForUnpassableEntities()){
-
-                return true;
+                    return true;
+                }
             }
         }
-
-        return this.pathfinding(destination) ;
-
-
+        return this.pathfinding(destination);
     }
 
     public boolean checkExistingPathForUnpassableEntities(){
