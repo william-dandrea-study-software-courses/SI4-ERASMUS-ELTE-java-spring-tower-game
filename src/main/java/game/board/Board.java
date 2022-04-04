@@ -20,7 +20,7 @@ public class Board{
  * The game board initiation
  * @param dimension
  * The dimension of the board (x, y)
- * @param tiles
+ * @param board[][]
  * Tiles on this board
  **/
     /** We have only an instance of the Board, as it is the board the players use, but
@@ -65,6 +65,5 @@ public class Board{
 
         return board[x][y];
     }
-
 
 }

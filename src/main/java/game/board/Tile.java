@@ -39,7 +39,7 @@ public class Tile {
     public void addEntityOnTheTile(Entity entity) {this.entitiesOnTheTile.add(entity);
     }
 
-    public void removeEntityOnTheTile(Entity entity ) {this.entitiesOnTheTile.remove(entity);}
+    public void removeEntityOnTheTile(Entity entity) {this.entitiesOnTheTile.remove(entity);}
 
     public List<Tile> getNeighbourTiles(){
         return this.neighbourTile;
@@ -104,25 +104,25 @@ public class Tile {
         int adjamentPositionLenght;
         int adjamentPositionWidth;
 
-        ArrayList <Tile> neighboorTile = new  ArrayList<Tile>();
+        ArrayList <Tile> neighbourTile = new  ArrayList<Tile>();
 
         /* Get all orthogonal tiles first, thought the direction of the clock, starting at the bottom tile. */
 
-        for (int i= -orthogonalRadius;i<=orthogonalRadius;i++) {
+        for (int i= -orthogonalRadius; i<=orthogonalRadius; i++) {
 
             if (i!=0){
 
                 adjamentPositionWidth = width + i ;
                 if (adjamentPositionWidth>=0 && adjamentPositionWidth<width){
 
-                    neighboorTile.add(Board.getTile(0,adjamentPositionWidth)) ;
+                    neighbourTile.add(Board.getTile(0,adjamentPositionWidth)) ;
 
                 }
 
                 adjamentPositionLenght = length + i ;
                 if (adjamentPositionLenght>=0 && adjamentPositionLenght<length){
 
-                    neighboorTile.add(Board.getTile(adjamentPositionLenght,0)) ;
+                    neighbourTile.add(Board.getTile(adjamentPositionLenght,0)) ;
 
                 }
 
@@ -144,7 +144,7 @@ public class Tile {
 
                         if (adjamentPositionWidth>=0 && adjamentPositionWidth<width){
 
-                            neighboorTile.add(Board.getTile(adjamentPositionLenght,adjamentPositionWidth));
+                            neighbourTile.add(Board.getTile(adjamentPositionLenght,adjamentPositionWidth));
 
                         }
                     }
@@ -153,7 +153,7 @@ public class Tile {
 
         }
 
-        return neighboorTile;
+        return neighbourTile;
     }
 }
 

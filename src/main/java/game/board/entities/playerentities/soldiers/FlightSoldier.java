@@ -15,8 +15,9 @@ public class FlightSoldier extends Soldier {
      * @param price
      * @param healthPoint
      */
-    public FlightSoldier(Position position, double price, int healthPoint) {
-        super(position, price, healthPoint);
+    public FlightSoldier(Position position, String owner, double price, int healthPoint, int numberOfMoveAtEachRound) {
+
+        super(position, owner, price, healthPoint, numberOfMoveAtEachRound);
     }
 
     public boolean getIgnoreObstacle() { return ignoreObstacles; }

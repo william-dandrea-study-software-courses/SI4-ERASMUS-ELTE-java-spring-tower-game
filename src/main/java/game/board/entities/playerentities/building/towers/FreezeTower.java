@@ -16,14 +16,11 @@ public class FreezeTower extends Tower {
      * @param shootingRange
      * @param simultaneousStrike
      * @param damageToSoldiers
-     * @param upgradePrice
-     * @param percentageRewardIfDestroyed
      * @param numberOfTurnWhereTheSoldierIsFreeze
      * number of turn where the soldier in the range is frozen
      */
-    public FreezeTower(Position position, float price, int shootingRange, int simultaneousStrike, int damageToSoldiers, int upgradePrice, float percentageRewardIfDestroyed, int numberOfTurnWhereTheSoldierIsFreeze) {
-        super(position, owner, price, shootingRange, simultaneousStrike, damageToSoldiers, upgradePrice, percentageRewardIfDestroyed);
-
+    public FreezeTower(Position position, String owner, float price, int shootingRange, int simultaneousStrike, int damageToSoldiers, int numberOfTurnWhereTheSoldierIsFreeze) {
+        super(position, owner, price, shootingRange, simultaneousStrike, damageToSoldiers);
         this.numberOfTurnWhereTheSoldierIsFreeze = numberOfTurnWhereTheSoldierIsFreeze;
     }
 

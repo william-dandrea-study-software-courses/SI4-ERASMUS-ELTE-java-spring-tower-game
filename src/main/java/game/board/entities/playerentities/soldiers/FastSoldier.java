@@ -17,8 +17,8 @@ public class FastSoldier extends Soldier {
      * @param numberOfTileHeCanJump
      * The number of tile (step) the fast soldier can move per time
      */
-    public FastSoldier(Position position, double price, int healthPoint, int numberOfTileHeCanJump) {
-        super(position, price, healthPoint);
+    public FastSoldier(Position position, String owner, double price, int healthPoint, int numberOfMoveAtEachRound, int numberOfTileHeCanJump) {
+        super(position, owner, price, healthPoint, numberOfMoveAtEachRound);
         this.numberOfTileHeCanJump = numberOfTileHeCanJump;
     }
 

@@ -28,20 +28,22 @@ public class Tower extends BuildingEntity {
      * @param simultaneousStrike
      * The number of soldier it can attack at one time
      * @param percentageRewardIfDestroyed
-     * @param healthPoint
      */
-    public Tower(Position position, String owner, float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed, int healthPoint, int upgradePrice) {
+    public Tower(Position position, String owner, float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed) {
         super(position, owner, price, percentageRewardIfDestroyed);
 
         this.shootingRange = shootingRange;
         this.simultaneousStrike = simultaneousStrike;
     }
 
-    public void attack(){
-        for (Tile tile : board.getTiles()) {
-            for (Entity entity: tile.getEntitiesOnTheTile()) {
-                if(entity instanceof Soldier && entity.getOwner() != this.getOwner()){
-                    ((Soldier) entity).gotHit(1);
+    public void attack(Board board){
+        for (int i=0; i<=board.getDimension().getLength(); i++) {
+            for (int j=0;j<=board.getDimension().getWidth();j++) {
+                Tile tile = board.getTile(i,j);
+                for(Entity entity: tile.getEntitiesOnTheTile()){
+                    if (entity instanceof Soldier && entity.getOwner() != this.getOwner()) {
+                        ((Soldier) entity).gotHit(1);
+                    }
                 }
             }
         }
