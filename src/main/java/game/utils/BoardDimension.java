@@ -5,8 +5,8 @@ package game.utils;
  */
 public class BoardDimension {
 
-    private final int length;
-    private final int width;
+    private static int length;
+    private static int width;
 
     /**
      * Game board size
@@ -20,11 +20,13 @@ public class BoardDimension {
         this.width = width;
     }
 
-    public int getLength() {
+    public static int getLength() {
         return length;
     }
 
-    public int getWidth() {
+    public static int getWidth() {
         return width;
     }
+
+
 }
