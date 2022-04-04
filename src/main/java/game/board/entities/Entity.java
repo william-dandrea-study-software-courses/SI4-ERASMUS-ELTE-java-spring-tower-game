@@ -1,91 +1,325 @@
 package game.board.entities;
 
+
+import java.util.Collections;
+
+import java.util.List;
+
+import java.util.ArrayList;
+
+
+
 import game.board.Tile;
 import game.utils.Position;
-import java.utils.LinkedList;
-import java.utils.Set;
-import java.utils.Arrays;
+import game.board.Board;
 /**
- * @author D'Andréa William
+ @author Andreas Tsironis
+
  */
 
-/**
-    @author Andreas Tsironis creating general pathfinding method.
-
-*/
 public class Entity {
 
-    private Position position;
-    /*private Tile tile                                */
+    private Tile tile ;
     private String owner;
+    private Position position;
+    private List<String> unpassable_entities;
+    private List<Tile> path;
 
-    /**
-     * Entity type initiation
-     * @param position
-     * Position of the entity (x, y)
-     * @param owner
-     * Owner of this entity, to better identify between enemy
-     */
-    public Entity(/*Tile tile,*/Position position, String owner) {
-        //this.tile = tile;
-        //this.position=tile.getPosition();
-        this.position = position;
+
+    public Entity(Tile tile,String owner) {
+        this.tile = tile;
+        this.position = tile.getPosition() ;
+        this.owner = owner;
+        this.unpassable_entities = List.of("Obstacle","Tower");
+
     }
+    public Entity(Position position,String owner) {
+
+        this.tile = Board.getTile(position);
+        this.position = position ;
+        this.owner = owner;
+        this.unpassable_entities = List.of("Obstacle","Tower");
+
+    }
+    public Entity(Tile tile) {
+        this.tile = tile;
+        this.position = tile.getPosition() ;
+        this.unpassable_entities = List.of("Obstacle","Tower");
+
+    }
+    public Entity(Position position) {
+
+        this.tile = Board.getTile(position);
+        this.position = position ;
+        this.unpassable_entities = List.of("Obstacle","Tower");
+
+    }
+
     //*I think the entity should save the tile and get the position from the tile*/
     public Position getPosition() {
-        /*return tile.getPosition()*/
-        return position;
+
+        return this.position ;
+    }
+
+    public Tile getTile() {
+
+        return this.tile ;
     }
 
     public void setPosition(Position position) {
-        this.position = position;
+
+        this.tile = Board.getTile(position);
+        this.position = position ;
     }
 
     public String getOwner() {return owner;}
 
     public void setOwner(String owner) {this.owner = owner;}
 
-    public LinkedList<Entity> pathfinding(Tile start, Tile destination){
+    public int manhattanDistance(Entity entity){
 
-        Set<String> block_entities = new Set<String>(Arrays.asList("Obstacle","Tower")) ;
 
-        return pathfinding(start,destination,block_entities)
+        int x_distance= Math.abs(entity.getPosition().getX() - this.position.getX()) ;
+        int y_distance= Math.abs(entity.getPosition().getY() - this.position.getY()) ;
+        return x_distance + y_distance ;
     }
 
-    public LinkedList<Entity> pathfinding(Tile start,Tile destination,String unblock_entity){
+    public int manhattanDistance(Tile tile){
 
-        Set<String> unpassable_entities = new Set<String>(Arrays.asList("Obstacle","Tower")) ;
-        block_entities.remove(unblock_entity);
-        return pathfinding(start,destination,block_entities)
+
+        int x_distance= Math.abs(tile.getPosition().getX() - this.position.getX()) ;
+        int y_distance= Math.abs(tile.getPosition().getY() - this.position.getY()) ;
+        return x_distance + y_distance ;
     }
 
-    private LinkedList<Entity> pathfinding(Tile start,Tile destination,Set<String> blockunpassable_entities){
+    public boolean checkPath(Entity destination){
+
+        if (this.path.get(this.path.size()-1) == destination.getTile()){
+
+            if (this.checkExistingPathForUnpassableEntities()){
+
+                return true;
+            }
+        }
+
+        return this.pathfinding(destination) ;
 
 
     }
 
-    /**
-     * Get the distance to another entity (double value)
-     * @param e
-     * The target entity
-     * @return
-     */
-    public double getDistanceFromAnotherEntity(Entity e){
-        double x_distance = Math.abs(this.position.getX()-e.getPosition().getX());
-        double y_distance = Math.abs(this.position.getY()-e.getPosition().getY());
-        return Math.sqrt(x_distance * x_distance + y_distance * y_distance);
+    public boolean checkExistingPathForUnpassableEntities(){
+
+        if (this.path!=null){
+            for(int i=0;i<this.path.size();i++){
+
+                List <Entity> entities = path.get(i).getEntitiesOnTheTile();
+
+                for (int j=0;j<entities.size();j++){
+
+                    if (unpassable_entities.contains(entities.get(j).getClass().getSimpleName())){
+
+                        return false;
+                    }
+                }
+
+
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public boolean pathfinding (Entity destination){
+
+        return  pathfinding(this.getTile(),destination.getTile()) ;
     }
 
-    /**
-     * Get the distance to another tile (double value)
-     * @param t
-     * The target tile
-     * @return
-     */
-    public double getDistanceFromAnotherEntity(Tile t){
-        double x_distance = Math.abs(this.position.getX()-t.getPosition().getX());
-        double y_distance = Math.abs(this.position.getY()-t.getPosition().getY());
-        return Math.sqrt(x_distance * x_distance + y_distance * y_distance);
+
+    public boolean pathfinding(Entity start,Entity destination){
+
+        return  pathfinding(start.getTile(),destination.getTile()) ;
     }
+
+
+    public boolean pathfinding(Tile start,Tile destination){
+
+
+        class OpenClosedList_Node{
+
+            Tile node;
+            int index;
+            OpenClosedList_Node(Tile node,int index){
+
+                this.node = node;
+                this.index = index;
+            }
+        }
+
+        class Algorithm_Node{
+
+            Tile node;
+            Algorithm_Node parent_node;
+            private int gValue;
+            int hValue;
+            int fValue;
+
+            Algorithm_Node(Tile node,Algorithm_Node parent_node){
+
+                this.node = node;
+                this.parent_node = parent_node ;
+                this.gValue = parent_node.gValue + 1;
+                this.hValue = node.manhattanDistance(destination);
+                this.fValue = gValue + hValue ;
+
+            }
+
+            Algorithm_Node(Tile node){
+                this.node = node;
+                this.parent_node = null ;
+                this.gValue = 0 ;
+                this.hValue = node.manhattanDistance(destination);
+                this.fValue = gValue + hValue ;
+            }
+
+            void setfValue() {
+
+                this.fValue = this.gValue + this.hValue ;
+            }
+
+            boolean checkPassable (Tile node){
+
+                for (int i=0;i<= node.getEntitiesOnTheTile().size() ; i++)
+                {
+                    for (int j=0; j<= unpassable_entities.size(); j++){
+                        unpassable_entities.get(j) ;
+
+                        if (unpassable_entities.contains(node.getEntitiesOnTheTile().get(j).getClass().getSimpleName()))
+                        {
+
+                            return false ;
+
+                        }
+                    }
+                }
+                return true ;
+            }
+        }
+
+
+
+
+        ArrayList <Algorithm_Node> nodeList = new ArrayList<> ();
+        List <OpenClosedList_Node> openList= new ArrayList<> ();
+        List <OpenClosedList_Node> closedList = new ArrayList<> ();
+
+        nodeList.add(new Algorithm_Node(start)) ;
+        openList.add(new OpenClosedList_Node(nodeList.get(0).node,0)) ;
+        Algorithm_Node currentBestNode = nodeList.get(0);
+
+        boolean PathFound = false ;
+
+        while (!openList.isEmpty()){
+
+
+
+            for (int i=0;i<openList.size();i++){
+
+                Algorithm_Node  potentialBestNode = nodeList.get(openList.get(i).index) ;
+
+
+                if ( potentialBestNode.fValue < currentBestNode.fValue){
+
+                    currentBestNode = potentialBestNode ;
+
+                }
+            }
+            if (destination == currentBestNode.node) {
+                PathFound= true;
+                break;
+            }
+
+            List <Tile> neighbourTiles =  currentBestNode.node.getNeighbourTiles();
+
+            for (int i=0;i<=neighbourTiles.size();i++){
+                if (!currentBestNode.checkPassable(neighbourTiles.get(i))){
+                    neighbourTiles.remove(i);
+
+                }
+
+            }
+
+
+            for (int i=0;i<neighbourTiles.size();i++){
+                Boolean FoundOpenList= false;
+                Boolean FoundClosedList= false;
+                int nodeListIndex=0;
+
+                for (int j=0; (j<openList.size() && j<closedList.size()) || (FoundOpenList || FoundClosedList );j++){
+
+                    if (j<openList.size()){
+                        if (openList.get(j).node == neighbourTiles.get(i)) {
+                            FoundOpenList=true;
+                            nodeListIndex = j;
+                        }
+                    }
+                    if (j<closedList.size())
+                        if (closedList.get(j).node == neighbourTiles.get(i)){
+                            FoundClosedList=true;
+                            nodeListIndex = j;
+                        }
+                }
+
+                if (!FoundOpenList && !FoundClosedList){
+
+                    Algorithm_Node tempNode = new Algorithm_Node(neighbourTiles.get(i),currentBestNode) ;
+                    nodeList.add(tempNode);
+                    openList.add(new OpenClosedList_Node(tempNode.node,nodeList.size()-1));
+
+                }
+                else
+                {
+
+                    int NewgValue = currentBestNode.gValue+1;
+                    if (NewgValue < nodeList.get(nodeListIndex).gValue){
+
+                        nodeList.get(nodeListIndex).gValue = NewgValue ;
+                        nodeList.get(nodeListIndex).setfValue() ;
+                        nodeList.get(nodeListIndex).parent_node = currentBestNode ;
+                        if (FoundClosedList) {
+                            OpenClosedList_Node temp = closedList.get(nodeListIndex) ;
+                            closedList.remove(nodeListIndex) ;
+                            openList.add(temp );
+                        }
+                    }
+
+
+                }
+                OpenClosedList_Node temp = openList.get(nodeListIndex) ;
+                closedList.add(temp);
+            }
+        }
+
+        this.path.clear();
+        if (PathFound){
+
+            while (currentBestNode.parent_node!= null){
+
+                this.path.add(currentBestNode.node);
+                currentBestNode = currentBestNode.parent_node;
+                Collections.reverse(this.path);
+
+            }
+        }
+        return PathFound;
+
+
+    }
+
+
+
+
+
 
 }
+

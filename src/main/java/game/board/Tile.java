@@ -15,12 +15,12 @@ public class Tile {
 
     private final Position position;
     private final List<Entity> entitiesOnTheTile;
-    private  List <Tile> neighboorTile ;
+    private  List <Tile> neighbourTile ;
     /**
      * Initializing of tile
      * @param position
      * position of this tile
-     * @param entitiesOnTheTile
+     *
      * Entities on this tile
      */
     public Tile(Position position) {
@@ -40,6 +40,9 @@ public class Tile {
         this.entitiesOnTheTile.add(entity);
     }
 
+    public List<Tile> getNeighbourTiles(){
+        return this.neighbourTile;
+    }
     /**
      * @author Andreas Tsironis
      */
@@ -69,7 +72,7 @@ public class Tile {
     /**When we use the Board constructor, every tile gets its 4 neighbours.*/
     public void initializeNeighbourTiles(){
 
-        this.neighboorTile = this.getAdjacentTilesOrthogonal();
+        this.neighbourTile = this.getAdjacentTilesOrthogonal();
     }
     /**We use the 3 methods below that they just refers to the getAdjacentTiles(), as
      * they will be probably the 3 most probable usages of the function and not having any

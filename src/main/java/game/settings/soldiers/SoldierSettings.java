@@ -38,12 +38,13 @@ public class SoldierSettings {
         return numberOfMovesAtEachRound;
     }
     public void reduceHealth(int damage){
-        this.healthPoints-= damage
-        if (this.healthPoints==0) then{
-                this.destroy()
+        this.healthPoints-= damage;
+        if (this.healthPoints==0) {
+                this.destroy();
         }
 
 
     }
     }
-}
+
+
