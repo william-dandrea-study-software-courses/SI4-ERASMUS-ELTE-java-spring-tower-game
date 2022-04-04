@@ -94,7 +94,7 @@ public class Entity {
 
 
     /**Checks for both if it has previous path saved, if the destination was the same as before and if any new
-     * towers have gone to the way. If everything has been the same, return true. Else, search for a new path*/
+     * towers have gone to the way. If everything has been the same, return true. Else, search for a new path.*/
     public boolean checkPath(Entity destination){
         if (this.path!=null) {
             if (this.path.get(this.path.size() - 1) == destination.getTile()) {
