@@ -25,7 +25,6 @@ public class Entity {
     private List<String> unpassable_entities;
     private List<Tile> path;
 
-
     public Entity(Tile tile,String owner) {
         this.tile = tile;
         this.position = tile.getPosition() ;
@@ -75,6 +74,10 @@ public class Entity {
     public Tile getNextTilePath(){
 
         return this.path.get(this.path.size()-1);
+    }
+
+    public Tile getDirectionTile(int x, int y){
+        return Board.getTile(this.getPosition().getX()+x, this.getPosition().getY()+y);
     }
 
     public void setPosition(Position position) {
@@ -135,8 +138,6 @@ public class Entity {
                         return false;
                     }
                 }
-
-
             }
             return true;
         }
@@ -210,9 +211,7 @@ public class Entity {
 
                         if (unpassable_entities.contains(node.getEntitiesOnTheTile().get(j).getClass().getSimpleName()))
                         {
-
                             return false ;
-
                         }
                     }
                 }
@@ -240,12 +239,8 @@ public class Entity {
             for (int i=0;i<openList.size();i++){
 
                 Algorithm_Node  potentialBestNode = nodeList.get(openList.get(i).index) ;
-
-
                 if ( potentialBestNode.fValue < currentBestNode.fValue){
-
                     currentBestNode = potentialBestNode ;
-
                 }
             }
             if (destination == currentBestNode.node) {
@@ -258,9 +253,7 @@ public class Entity {
             for (int i=0;i<=neighbourTiles.size();i++){
                 if (!currentBestNode.checkPassable(neighbourTiles.get(i))){
                     neighbourTiles.remove(i);
-
                 }
-
             }
 
 
@@ -289,14 +282,12 @@ public class Entity {
                     Algorithm_Node tempNode = new Algorithm_Node(neighbourTiles.get(i),currentBestNode) ;
                     nodeList.add(tempNode);
                     openList.add(new OpenClosedList_Node(tempNode.node,nodeList.size()-1));
-
                 }
                 else
                 {
 
                     int NewgValue = currentBestNode.gValue+1;
                     if (NewgValue < nodeList.get(nodeListIndex).gValue){
-
                         nodeList.get(nodeListIndex).gValue = NewgValue ;
                         nodeList.get(nodeListIndex).setfValue() ;
                         nodeList.get(nodeListIndex).parent_node = currentBestNode ;
@@ -306,8 +297,6 @@ public class Entity {
                             openList.add(temp );
                         }
                     }
-
-
                 }
                 OpenClosedList_Node temp = openList.get(nodeListIndex) ;
                 closedList.add(temp);
@@ -318,22 +307,11 @@ public class Entity {
         if (PathFound){
             /**We save the first tile as the last index and the destination as the first*/
             while (currentBestNode.parent_node!= null){
-
                 this.path.add(currentBestNode.node);
                 currentBestNode = currentBestNode.parent_node;
-
-
             }
         }
         return PathFound;
-
-
     }
-
-
-
-
-
-
 }
 

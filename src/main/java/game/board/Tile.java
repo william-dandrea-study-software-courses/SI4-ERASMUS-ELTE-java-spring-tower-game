@@ -20,8 +20,6 @@ public class Tile {
      * Initializing of tile
      * @param position
      * position of this tile
-     *
-     * Entities on this tile
      */
     public Tile(Position position) {
         this.position = position;
