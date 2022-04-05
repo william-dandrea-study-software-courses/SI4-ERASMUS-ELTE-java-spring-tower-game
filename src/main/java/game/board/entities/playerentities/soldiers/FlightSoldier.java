@@ -1,5 +1,6 @@
 package game.board.entities.playerentities.soldiers;
 
+import game.gamemanaging.Player;
 import game.utils.Position;
 
 /**
@@ -15,7 +16,7 @@ public class FlightSoldier extends Soldier {
      * @param price
      * @param healthPoint
      */
-    public FlightSoldier(Position position, String owner, double price, int healthPoint, int numberOfMoveAtEachRound) {
+    public FlightSoldier(Position position, Player owner, double price, int healthPoint, int numberOfMoveAtEachRound) {
 
         super(position, owner, price, healthPoint, numberOfMoveAtEachRound);
     }

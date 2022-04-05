@@ -1,5 +1,6 @@
 package game.board.entities.playerentities.building.towers;
 
+import game.gamemanaging.Player;
 import game.utils.Position;
 
 /**
@@ -19,7 +20,7 @@ public class FreezeTower extends Tower {
      * @param numberOfTurnWhereTheSoldierIsFreeze
      * number of turn where the soldier in the range is frozen
      */
-    public FreezeTower(Position position, String owner, float price, int shootingRange, int simultaneousStrike, int damageToSoldiers, int numberOfTurnWhereTheSoldierIsFreeze) {
+    public FreezeTower(Position position, Player owner, float price, int shootingRange, int simultaneousStrike, int damageToSoldiers, int numberOfTurnWhereTheSoldierIsFreeze) {
         super(position, owner, price, shootingRange, simultaneousStrike, damageToSoldiers);
         this.numberOfTurnWhereTheSoldierIsFreeze = numberOfTurnWhereTheSoldierIsFreeze;
     }

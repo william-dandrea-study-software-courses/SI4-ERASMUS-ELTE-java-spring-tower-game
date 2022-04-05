@@ -5,6 +5,7 @@ import game.board.Tile;
 import game.board.entities.Entity;
 import game.board.entities.playerentities.building.BuildingEntity;
 import game.board.entities.playerentities.soldiers.Soldier;
+import game.gamemanaging.Player;
 import game.utils.Position;
 
 /**
@@ -29,7 +30,7 @@ public class Tower extends BuildingEntity {
      * The number of soldier it can attack at one time
      * @param percentageRewardIfDestroyed
      */
-    public Tower(Position position, String owner, float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed) {
+    public Tower(Position position, Player owner, float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed) {
         super(position, owner, price, percentageRewardIfDestroyed);
 
         this.shootingRange = shootingRange;

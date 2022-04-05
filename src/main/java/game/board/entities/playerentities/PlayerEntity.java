@@ -1,6 +1,7 @@
 package game.board.entities.playerentities;
 
 import game.board.entities.Entity;
+import game.gamemanaging.Player;
 import game.utils.Position;
 
 /**
@@ -19,7 +20,7 @@ public class PlayerEntity extends Entity {
      * @param price
      * price of the entity to build & make
      */
-    public PlayerEntity(Position position, String owner, double price) {
+    public PlayerEntity(Position position, Player owner, double price) {
         super(position, owner);
         this.price = price;
     }
