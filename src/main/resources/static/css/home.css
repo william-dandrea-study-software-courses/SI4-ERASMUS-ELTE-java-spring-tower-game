@@ -1,0 +1,66 @@
+
+#home-page-main {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+/* ================================= TITLE ================================= */
+#home-page-title {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#home-page-welcome {
+    font-size: 20px;
+    margin: 5px;
+}
+
+#home-page-knight-game {
+    font-size: 50px;
+    font-weight: bold;
+    margin: 5px;
+}
+
+
+/* ================================= BUTTONS ================================= */
+#home-page-buttons {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#home-page-play-button {
+
+}
+
+#home-page-settings-button {
+    margin-top:5px;
+}
+
+
+/* ================================= IMAGES ================================= */
+#home-page-images {
+    flex: 3;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.home-page-image-tower {
+    width: 20%;
+}
+
+#home-page-image-castle {
+    width: 30%;
+}

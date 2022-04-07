@@ -1,0 +1,304 @@
+
+
+<link href="../css/style.css" rel="stylesheet">
+<link href="../css/settings.css" rel="stylesheet">
+
+<section id="settings-page-main">
+
+    <section id="section-page-title">
+        <div><button class="text-button">< Back to menu</button></div>
+        <p class="main-title" id="section-page-title-name">Settings</p>
+    </section>
+
+
+    <section id="settings-page-general" class="settings-section">
+
+        <hr/>
+        <p class="settings-section-title">General Settings</p>
+
+        <div>
+            <form class="settings-form">
+                <label class="settings-form-label" for="widthBoard">Width of the board</label>
+                <input class="settings-form-input" type="number" id="widthBoard" name="widthBoard" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="lengthBoard">Height of the board</label>
+                <input class="settings-form-input" type="number" id="lengthBoard" name="lengthBoard" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="radiusToPlaceBuilding">Radius to place a building</label>
+                <input class="settings-form-input" type="number" id="radiusToPlaceBuilding" name="radiusToPlaceBuilding" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+
+            <form class="settings-form">
+                <label class="settings-form-label" for="enemyForbiddenRadiusForBuilding">Enemy forbidden radius for building</label>
+                <input class="settings-form-input" type="number" id="enemyForbiddenRadiusForBuilding" name="enemyForbiddenRadiusForBuilding" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+
+        </div>
+
+    </section>
+
+    <section id="settings-page-castel" class="settings-section">
+
+        <hr/>
+        <p class="settings-section-title">Castel Settings</p>
+
+        <div>
+            <form class="settings-form">
+                <label class="settings-form-label" for="initialHealthPointsCastle">Castle initial health points</label>
+                <input class="settings-form-input" type="number" id="initialHealthPointsCastle" name="initialHealthPointsCastle" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="healthPointsRemovedWhenSoldierReachCastle">Health points removed when an enemy reach the castle</label>
+                <input class="settings-form-input" type="number" id="healthPointsRemovedWhenSoldierReachCastle" name="healthPointsRemovedWhenSoldierReachCastle" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+
+
+        </div>
+
+    </section>
+
+    <section id="settings-page-gold" class="settings-section">
+
+        <hr/>
+        <p class="settings-section-title">Gold Settings</p>
+
+        <div>
+            <form class="settings-form">
+                <label class="settings-form-label" for="initialAmountOfGold">Initial amount of gold for each player</label>
+                <input class="settings-form-input" type="number" id="initialAmountOfGold" name="initialAmountOfGold" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="addedGoldAtEachRound">Added gold for each player at each round</label>
+                <input class="settings-form-input" type="number" id="addedGoldAtEachRound" name="addedGoldAtEachRound" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="priceOfGoldMine">Price of a gold mine</label>
+                <input class="settings-form-input" type="number" id="priceOfGoldMine" name="priceOfGoldMine" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="addedGoldAtEachRoundWithGoldMine">Added Gold at each round with one gold mine</label>
+                <input class="settings-form-input" type="number" id="addedGoldAtEachRoundWithGoldMine" name="addedGoldAtEachRoundWithGoldMine" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+        </div>
+
+    </section>
+
+    <section id="settings-page-monster" class="settings-section">
+
+        <hr/>
+        <p class="settings-section-title">Monster Settings</p>
+
+        <div>
+            <form class="settings-form">
+                <label class="settings-form-label" for="poppingMonsterAtEachNRounds">Number of monster who pop in the map each N rounds</label>
+                <input class="settings-form-input" type="number" id="poppingMonsterAtEachNRounds" name="poppingMonsterAtEachNRounds" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="roundsFrequencyOfPopping">Frequency of the popping (each N rounds)</label>
+                <input class="settings-form-input" type="number" id="roundsFrequencyOfPopping" name="roundsFrequencyOfPopping" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+        </div>
+
+    </section>
+
+    <section id="settings-page-obstacles" class="settings-section">
+
+        <hr/>
+        <p class="settings-section-title">Obstacles Settings</p>
+
+        <div>
+            <form class="settings-form">
+                <label class="settings-form-label" for="numberOfObstacles">Number of obstacles in the map</label>
+                <input class="settings-form-input" type="number" id="numberOfObstacles" name="numberOfObstacles" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="radiusOfObstacles">Radius of the obstacles</label>
+                <input class="settings-form-input" type="number" id="radiusOfObstacles" name="radiusOfObstacles" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+        </div>
+
+    </section>
+
+
+
+    <section id="settings-page-fast-soldier" class="settings-section">
+
+        <hr/>
+        <p class="settings-section-title">Fast Soldier Settings</p>
+
+        <div>
+            <form class="settings-form">
+                <label class="settings-form-label" for="priceFastSoldier">Price</label>
+                <input class="settings-form-input" type="number" id="priceFastSoldier" name="priceFastSoldier" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="initialHealthPointsFastSoldier">Initial Health Points</label>
+                <input class="settings-form-input" type="number" id="initialHealthPointsFastSoldier" name="initialHealthPointsFastSoldier" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="numberOfMovesAtEachRoundFastSoldier">Number of moves each rounds</label>
+                <input class="settings-form-input" type="number" id="numberOfMovesAtEachRoundFastSoldier" name="numberOfMovesAtEachRoundFastSoldier" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="numberOfTileHeCanJumpFastSoldier">Number of tiles he can jump</label>
+                <input class="settings-form-input" type="number" id="numberOfTileHeCanJumpFastSoldier" name="numberOfTileHeCanJumpFastSoldier" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+        </div>
+    </section>
+
+    <section id="settings-page-flight-soldier" class="settings-section">
+
+        <hr/>
+        <p class="settings-section-title">FLight Soldier Settings</p>
+
+        <div>
+            <form class="settings-form">
+                <label class="settings-form-label" for="priceFlightSoldier">Price</label>
+                <input class="settings-form-input" type="number" id="priceFlightSoldier" name="priceFlightSoldier" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="initialHealthPointsFlightSoldier">Initial Health Points</label>
+                <input class="settings-form-input" type="number" id="initialHealthPointsFlightSoldier" name="initialHealthPointsFlightSoldier" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="numberOfMovesAtEachRoundFlightSoldier">Number of moves each rounds</label>
+                <input class="settings-form-input" type="number" id="numberOfMovesAtEachRoundFlightSoldier" name="numberOfMovesAtEachRoundFlightSoldier" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+
+        </div>
+
+    </section>
+
+    <section id="settings-page-killer-soldier" class="settings-section">
+
+        <hr/>
+        <p class="settings-section-title">Killer Soldier Settings</p>
+
+        <div>
+            <form class="settings-form">
+                <label class="settings-form-label" for="priceKillerSoldier">Price</label>
+                <input class="settings-form-input" type="number" id="priceKillerSoldier" name="priceKillerSoldier" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="initialHealthPointsKillerSoldier">Initial Health Points</label>
+                <input class="settings-form-input" type="number" id="initialHealthPointsKillerSoldier" name="initialHealthPointsKillerSoldier" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="numberOfMovesAtEachRoundKillerSoldier">Number of moves each rounds</label>
+                <input class="settings-form-input" type="number" id="numberOfMovesAtEachRoundKillerSoldier" name="numberOfMovesAtEachRoundKillerSoldier" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="damagesInflictedToOtherSoldiersKillerSoldier">Damages he can inflicted to the other soldiers</label>
+                <input class="settings-form-input" type="number" id="damagesInflictedToOtherSoldiersKillerSoldier" name="damagesInflictedToOtherSoldiersKillerSoldier" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+
+        </div>
+
+    </section>
+
+    <section id="settings-page-freeze-tower" class="settings-section">
+
+        <hr/>
+        <p class="settings-section-title">Freeze Tower Settings</p>
+
+        <div>
+            <form class="settings-form">
+                <label class="settings-form-label" for="priceFreezeTower">Price</label>
+                <input class="settings-form-input" type="number" id="priceFreezeTower" name="priceFreezeTower" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="shootingRangeFreezeTower">Shooting Range</label>
+                <input class="settings-form-input" type="number" id="shootingRangeFreezeTower" name="shootingRangeFreezeTower" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="numberOfRoundsWhereTheSoldierInTheAreaAreFreezeFreezeTower">Number of round where the soldiers in the area are freeze</label>
+                <input class="settings-form-input" type="number" id="numberOfRoundsWhereTheSoldierInTheAreaAreFreezeFreezeTower" name="numberOfRoundsWhereTheSoldierInTheAreaAreFreezeFreezeTower" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+
+        </div>
+
+    </section>
+
+    <section id="settings-page-normal-tower" class="settings-section">
+
+        <hr/>
+        <p class="settings-section-title">Normal Tower Settings</p>
+
+        <div>
+            <form class="settings-form">
+                <label class="settings-form-label" for="priceNormalTower">Price</label>
+                <input class="settings-form-input" type="number" id="priceNormalTower" name="priceNormalTower" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="shootingRangeNormalTower">Shooting Range</label>
+                <input class="settings-form-input" type="number" id="shootingRangeNormalTower" name="shootingRangeNormalTower" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="numberOfSimultaneousStrikesNormalTower">Number of simultaneous strikes</label>
+                <input class="settings-form-input" type="number" id="numberOfSimultaneousStrikesNormalTower" name="numberOfSimultaneousStrikesNormalTower" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+
+        </div>
+
+    </section>
+
+    <section id="settings-page-sniper-tower" class="settings-section">
+
+        <hr/>
+        <p class="settings-section-title">Sniper Tower Settings</p>
+
+        <div>
+            <form class="settings-form">
+                <label class="settings-form-label" for="priceSniperTower">Price</label>
+                <input class="settings-form-input" type="number" id="priceSniperTower" name="priceSniperTower" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="shootingRangeSniperTower">Shooting Range</label>
+                <input class="settings-form-input" type="number" id="shootingRangeSniperTower" name="shootingRangeSniperTower" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+            <form class="settings-form">
+                <label class="settings-form-label" for="numberOfSimultaneousStrikesSniperTower">Number of simultaneous strikes</label>
+                <input class="settings-form-input" type="number" id="numberOfSimultaneousStrikesSniperTower" name="numberOfSimultaneousStrikesSniperTower" value="2">
+                <input class="settings-form-submit" type="submit" value="Submit New Value">
+            </form>
+
+        </div>
+
+    </section>
+</section>
+
