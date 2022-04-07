@@ -1,5 +1,6 @@
 package game.board.entities.playerentities.building.towers;
 
+import game.gamemanaging.Player;
 import game.utils.Position;
 
 /**
@@ -14,11 +15,9 @@ public class SniperTower extends Tower{
      * @param shootingRange
      * @param simultaneousStrike
      * @param damageToSoldiers
-     * @param upgradePrice
-     * upgrade price of the tower
-     * @param percentageRewardIfDestroyed
      */
-    public SniperTower(Position position, float price, int shootingRange, int simultaneousStrike, int damageToSoldiers, int refundPrice, int upgradePrice, float percentageRewardIfDestroyed) {
-        super(position, owner, price, shootingRange, simultaneousStrike, damageToSoldiers, upgradePrice, percentageRewardIfDestroyed);
+    public SniperTower(Position position, Player owner, float price, int shootingRange, int simultaneousStrike, int damageToSoldiers) {
+        super(position, owner, price, shootingRange, simultaneousStrike, damageToSoldiers);
     }
+
 }

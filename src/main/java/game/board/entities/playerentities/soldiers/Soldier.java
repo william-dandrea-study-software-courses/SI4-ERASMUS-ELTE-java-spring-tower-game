@@ -1,6 +1,7 @@
 package game.board.entities.playerentities.soldiers;
 
 import game.board.entities.playerentities.PlayerEntity;
+import game.gamemanaging.Player;
 import game.utils.Position;
 import game.board.Tile;
 import game.board.entities.Entity;
@@ -22,13 +23,14 @@ public class Soldier extends PlayerEntity {
      * @param healthPoint
      * health point of the soldier
      */
-    public Soldier(Position position,String owner, double price, int healthPoint,int numberOfMoveAtEachRound) {
-        super(position,owner, price);
+    public Soldier(Position position, Player owner, double price, int healthPoint, int numberOfMoveAtEachRound) {
+        super(position, owner, price);
         this.healthPoint = healthPoint;
         this.isAlive = true;
         this.numberOfMoveAtEachRound=numberOfMoveAtEachRound;
         this.numberOfMoveThisRound=numberOfMoveAtEachRound;
     }
+
 
     public int getHealthPoint() {
         return healthPoint;

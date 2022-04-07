@@ -1,6 +1,7 @@
 package game.board.entities.playerentities.building.goldmines;
 
 import game.board.entities.playerentities.building.BuildingEntity;
+import game.gamemanaging.Player;
 import game.utils.Position;
 
 /**
@@ -22,7 +23,7 @@ public class GoldMine extends BuildingEntity {
      * the gold gain for the owner each round
      * @param percentageRewardIfDestroyed
      */
-    public GoldMine(Position position,String owner, float price, int goldDistributedAtEachRound, float percentageRewardIfDestroyed) {
+    public GoldMine(Position position, Player owner, float price, int goldDistributedAtEachRound, float percentageRewardIfDestroyed) {
         super(position, owner, price, percentageRewardIfDestroyed);
         this.goldDistributedAtEachRound = goldDistributedAtEachRound;
     }

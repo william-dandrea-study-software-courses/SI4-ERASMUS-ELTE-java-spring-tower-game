@@ -1,6 +1,7 @@
 package game.board.entities.playerentities.building;
 
 import game.board.entities.playerentities.PlayerEntity;
+import game.gamemanaging.Player;
 import game.utils.Position;
 
 /**
@@ -19,7 +20,7 @@ public class BuildingEntity extends PlayerEntity {
      * @param percentageRewardIfDestroyed
      * The destroy-reward (to enemy) or recycle-reward (to us)
      */
-    public BuildingEntity(Position position, String owner, float price, float percentageRewardIfDestroyed) {
+    public BuildingEntity(Position position, Player owner, float price, float percentageRewardIfDestroyed) {
         super(position, owner, price);
         this.percentageRewardIfDestroyed = percentageRewardIfDestroyed;
     }

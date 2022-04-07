@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 
 import game.board.Tile;
+import game.gamemanaging.Player;
 import game.utils.Position;
 import game.board.Board;
 /**
@@ -20,20 +21,21 @@ import game.board.Board;
 public class Entity {
 
     private Tile tile ;
-    private String owner;
+    private Player owner;
     private Position position;
     private List<String> unpassable_entities;
     private List<Tile> path;
 
 
-    public Entity(Tile tile,String owner) {
+    public Entity(Tile tile, Player owner) {
         this.tile = tile;
         this.position = tile.getPosition() ;
         this.owner = owner;
         this.unpassable_entities = List.of("Obstacle","Tower");
 
     }
-    public Entity(Position position,String owner) {
+
+    public Entity(Position position,Player owner) {
 
         this.tile = Board.getTile(position);
         this.position = position ;
@@ -83,9 +85,9 @@ public class Entity {
         this.position = position ;
     }
 
-    public String getOwner() {return owner;}
+    public Player getOwner() {return owner;}
 
-    public void setOwner(String owner) {this.owner = owner;}
+    public void setOwner(Player owner) {this.owner = owner;}
 
     public int manhattanDistance(Entity entity){
 
