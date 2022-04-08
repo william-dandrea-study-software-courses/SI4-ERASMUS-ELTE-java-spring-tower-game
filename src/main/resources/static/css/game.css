@@ -48,6 +48,15 @@
 
 #game-board {
     flex: 7;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.game-board-canvas {
+
 }
 
 #user-screen-interact {
@@ -205,6 +214,14 @@
     text-align: center;
     padding: 5px;
 }
+
+footer {
+    flex: 0.2;
+}
+
+
+
+
 
 
 
