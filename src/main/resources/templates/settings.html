@@ -1,12 +1,30 @@
 
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>The Knight Game</title>
 
-<link href="../css/style.css" rel="stylesheet">
-<link href="../css/settings.css" rel="stylesheet">
+    <!--    libs for stomp and sockjs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.0/sockjs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <!--    end libs for stomp and sockjs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <link href="../static/css/style.css" rel="stylesheet" th:href="@{css/style.css}">
+    <link href="../static/css/settings.css" rel="stylesheet" th:href="@{css/settings.css}">
+</head>
+<body>
+
+
 
 <section id="settings-page-main">
 
     <section id="section-page-title">
-        <div><button class="text-button">< Back to menu</button></div>
+        <div><button class="text-button" onclick='window.location.href="http://localhost:8080/home"'>< Back to menu</button></div>
         <p class="main-title" id="section-page-title-name">Settings</p>
     </section>
 
@@ -301,4 +319,10 @@
 
     </section>
 </section>
+
+
+
+
+</body>
+</html>
 

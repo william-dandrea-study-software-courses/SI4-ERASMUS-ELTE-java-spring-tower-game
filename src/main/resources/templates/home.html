@@ -1,0 +1,49 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>The Knight Game</title>
+
+    <!--    libs for stomp and sockjs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.0/sockjs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <!--    end libs for stomp and sockjs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <link href="../static/css/style.css" rel="stylesheet" th:href="@{css/style.css}">
+    <link href="../static/css/home.css" rel="stylesheet" th:href="@{css/home.css}">
+
+</head>
+<body>
+
+
+<section id="home-page-main">
+
+    <section id="home-page-title">
+        <h1 id="home-page-welcome">Welcome to the</h1>
+        <p id="home-page-knight-game">Knight Game</p>
+    </section>
+
+
+    <section id="home-page-buttons">
+        <button class="main-button" id="home-page-play-button" onclick='window.location.href="http://localhost:8080/play"'>PLAY</button>
+        <button class="text-button" id="home-page-settings-button" onclick='window.location.href="http://localhost:8080/settings"'>Settings</a></button>
+    </section>
+
+    <section id="home-page-images">
+        <img class="home-page-image-tower" src="../static/ressources/medieval_castle_tower.jpg"  th:src="@{ressources/medieval_castle_tower.jpg}">
+        <img id="home-page-image-castle" src="../static/ressources/small_tower.jpg" th:src="@{ressources/small_tower.jpg}">
+        <img class="home-page-image-tower" src="../static/ressources/medieval_castle_tower.jpg" th:src="@{ressources/medieval_castle_tower.jpg}">
+    </section>
+
+
+</section>
+
+
+
+</body>
+</html>

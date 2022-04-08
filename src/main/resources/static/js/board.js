@@ -35,7 +35,7 @@ const c = document.querySelector('.game-board-canvas');
 
 let board = [];
 const canvasSize = 700;
-const SIZE_BOARD = 18;
+const SIZE_BOARD = 10;
 const SIZE_ONE_TILE = (canvasSize / SIZE_BOARD)
 
 
@@ -56,7 +56,6 @@ function resetBoard() {
 
             const x_top_left = x * square_length
             const y_top_left = y * square_length
-
 
 
 
@@ -216,10 +215,8 @@ function drawInit(canvas) {
 
                 ctx.beginPath();
                 ctx.fillStyle = PLAYER_1_COLOR;
-                ctx.arc(x_top_left + (SIZE_ONE_TILE/2) , y_top_left + (SIZE_ONE_TILE/2), (SIZE_ONE_TILE/3), 0, Math.PI, true);
+                ctx.arc(x_top_left + (SIZE_ONE_TILE/2) , y_top_left + (SIZE_ONE_TILE/2), (SIZE_ONE_TILE/4), 0, Math.PI, true);
                 ctx.fill();
-
-
 
                 isNeededToDrawRect = false;
             }
@@ -228,9 +225,8 @@ function drawInit(canvas) {
 
                 ctx.beginPath();
                 ctx.fillStyle = PLAYER_2_COLOR;
-                ctx.arc(x_top_left + (SIZE_ONE_TILE/2) , y_top_left + (SIZE_ONE_TILE/2), (SIZE_ONE_TILE/3), 0, Math.PI, false);
+                ctx.arc(x_top_left + (SIZE_ONE_TILE/2) , y_top_left + (SIZE_ONE_TILE/2), (SIZE_ONE_TILE/4), 0, Math.PI, false);
                 ctx.fill();
-
 
                 isNeededToDrawRect = false;
             }
@@ -297,6 +293,9 @@ c.addEventListener('mousedown', function(e) {
             if (isInTheRectangle(xMouse, yMouse, board[y][x].x_top_left, board[y][x].y_top_left, board[y][x].x_bottom_right, board[y][x].y_bottom_right)) {
                 console.log("Clicked in a case", board[y][x].index)
                 board[y][x].is_clicked = !board[y][x].is_clicked
+
+
+                alert(JSON.stringify(board[y][x]));
             }
         }
     }
