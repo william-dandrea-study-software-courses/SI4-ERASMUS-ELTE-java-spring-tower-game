@@ -12,8 +12,6 @@ public class GameController {
 
     // private final GameService gameService;
 
-
-
     @GetMapping(path="/settings")
     public String getSettingsPage(Model model) {
         return "settings";
@@ -29,6 +27,7 @@ public class GameController {
     public String getGamePage(Model model) {
         return "game";
     }
+
 
 
 

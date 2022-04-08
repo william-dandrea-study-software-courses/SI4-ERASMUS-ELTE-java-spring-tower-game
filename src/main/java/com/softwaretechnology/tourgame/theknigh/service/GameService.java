@@ -13,8 +13,18 @@ public class GameService {
 
 
 
+    public void launchGame() {
+
+
+
+
+
+    }
 
     public String getService() {
         return "Bonjour";
     }
+
+
+
 }
