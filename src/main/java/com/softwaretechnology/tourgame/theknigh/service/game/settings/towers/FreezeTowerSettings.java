@@ -1,8 +1,11 @@
 package com.softwaretechnology.tourgame.theknigh.service.game.settings.towers;
 
+import lombok.Data;
+
 /**
  * @author D'Andréa William
  */
+
 public class FreezeTowerSettings extends TowerSettings {
 
     // Number of turns where the enemies are freezed
@@ -16,4 +19,6 @@ public class FreezeTowerSettings extends TowerSettings {
     public int getNumberOfRoundsWhereTheSoldierInTheAreaAreFreeze() {
         return numberOfRoundsWhereTheSoldierInTheAreaAreFreeze;
     }
+
+
 }

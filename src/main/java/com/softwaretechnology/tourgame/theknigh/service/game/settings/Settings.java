@@ -10,10 +10,13 @@ import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.Fre
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.NormalTowerSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.SniperTowerSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.TowerMainSettings;
+import lombok.Data;
 
 /**
  * @author D'Andréa William
  */
+
+@Data
 public class Settings {
 
     private final GeneralSettings generalSettings;

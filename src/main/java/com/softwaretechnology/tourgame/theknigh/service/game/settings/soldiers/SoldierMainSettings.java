@@ -5,6 +5,11 @@ package com.softwaretechnology.tourgame.theknigh.service.game.settings.soldiers;
  */
 public class SoldierMainSettings {
 
+    private int anything = 0;
 
     public SoldierMainSettings() {}
+
+    public int getAnything() {
+        return anything;
+    }
 }

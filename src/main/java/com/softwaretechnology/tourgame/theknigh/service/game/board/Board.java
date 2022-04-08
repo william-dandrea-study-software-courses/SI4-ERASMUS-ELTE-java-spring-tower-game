@@ -1,8 +1,9 @@
 package com.softwaretechnology.tourgame.theknigh.service.game.board;
 
 
-import game.utils.BoardDimension;
-import game.utils.Position;
+
+import com.softwaretechnology.tourgame.theknigh.service.game.utils.BoardDimension;
+import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 
 import java.util.List;
 import java.util.Optional;
