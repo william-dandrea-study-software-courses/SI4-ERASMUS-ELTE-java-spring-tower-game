@@ -56,7 +56,7 @@
 }
 
 .game-board-canvas {
-
+    border: 3px solid black;
 }
 
 #user-screen-interact {

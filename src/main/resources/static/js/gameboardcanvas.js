@@ -7,7 +7,7 @@ const canvasSize = 700;
 function resetBoard() {
     board = [];
 
-    const square_length = canvasSize / SIZE_BOARD
+    const square_length = (canvasSize + 2) / (SIZE_BOARD)
 
     for(let i = 0; i < SIZE_BOARD; i++) {
         board.push(Array(SIZE_BOARD).fill(0));
@@ -20,8 +20,13 @@ function resetBoard() {
 
             const x_top_left = x * square_length
             const y_top_left = y * square_length
-            const x_bottom_right = square_length + (x * square_length)
-            const y_bottom_right = square_length + (y * square_length)
+
+
+
+
+
+            const x_bottom_right = square_length + x_top_left
+            const y_bottom_right = square_length + y_top_left
 
             board[y][x] = {
                 index: index,
@@ -54,7 +59,7 @@ function resetBoard() {
 
 }
 
-function draw(canvas) {
+function drawInit(canvas) {
 
 
     canvas.setAttribute('width', canvasSize+'px');
@@ -69,12 +74,17 @@ function draw(canvas) {
     for (let y = 0; y < SIZE_BOARD; y++) {
         for (let x = 0; x < SIZE_BOARD; x++) {
 
-
-            const x_left = (x*(square+1))+1;
-            const y_top = (y*(square+1))+1;
+            // const x_left = (x*(square+1))+1;
+            // const y_top = (y*(square+1))+1;
 
             ctx.fillStyle = 'white';
-            ctx.fillRect(x_left, y_top, square, square);
+
+            const x_top_left = board[y][x].x_top_left -1
+            const y_top_left = board[y][x].y_top_left -1
+            const length = board[y][x].y_bottom_right - board[y][x].y_top_left -1
+
+            ctx.fillRect(x_top_left, y_top_left, length, length);
+            //ctx.fillRect(x_left, y_top, square, square);
         }
     }
 }
@@ -98,12 +108,10 @@ function isInTheRectangle(mouseX, mouseY, rectangleXTopLeft, rectangleYTopLeft, 
 
 
 resetBoard(c);
+drawInit(c);
+
 console.log(board[0][0])
-
-
-
-
-draw(c);
+console.log(board[14][14])
 
 
 
@@ -115,17 +123,17 @@ c.addEventListener('mousedown', function(e) {
         for (let x = 0; x < SIZE_BOARD; x++) {
 
             if (isInTheRectangle(xMouse, yMouse, board[y][x].x_top_left, board[y][x].y_top_left, board[y][x].x_bottom_right, board[y][x].y_bottom_right)) {
+                console.log("Clicked in a case", board[y][x].index)
                 board[y][x].is_clicked = !board[y][x].is_clicked
             }
         }
     }
 
-    draw(c)
 
 })
 
 window.addEventListener('resize', () => {
-    draw(c);
+    drawInit(c);
 })
 
 
