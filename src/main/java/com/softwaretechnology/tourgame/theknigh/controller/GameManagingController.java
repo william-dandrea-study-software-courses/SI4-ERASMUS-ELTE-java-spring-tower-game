@@ -81,7 +81,7 @@ public class GameManagingController {
     @PostMapping(path = "add-freeze-tower")
     public ResponseEntity<Boolean> addFreezeTower(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
 
-        if (this.gameService.getGame().addNewFreezeTowerPlayer1(playingPlayerAndPosition.getPosition())) {
+        if (this.gameService.getGame().addNewFreezeTowerPlayer(playingPlayerAndPosition.getPosition(), playingPlayerAndPosition.getPlayingPlayer())) {
             return ResponseEntity.ok(true);
         }
 
@@ -91,7 +91,7 @@ public class GameManagingController {
     @PostMapping(path = "add-normal-tower")
     public ResponseEntity<Boolean> addNormalTower(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
 
-        if (this.gameService.getGame().addNewNormalTowerPlayer1(playingPlayerAndPosition.getPosition())) {
+        if (this.gameService.getGame().addNewNormalTowerPlayer(playingPlayerAndPosition.getPosition(), playingPlayerAndPosition.getPlayingPlayer())) {
             return ResponseEntity.ok(true);
         }
 
@@ -101,7 +101,7 @@ public class GameManagingController {
     @PostMapping(path = "add-sniper-tower")
     public ResponseEntity<Boolean> addSniperTower(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
 
-        if (this.gameService.getGame().addNewSniperTowerPlayer1(playingPlayerAndPosition.getPosition())) {
+        if (this.gameService.getGame().addNewSniperTowerPlayer(playingPlayerAndPosition.getPosition(), playingPlayerAndPosition.getPlayingPlayer())) {
             return ResponseEntity.ok(true);
         }
 
@@ -109,16 +109,36 @@ public class GameManagingController {
     }
 
 
+    @PostMapping(path = "add-sniper-tower")
+    public ResponseEntity<Boolean> addGoldMine(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
 
-    @GetMapping(path = "get-amount-gold-player-1")
-    public ResponseEntity<Integer> goldAmountPlayer1() {
-        return ResponseEntity.ok(this.gameService.getGame().getPlayer1().getCurrentGold());
+        if (this.gameService.getGame().addGoldMinePlayer(playingPlayerAndPosition.getPosition(), playingPlayerAndPosition.getPlayingPlayer())) {
+            return ResponseEntity.ok(true);
+        }
+
+        return ResponseEntity.ok(false);
     }
 
-    @GetMapping(path = "get-amount-gold-player-2")
-    public ResponseEntity<Integer> goldAmountPlayer2() {
-        return ResponseEntity.ok(this.gameService.getGame().getPlayer2().getCurrentGold());
+
+    @PostMapping(path = "add-killer-unit")
+    public ResponseEntity<Boolean> addKillerUnit(@RequestBody Integer player) {
+
+        return ResponseEntity.ok(false);
     }
+
+    @PostMapping(path = "add-fast-unit")
+    public ResponseEntity<Boolean> addFastUnit(@RequestBody Integer player) {
+
+        return ResponseEntity.ok(false);
+    }
+
+    @PostMapping(path = "add-flight-unit")
+    public ResponseEntity<Boolean> addFlightUnit(@RequestBody Integer player) {
+
+        return ResponseEntity.ok(false);
+    }
+
+
 
 
 

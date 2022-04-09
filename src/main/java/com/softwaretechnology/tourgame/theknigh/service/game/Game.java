@@ -7,11 +7,16 @@ import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.Enti
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.castles.Castle;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.obstacles.Obstacle;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.PlayerEntity;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.goldmines.GoldMine;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.FreezeTower;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.NormalTower;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.SniperTower;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.FastSoldier;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.FlightSoldier;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.KillerSoldier;
 import com.softwaretechnology.tourgame.theknigh.service.game.gamemanaging.Player;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.Settings;
+import com.softwaretechnology.tourgame.theknigh.service.game.settings.game.GoldSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.game.ObstacleSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.BoardDimension;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
@@ -60,34 +65,115 @@ public class Game {
 
 
 
-
-
-
-
-
-
-    public boolean addNewFreezeTowerPlayer1(Position position) {
-        if (this.player1.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
-            this.player1.getEntities().add(new FreezeTower(position, this.settings.getFreezeTowerSettings()));
-            this.player1.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
+    public boolean addKillerUnit(int indexPlayer) {
+        Player player = null;
+        if (indexPlayer == 1) {
+            player = player1;
+        } else {
+            player = player2;
+        }
+        if (player.getCurrentGold() >= this.settings.getKillerSoldierSettings().getPrice()) {
+            player.getEntities().add(new KillerSoldier(player.getCastle().getPosition(), this.settings.getKillerSoldierSettings()));
+            player.decreaseCurrentGold(this.settings.getKillerSoldierSettings().getPrice());
             return true;
         }
         return false;
     }
 
-    public boolean addNewNormalTowerPlayer1(Position position) {
-        if (this.player1.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
-            this.player1.getEntities().add(new NormalTower(position, this.settings.getNormalTowerSettings()));
-            this.player1.decreaseCurrentGold(this.settings.getNormalTowerSettings().getPrice());
+    public boolean addFastUnit(int indexPlayer) {
+        Player player = null;
+        if (indexPlayer == 1) {
+            player = player1;
+        } else {
+            player = player2;
+        }
+        if (player.getCurrentGold() >= this.settings.getFastSoldierSettings().getPrice()) {
+            player.getEntities().add(new FastSoldier(player.getCastle().getPosition(), this.settings.getFastSoldierSettings()));
+            player.decreaseCurrentGold(this.settings.getFastSoldierSettings().getPrice());
+            return true;
+        }
+        return false;
+
+    }
+
+    public boolean addFlightUnit(int indexPlayer) {
+        Player player = null;
+        if (indexPlayer == 1) {
+            player = player1;
+        } else {
+            player = player2;
+        }
+        if (player.getCurrentGold() >= this.settings.getFlightSoldierSettings().getPrice()) {
+            player.getEntities().add(new FlightSoldier(player.getCastle().getPosition(), this.settings.getFlightSoldierSettings()));
+            player.decreaseCurrentGold(this.settings.getFlightSoldierSettings().getPrice());
+            return true;
+        }
+        return false;
+
+    }
+
+
+    public boolean addGoldMinePlayer(Position position, int indexPlayer) {
+
+        Player player = null;
+        if (indexPlayer == 1) {
+            player = player1;
+        } else {
+            player = player2;
+        }
+
+        if (player.getCurrentGold() >= this.settings.getGoldSettings().getPriceOfGoldMine()) {
+            player.getEntities().add(new GoldMine(position, this.settings.getGoldSettings()));
+            player.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
             return true;
         }
         return false;
     }
 
-    public boolean addNewSniperTowerPlayer1(Position position) {
-        if (this.player1.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
-            this.player1.getEntities().add(new SniperTower(position, this.settings.getSniperTowerSettings()));
-            this.player1.decreaseCurrentGold(this.settings.getSniperTowerSettings().getPrice());
+
+    public boolean addNewFreezeTowerPlayer(Position position, int indexPlayer) {
+        Player player = null;
+        if (indexPlayer == 1) {
+            player = player1;
+        } else {
+            player = player2;
+        }
+
+        if (player.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
+            player.getEntities().add(new FreezeTower(position, this.settings.getFreezeTowerSettings()));
+            player.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addNewNormalTowerPlayer(Position position, int indexPlayer) {
+        Player player = null;
+        if (indexPlayer == 1) {
+            player = player1;
+        } else {
+            player = player2;
+        }
+
+        if (player.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
+            player.getEntities().add(new NormalTower(position, this.settings.getNormalTowerSettings()));
+            player.decreaseCurrentGold(this.settings.getNormalTowerSettings().getPrice());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addNewSniperTowerPlayer(Position position, int indexPlayer) {
+        Player player = null;
+        if (indexPlayer == 1) {
+            player = player1;
+        } else {
+            player = player2;
+        }
+
+        if (player.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
+            player.getEntities().add(new SniperTower(position, this.settings.getSniperTowerSettings()));
+            player.decreaseCurrentGold(this.settings.getSniperTowerSettings().getPrice());
             return true;
         }
         return false;

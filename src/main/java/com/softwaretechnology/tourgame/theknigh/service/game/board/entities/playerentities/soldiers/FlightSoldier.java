@@ -1,5 +1,6 @@
 package com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers;
 
+import com.softwaretechnology.tourgame.theknigh.service.game.settings.soldiers.FlightSoldierSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 
 
@@ -12,6 +13,10 @@ public class FlightSoldier extends Soldier {
 
     public FlightSoldier(Position position, double price, int healthPoint) {
         super(position, price, healthPoint);
+    }
+
+    public FlightSoldier(Position position, FlightSoldierSettings flightSoldierSettings) {
+        super(position, flightSoldierSettings.getPrice(), flightSoldierSettings.getInitialHealthPoints());
     }
 
     @Override

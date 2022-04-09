@@ -1,5 +1,6 @@
 package com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers;
 
+import com.softwaretechnology.tourgame.theknigh.service.game.settings.soldiers.KillerSoldierSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 
 
@@ -16,6 +17,11 @@ public class KillerSoldier extends Soldier {
     public KillerSoldier(Position position, double price, int healthPoint, int damageToSoldier) {
         super(position, price, healthPoint);
         this.damageToSoldier = damageToSoldier;
+    }
+
+    public KillerSoldier(Position position, KillerSoldierSettings killerSoldierSettings) {
+        super(position, killerSoldierSettings.getPrice(), killerSoldierSettings.getInitialHealthPoints());
+        this.damageToSoldier = killerSoldierSettings.getDamagesInflictedToOtherSoldiers();
     }
 
     public int getDamageToSoldier() {

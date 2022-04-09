@@ -1,5 +1,6 @@
 package com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers;
 
+import com.softwaretechnology.tourgame.theknigh.service.game.settings.soldiers.FastSoldierSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 
 /**
@@ -13,6 +14,11 @@ public class FastSoldier extends Soldier {
     public FastSoldier(Position position, double price, int healthPoint, int numberOfTileHeCanJump) {
         super(position, price, healthPoint);
         this.numberOfTileHeCanJump = numberOfTileHeCanJump;
+    }
+
+    public FastSoldier(Position position, FastSoldierSettings fastSoldierSettings) {
+        super(position, fastSoldierSettings.getPrice(), fastSoldierSettings.getInitialHealthPoints());
+        this.numberOfTileHeCanJump = fastSoldierSettings.getNumberOfTileHeCanJump();
     }
 
     public int getNumberOfTileHeCanJump() {

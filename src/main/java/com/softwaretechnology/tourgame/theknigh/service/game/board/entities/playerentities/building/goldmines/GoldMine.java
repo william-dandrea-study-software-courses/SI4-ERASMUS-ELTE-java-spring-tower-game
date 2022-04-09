@@ -1,6 +1,7 @@
 package com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.goldmines;
 
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.BuildingEntity;
+import com.softwaretechnology.tourgame.theknigh.service.game.settings.game.GoldSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 
 /**
@@ -19,6 +20,11 @@ public class GoldMine extends BuildingEntity {
     public GoldMine(Position position, float price, int goldDistributedAtEachRound, float percentageRewardIfDestroyed) {
         super(position, price, percentageRewardIfDestroyed);
         this.goldDistributedAtEachRound = goldDistributedAtEachRound;
+    }
+
+    public GoldMine(Position position, GoldSettings goldSettings) {
+        super(position, goldSettings.getPriceOfGoldMine(), 0);
+        this.goldDistributedAtEachRound = goldSettings.getAddedGoldAtEachRoundWithGoldMine();
     }
 
     public int getGoldDistributedAtEachRound() {
