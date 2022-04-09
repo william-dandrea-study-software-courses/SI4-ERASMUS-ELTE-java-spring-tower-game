@@ -1,5 +1,6 @@
 package game.board.entities.playerentities.soldiers;
 
+import game.board.entities.gameentities.castles.Castle;
 import game.board.entities.playerentities.PlayerEntity;
 import game.gamemanaging.Player;
 import game.utils.Position;
@@ -85,4 +86,18 @@ public class Soldier extends PlayerEntity {
 
         }
     }
+
+    /**
+     * @author Tian Zhenman
+     * The enemy castle
+     * @return
+     * Whether the soldier arrived the enemy castle, if arrived let the castle's health points minus 1 and return true, else return false
+     */
+    public boolean arriveCastle(){
+        if(this.getPath() == null){
+            return true;
+        }
+        return false;
+    }
+
 }

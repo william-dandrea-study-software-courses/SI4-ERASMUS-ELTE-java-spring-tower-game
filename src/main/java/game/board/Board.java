@@ -1,11 +1,13 @@
 package game.board;
 
 
+import game.board.entities.gameentities.castles.Castle;
+import game.settings.Settings;
 import game.utils.BoardDimension;
 import game.utils.Position;
 
 import java.util.List;
-
+import java.util.Random;
 
 
 /**
@@ -32,7 +34,10 @@ public class Board{
      * until the player chooses to change the dimensions*/
     private static Tile board[][];
 
-    public Board(BoardDimension dimension) {
+    private Castle castle1;
+    private Castle castle2;
+
+    public Board(BoardDimension dimension, int castleInitialHealthPoint) {
         Board.dimension = dimension;
 
         for (int i=0;i<=Board.dimension.getLength();i++){
@@ -51,7 +56,28 @@ public class Board{
             }
         }
 
+        Random rand = new Random();
+        /** Castle 1 would be on the top row */
+        Position castle1Pos = new Position(rand.nextInt(this.dimension.getLength()), 0);
+        /** Castle 2 would be on the button row */
+        Position castle2Pos = new Position(rand.nextInt(this.dimension.getLength()), this.dimension.getWidth());
+
+        /** Create the two castles and add them on the corresponding tiles */
+        this.castle1 = new Castle(castle1Pos, castleInitialHealthPoint);
+        board[castle1.getPosition().getX()][castle1.getPosition().getY()].addEntityOnTheTile(castle1);
+        this.castle2 = new Castle(castle2Pos, castleInitialHealthPoint);
+        board[castle2.getPosition().getX()][castle2.getPosition().getY()].addEntityOnTheTile(castle2);
+
     }
+
+    public Castle getCastle1(){
+        return castle1;
+    }
+
+    public Castle getCastle2(){
+        return castle2;
+    }
+
     public static BoardDimension getDimension() {
         return dimension;
     }
@@ -65,6 +91,4 @@ public class Board{
 
         return board[x][y];
     }
-
-
 }
