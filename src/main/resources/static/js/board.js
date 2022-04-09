@@ -61,8 +61,48 @@ getDatasFromGameEngine().then(() => {
                             async: false,
                             success: function (data) {
                                 if (data) {
-                                    board[y][x].is_clicked = !board[y][x].is_clicked
+                                    board[y][x].is_clicked = true;
                                     drawInit(c)
+
+                                    if (confirm("Do you want to place a new tower or gold mine on this place ?")) {
+                                        alert("Click on a tower ir gold mine");
+
+                                        const normalTower = document.getElementById('normal-tower-button');
+                                        const freezeTower = document.getElementById('freeze-tower-button');
+                                        const sniperTower = document.getElementById('sniper-tower-button');
+
+
+                                        function actionClickNormalTower(e) {
+                                            alert("You placed a normal Tower")
+                                            normalTower.removeEventListener("click", actionClickNormalTower);
+                                            freezeTower.removeEventListener("click", actionClickFreezeTower);
+                                            sniperTower.removeEventListener("click", actionClickSniperTower);
+                                        }
+
+                                        function actionClickFreezeTower(e) {
+                                            alert("You placed a freeze Tower")
+                                            normalTower.removeEventListener("click", actionClickNormalTower);
+                                            freezeTower.removeEventListener("click", actionClickFreezeTower);
+                                            sniperTower.removeEventListener("click", actionClickSniperTower);
+                                        }
+
+                                        function actionClickSniperTower(e) {
+                                            alert("You placed a sniper Tower")
+                                            normalTower.removeEventListener("click", actionClickNormalTower);
+                                            freezeTower.removeEventListener("click", actionClickFreezeTower);
+                                            sniperTower.removeEventListener("click", actionClickSniperTower);
+                                        }
+
+                                        normalTower.addEventListener("click", actionClickNormalTower);
+                                        freezeTower.addEventListener("click", actionClickFreezeTower);
+                                        sniperTower.addEventListener("click", actionClickSniperTower);
+
+
+                                    } else {
+                                        board[y][x].is_clicked = false;
+                                    }
+
+
                                 } else {
                                     alert("You cannot place a new building here because it's not in your radius")
                                 }
@@ -90,7 +130,6 @@ getDatasFromGameEngine().then(() => {
     })
 
 })
-
 
 
 
