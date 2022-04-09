@@ -1,14 +1,123 @@
+let CURRENT_PLAYER = 1;
+const PLAYER_1_COLOR = "#000000";
+const PLAYER_2_COLOR = "#E95962";
+
+let playerColor = "#5970E9";
+
+let board = [];
+const canvasSize = 700;
+let SIZE_BOARD = 10;
+let SIZE_ONE_TILE = (canvasSize / SIZE_BOARD)
+
+let gameInfos = {}
+let obstacles = []
+let player1Infos = {}
+let player2Infos = {}
+
+const c = document.querySelector('.game-board-canvas');
+
+
+
+
+changePlayer(2)
+
+getDatasFromGameEngine().then(() => {
+    resetBoard(c);
+    drawInit(c);
+
+    c.addEventListener('mousedown', function(e) {
+        let [xMouse, yMouse] = getCursorPosition(c, e)
+        console.log(xMouse,yMouse)
+
+        for (let y = 0; y < SIZE_BOARD; y++) {
+            for (let x = 0; x < SIZE_BOARD; x++) {
+
+                if (isInTheRectangle(xMouse, yMouse, board[y][x].x_top_left, board[y][x].y_top_left, board[y][x].x_bottom_right, board[y][x].y_bottom_right)) {
+                    console.log("Clicked in a case", board[y][x].index)
+                    board[y][x].is_clicked = !board[y][x].is_clicked
+                    drawInit(c)
+
+
+                    alert(JSON.stringify(board[y][x]));
+                }
+            }
+        }
+
+        drawInit(c);
+
+    })
+
+    window.addEventListener('resize', () => {
+        drawInit(c);
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function getDatasFromGameEngine() {
+
+    await $.ajax({
+        url: 'http://localhost:8080/manager/game-infos',
+        type: 'GET',
+        contentType: "application/json",
+        async: false,
+        success: function (data) {
+            gameInfos = data;
+            SIZE_BOARD = gameInfos.board.dimension.width;
+            obstacles = gameInfos.board.obstacles;
+            player1Infos = gameInfos.player1;
+            player2Infos = gameInfos.player2;
+            SIZE_ONE_TILE = (canvasSize / SIZE_BOARD)
+            console.log(SIZE_BOARD)
+        },
+        error: function (error) {
+            console.log(error);
+        },
+    })
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ****************************************************************************************************************** //
 // *************************************************** PLAYER ******************************************************* //
 // ****************************************************************************************************************** //
-const PLAYER_1_COLOR = "#5970E9";
-const PLAYER_2_COLOR = "#E95962";
 
 
-let CURRENT_PLAYER = 1;
-let playerColor = "#5970E9";
+function changePlayer(playerNumber) {
 
-function changePlayer() {
+    CURRENT_PLAYER = playerNumber;
 
     if (CURRENT_PLAYER === 1) {
         playerColor = PLAYER_1_COLOR;
@@ -19,24 +128,22 @@ function changePlayer() {
 
     document.getElementById('game-page-header-player').textContent = "Player " + CURRENT_PLAYER;
     document.getElementById('game-page-header-coins').style.backgroundColor = playerColor;
-
-
 }
 
 
-changePlayer()
+
 
 
 
 // ****************************************************************************************************************** //
 // *************************************************** BOARD ******************************************************** //
 // ****************************************************************************************************************** //
-const c = document.querySelector('.game-board-canvas');
 
-let board = [];
-const canvasSize = 700;
-const SIZE_BOARD = 10;
-const SIZE_ONE_TILE = (canvasSize / SIZE_BOARD)
+
+
+
+
+
 
 
 
@@ -57,9 +164,6 @@ function resetBoard() {
             const x_top_left = x * square_length
             const y_top_left = y * square_length
 
-
-
-
             const x_bottom_right = square_length + x_top_left
             const y_bottom_right = square_length + y_top_left
 
@@ -71,10 +175,10 @@ function resetBoard() {
                 x_top_left: x_top_left,
                 y_top_left: y_top_left,
                 number_of_monsters: 0,
-                player1_fast_soldier: [5, 10, 12, 20],
+                player1_fast_soldier: [],
                 player1_killer_soldier: [],
                 player1_flight_soldier: [],
-                player2_fast_soldier: [5, 10, 12, 20],
+                player2_fast_soldier: [],
                 player2_killer_soldier: [],
                 player2_flight_soldier: [],
                 is_player1_normal_tower: false,
@@ -92,11 +196,98 @@ function resetBoard() {
             index += 1;
         }
     }
+
+
+
+    let obstacle;
+    for (obstacle of obstacles) {
+
+        console.log(obstacle)
+        board[obstacle.position.y][obstacle.position.x].is_obstacle = true;
+
+    }
+
+    board[player1Infos.castle.position.y][player1Infos.castle.position.y].is_castle_player1 = true;
+    board[player2Infos.castle.position.y][player2Infos.castle.position.y].is_castle_player2 = true;
+
+
+    let entity;
+    for (entity of player1Infos.entities) {
+
+        if (entity.name === "freeze_tower_entity") {
+            board[entity.position.y][entity.position.x].is_player1_freeze_tower = true;
+        }
+
+        if (entity.name === "normal_tower_entity") {
+            board[entity.position.y][entity.position.x].is_player1_normal_tower = true;
+        }
+
+        if (entity.name === "sniper_tower_entity") {
+            board[entity.position.y][entity.position.x].is_player1_sniper_tower = true;
+        }
+
+        if (entity.name === "goldmine_entity") {
+            board[entity.position.y][entity.position.x].is_gold_mine_player1 = true;
+        }
+
+        if (entity.name === "fast_soldier_entity") {
+            board[entity.position.y][entity.position.x].player1_fast_soldier.add(entity.healthPoint);
+        }
+
+        if (entity.name === "flight_soldier_entity") {
+            board[entity.position.y][entity.position.x].player1_flight_soldier.add(entity.healthPoint);
+        }
+
+        if (entity.name === "killer_soldier_entity") {
+            board[entity.position.y][entity.position.x].player1_killer_soldier.add(entity.healthPoint);
+        }
+    }
+
+    for (entity of player2Infos.entities) {
+
+        if (entity.name === "freeze_tower_entity") {
+            board[entity.position.y][entity.position.x].is_player2_freeze_tower = true;
+        }
+
+        if (entity.name === "normal_tower_entity") {
+            board[entity.position.y][entity.position.x].is_player2_normal_tower = true;
+        }
+
+        if (entity.name === "sniper_tower_entity") {
+            board[entity.position.y][entity.position.x].is_player2_sniper_tower = true;
+        }
+
+        if (entity.name === "goldmine_entity") {
+            board[entity.position.y][entity.position.x].is_gold_mine_player2 = true;
+        }
+
+        if (entity.name === "fast_soldier_entity") {
+            board[entity.position.y][entity.position.x].player2_fast_soldier.add(entity.healthPoint);
+        }
+
+        if (entity.name === "flight_soldier_entity") {
+            board[entity.position.y][entity.position.x].player2_flight_soldier.add(entity.healthPoint);
+        }
+
+        if (entity.name === "killer_soldier_entity") {
+            board[entity.position.y][entity.position.x].player2_killer_soldier.add(entity.healthPoint);
+        }
+    }
+
+
+
 }
 
 
-function drawInit(canvas) {
 
+
+
+// ****************************************************************************************************************** //
+// *************************************************** DRAW BOARD ********************************************************* //
+// ****************************************************************************************************************** //
+
+
+function drawInit(canvas) {
 
     canvas.setAttribute('width', canvasSize+'px');
     canvas.setAttribute('height', canvasSize+'px');
@@ -118,12 +309,10 @@ function drawInit(canvas) {
             const length = board[y][x].y_bottom_right - board[y][x].y_top_left - 1
             ctx.fillStyle = 'white';
 
-            ctx.fillStyle = 'white';
-            ctx.fillRect(x_top_left, y_top_left, length, length);
-
 
             if (board[y][x].is_clicked) {
                 ctx.fillStyle = 'red';
+                isNeededToDrawRect = true;
             }
 
             if (board[y][x].is_player1_normal_tower) {
@@ -190,6 +379,7 @@ function drawInit(canvas) {
                 isNeededToDrawRect = true;
             }
 
+
             if (board[y][x].is_gold_mine_player1) {
                 ctx.fillStyle = PLAYER_1_COLOR;
                 ctx.fillRect(x_top_left, y_top_left, length, length);
@@ -211,6 +401,8 @@ function drawInit(canvas) {
                 isNeededToDrawRect = true;
             }
 
+            /*
+
             if (board[y][x].player1_fast_soldier !== [] || board[y][x].player1_flight_soldier !== [] || board[y][x].player1_killer_soldier !== []) {
 
                 ctx.beginPath();
@@ -229,26 +421,12 @@ function drawInit(canvas) {
                 ctx.fill();
 
                 isNeededToDrawRect = false;
-            }
-
-
-
-
-
-
-
-
-
-
-
-
-
+            } */
 
             if (isNeededToDrawRect) {
                 ctx.fillRect(x_top_left, y_top_left, length, length);
                 ctx.fill();
             }
-
         }
     }
 }
@@ -269,58 +447,3 @@ function isInTheRectangle(mouseX, mouseY, rectangleXTopLeft, rectangleYTopLeft, 
 
     return cond1 && cond2 && cond3 && cond4
 }
-
-
-
-// ****************************************************************************************************************** //
-// *************************************************** MAIN ********************************************************* //
-// ****************************************************************************************************************** //
-
-
-resetBoard(c);
-drawInit(c);
-
-
-
-
-c.addEventListener('mousedown', function(e) {
-    let [xMouse, yMouse] = getCursorPosition(c, e)
-    console.log(xMouse,yMouse)
-
-    for (let y = 0; y < SIZE_BOARD; y++) {
-        for (let x = 0; x < SIZE_BOARD; x++) {
-
-            if (isInTheRectangle(xMouse, yMouse, board[y][x].x_top_left, board[y][x].y_top_left, board[y][x].x_bottom_right, board[y][x].y_bottom_right)) {
-                console.log("Clicked in a case", board[y][x].index)
-                board[y][x].is_clicked = !board[y][x].is_clicked
-
-
-                alert(JSON.stringify(board[y][x]));
-            }
-        }
-    }
-
-    drawInit(c);
-
-
-})
-
-window.addEventListener('resize', () => {
-    drawInit(c);
-})
-
-
-
-
-
-
-
-
-
-/*
-let img = new Image();
-            img.src = '../ressources/tower/freeze_tower_image.png';
-            img.onload = function() {
-                ctx.drawImage(img, x_top_left, y_top_left, SIZE_ONE_TILE - 20, SIZE_ONE_TILE - 20);
-            };
- */

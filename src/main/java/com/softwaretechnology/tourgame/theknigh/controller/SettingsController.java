@@ -39,7 +39,7 @@ public class SettingsController {
     @PostMapping("")
     public ResponseEntity<Settings> setSettings(@RequestBody Settings request) {
 
-        this.gameService.getGame().setSettings(request);
+        this.gameService.setSettings(request);
 
         log.info("Yoooo: {}", this.gameService.getGame().getSettings().getGeneralSettings().getWidthBoard());
 

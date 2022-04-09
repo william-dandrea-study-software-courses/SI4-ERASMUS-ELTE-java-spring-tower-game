@@ -120,7 +120,9 @@ public class Game {
         }
 
         for (Position pos: positions) {
-            obstacles.add(new Obstacle(pos));
+
+            if (pos.getX() >= 0 && pos.getY() >= 0 && pos.getX() < settings.getGeneralSettings().getWidthBoard() && pos.getY() < settings.getGeneralSettings().getWidthBoard() )
+                obstacles.add(new Obstacle(pos));
         }
 
         return obstacles;

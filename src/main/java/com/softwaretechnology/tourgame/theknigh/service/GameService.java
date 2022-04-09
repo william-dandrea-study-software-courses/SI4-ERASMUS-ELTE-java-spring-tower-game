@@ -47,6 +47,11 @@ public class GameService {
     }
 
 
+    public Settings setSettings(Settings settings) {
+        this.game = new Game(settings);
+        return this.game.getSettings();
+    }
+
 
 
 

@@ -4,6 +4,7 @@ import com.softwaretechnology.tourgame.theknigh.service.GameService;
 import com.softwaretechnology.tourgame.theknigh.service.game.Game;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.Board;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.Tile;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.Entity;
 import com.softwaretechnology.tourgame.theknigh.service.game.gamemanaging.Player;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.Settings;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +35,8 @@ public class GameManagingController {
     public ResponseEntity<Game> getGameInfos() {
         return ResponseEntity.ok(this.gameService.getGame());
     }
+
+
 
 
     @GetMapping(path="/player1-infos")

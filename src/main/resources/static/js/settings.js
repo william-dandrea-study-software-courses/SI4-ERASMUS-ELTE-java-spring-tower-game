@@ -149,7 +149,7 @@ function modifyValueSettingsPage() {
 function getElementsOnThePageAndModifySettingsField() {
 
     settings.generalSettings.widthBoard = document.getElementById('widthBoard').value;
-    settings.generalSettings.lengthBoard = document.getElementById('lengthBoard').value;
+    settings.generalSettings.lengthBoard = document.getElementById('widthBoard').value;
     settings.generalSettings.radiusToPlaceBuilding = document.getElementById('radiusToPlaceBuilding').value;
     settings.generalSettings.ennemyForbiddenRadiusForBuilding = document.getElementById('enemyForbiddenRadiusForBuilding').value;
 
