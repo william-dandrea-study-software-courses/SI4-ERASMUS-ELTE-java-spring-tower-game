@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class Game {
 
-    private final Settings settings;
+    private Settings settings;
 
 
     public Game(Settings settings) {
@@ -24,5 +24,11 @@ public class Game {
 
     public Settings getSettings() {
         return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+
+        System.out.println(this.settings);
     }
 }
