@@ -11,6 +11,13 @@ public class PlayerEntity extends Entity {
 
     private double price;
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    private String name = "player_entity";
+
     public PlayerEntity(Position position, double price) {
         super(position);
         this.price = price;

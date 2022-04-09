@@ -9,7 +9,7 @@ import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 public class Entity {
 
     private Position position;
-    private String name = "Entity";
+    private String name = "entity";
 
 
     public Entity(Position position) {

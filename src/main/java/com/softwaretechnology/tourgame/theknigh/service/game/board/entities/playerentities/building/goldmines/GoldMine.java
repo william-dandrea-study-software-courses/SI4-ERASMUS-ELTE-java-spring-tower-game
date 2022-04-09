@@ -11,8 +11,10 @@ import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
  */
 public class GoldMine extends BuildingEntity {
 
+
     // Amount of gold distributed at the beginning of each round for a gold mine
     private int goldDistributedAtEachRound;
+    private String name = "goldmine_entity";
 
     public GoldMine(Position position, float price, int goldDistributedAtEachRound, float percentageRewardIfDestroyed) {
         super(position, price, percentageRewardIfDestroyed);
@@ -25,5 +27,10 @@ public class GoldMine extends BuildingEntity {
 
     public void setGoldDistributedAtEachRound(int goldDistributedAtEachRound) {
         this.goldDistributedAtEachRound = goldDistributedAtEachRound;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

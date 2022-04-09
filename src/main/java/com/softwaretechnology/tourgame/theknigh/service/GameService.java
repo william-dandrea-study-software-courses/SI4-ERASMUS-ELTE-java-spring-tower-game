@@ -54,10 +54,6 @@ public class GameService {
 
 
 
-
-
-
-
     private Settings setupSettings() {
 
         GeneralSettings generalSettings = new GeneralSettings(10, 10, 3, 2);

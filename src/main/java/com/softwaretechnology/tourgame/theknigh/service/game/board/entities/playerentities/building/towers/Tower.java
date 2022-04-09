@@ -13,6 +13,7 @@ public class Tower extends BuildingEntity {
 
     private int shootingRange;
     private int simultaneousStrike;
+    private String name = "tower_entity";
 
 
 
@@ -37,5 +38,10 @@ public class Tower extends BuildingEntity {
 
     public void setSimultaneousStrike(int simultaneousStrike) {
         this.simultaneousStrike = simultaneousStrike;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

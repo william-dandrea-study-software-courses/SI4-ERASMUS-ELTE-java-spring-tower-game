@@ -8,6 +8,7 @@ import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 public class FastSoldier extends Soldier {
 
     private int numberOfTileHeCanJump;
+    private String name = "fast_soldier_entity";
 
     public FastSoldier(Position position, double price, int healthPoint, int numberOfTileHeCanJump) {
         super(position, price, healthPoint);
@@ -20,5 +21,10 @@ public class FastSoldier extends Soldier {
 
     public void setNumberOfTileHeCanJump(int numberOfTileHeCanJump) {
         this.numberOfTileHeCanJump = numberOfTileHeCanJump;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

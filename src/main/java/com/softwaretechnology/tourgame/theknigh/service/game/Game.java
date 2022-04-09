@@ -10,6 +10,7 @@ import com.softwaretechnology.tourgame.theknigh.service.game.settings.Settings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.game.ObstacleSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.BoardDimension;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
+import com.softwaretechnology.tourgame.theknigh.service.game.utils.Radius;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -46,7 +47,6 @@ public class Game {
         this.setupTheCastle();
 
 
-        System.out.println(board.getTiles());
     }
 
 
@@ -87,19 +87,43 @@ public class Game {
 
     private List<Obstacle> setupObstacles() {
 
+        Random rand = new Random();
+
         ObstacleSettings obstacleSettings = this.settings.getObstacleSettings();
         int numberOfObstacles = obstacleSettings.getNumberOfObstacles();
         int radiusOfObstacles = obstacleSettings.getRadiusOfObstacles();
 
+        List<Integer> xCenterObstacle = new ArrayList<>();
+        List<Position> positions = new ArrayList<>();
+        List<Obstacle> obstacles = new ArrayList<>();
 
 
-        for (int currentObstacle = 0; currentObstacle <= numberOfObstacles; currentObstacle++) {
+
+        for (int currentObstacle = 0; currentObstacle < numberOfObstacles; currentObstacle++) {
+
+
+
+
+            int xCenterObstacleCurrent = rand.nextInt(settings.getGeneralSettings().getWidthBoard() - 1);
+
+            while (xCenterObstacle.contains(xCenterObstacleCurrent))
+                xCenterObstacleCurrent = rand.nextInt(settings.getGeneralSettings().getWidthBoard() - 1);
+
+            xCenterObstacle.add(xCenterObstacleCurrent);
+        }
+
+        for (int x : xCenterObstacle) {
+            int yPos = settings.getGeneralSettings().getLengthBoard() / 2;
+
+            positions.addAll((new Radius(radiusOfObstacles, x, yPos)).getPositions());
 
         }
 
+        for (Position pos: positions) {
+            obstacles.add(new Obstacle(pos));
+        }
 
-
-        return new ArrayList<>();
+        return obstacles;
     }
 
 
@@ -119,6 +143,5 @@ public class Game {
     public void setSettings(Settings settings) {
         this.settings = settings;
 
-        System.out.println(this.settings);
     }
 }

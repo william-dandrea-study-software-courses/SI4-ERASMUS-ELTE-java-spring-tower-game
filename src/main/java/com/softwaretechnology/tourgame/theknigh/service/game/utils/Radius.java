@@ -20,6 +20,23 @@ public class Radius {
         this.initialY = initialY;
     }
 
+    public List<Position> getPositions() {
+
+        List<Position> positionsWith0 = getPositionsWhenZero();
+        List<Position> positions = new ArrayList<>();
+
+        for (Position position: positionsWith0) {
+
+            positions.add(new Position(position.getX() + initialX, position.getY() + initialY));
+
+        }
+
+        return positions;
+
+    }
+
+
+
     public List<Position> getPositionsWhenZero() {
 
         int yInit = - (this.radius - 1);
@@ -36,7 +53,6 @@ public class Radius {
             for (int x = startX; x <= endX; x++) {
                 positions.add(new Position(x, yInit));
             }
-
 
 
             yInit += 1;

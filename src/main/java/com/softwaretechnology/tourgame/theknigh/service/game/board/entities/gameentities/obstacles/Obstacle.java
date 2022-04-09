@@ -12,8 +12,16 @@ import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
  */
 public class Obstacle extends GameEntity {
 
+    private String name = "obstacle_entity";
 
     public Obstacle(Position position) {
         super(position);
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
 }
+
+

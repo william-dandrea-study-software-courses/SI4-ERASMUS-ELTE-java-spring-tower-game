@@ -10,6 +10,7 @@ public class KillerSoldier extends Soldier {
 
     // Number of damages inflicted to enemies each turn
     private int damageToSoldier;
+    private String name = "killer_soldier_entity";
 
 
     public KillerSoldier(Position position, double price, int healthPoint, int damageToSoldier) {
@@ -23,5 +24,10 @@ public class KillerSoldier extends Soldier {
 
     public void setDamageToSoldier(int damageToSoldier) {
         this.damageToSoldier = damageToSoldier;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

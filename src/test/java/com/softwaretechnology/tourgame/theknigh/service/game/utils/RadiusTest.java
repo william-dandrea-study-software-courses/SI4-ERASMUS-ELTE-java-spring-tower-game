@@ -47,4 +47,16 @@ class RadiusTest {
         radius = new Radius(2, 0, 0);
         assertEquals(List.of(new Position(0,-1), new Position(-1,0), new Position(0,0),new Position(1,0),new Position(0,1)) , radius.getPositionsWhenZero());
     }
+
+
+    @Test
+    void getPositionsTest() {
+
+        Radius radius = new Radius(1, 2, 4);
+        assertEquals(List.of(new Position(2,4)) , radius.getPositions());
+
+
+        radius = new Radius(2, 2, 3);
+        assertEquals(List.of(new Position(2,2), new Position(1,3), new Position(2,3),new Position(3,3),new Position(2,4)) , radius.getPositions());
+    }
 }

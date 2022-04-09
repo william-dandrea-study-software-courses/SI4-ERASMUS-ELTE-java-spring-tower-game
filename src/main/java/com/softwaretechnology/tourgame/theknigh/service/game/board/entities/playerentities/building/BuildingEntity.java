@@ -11,6 +11,7 @@ public class BuildingEntity extends PlayerEntity {
 
     // Percentage of initial construction cost for tower removal
     private float percentageRewardIfDestroyed;
+    private String name = "building_entity";
 
 
     public BuildingEntity(Position position, float price, float percentageRewardIfDestroyed) {
@@ -24,5 +25,10 @@ public class BuildingEntity extends PlayerEntity {
 
     public void setPercentageRewardIfDestroyed(float percentageRewardIfDestroyed) {
         this.percentageRewardIfDestroyed = percentageRewardIfDestroyed;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

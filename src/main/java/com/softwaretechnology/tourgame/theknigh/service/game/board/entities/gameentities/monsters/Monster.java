@@ -13,8 +13,14 @@ import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 public class Monster extends GameEntity {
 
 
+    private String name = "monster_entity";
 
     public Monster(Position position) {
         super(position);
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

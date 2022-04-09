@@ -11,6 +11,7 @@ public class Soldier extends PlayerEntity {
 
     private int healthPoint;
     private int numberOfMoveAtEachRound;
+    private String name = "soldier_entity";
 
 
     public Soldier(Position position, double price, int healthPoint) {
@@ -32,5 +33,10 @@ public class Soldier extends PlayerEntity {
 
     public void setNumberOfMoveAtEachRound(int numberOfMoveAtEachRound) {
         this.numberOfMoveAtEachRound = numberOfMoveAtEachRound;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }
