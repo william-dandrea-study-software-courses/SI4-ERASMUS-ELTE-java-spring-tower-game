@@ -26,9 +26,9 @@ getDatasFromGameEngine().then(() => {
     resetBoard(c);
     drawInit(c);
 
-    c.addEventListener('mousedown', function(e) {
+    c.addEventListener('mousedown', async function (e) {
         let [xMouse, yMouse] = getCursorPosition(c, e)
-        console.log(xMouse,yMouse)
+        console.log(xMouse, yMouse)
 
         for (let y = 0; y < SIZE_BOARD; y++) {
             for (let x = 0; x < SIZE_BOARD; x++) {
@@ -41,18 +41,40 @@ getDatasFromGameEngine().then(() => {
                     const checkBoxInfo = document.getElementById("get-informations-tile");
                     const checkBoxNew = document.getElementById("add-new-entity");
 
-                    if (checkBoxInfo.checked){
+                    if (checkBoxInfo.checked) {
                         alert(JSON.stringify(board[y][x]));
                     }
 
-                    if (checkBoxNew.checked){
-                        board[y][x].is_clicked = !board[y][x].is_clicked
-                        drawInit(c)
+                    if (checkBoxNew.checked) {
+
+                        await $.ajax({
+                            url: 'http://localhost:8080/manager/select-new-tile-for-building',
+                            type: 'POST',
+                            contentType: "application/json",
+                            data: JSON.stringify({
+                                position: {
+                                    x: x,
+                                    y: y,
+                                },
+                                playingPlayer: CURRENT_PLAYER
+                            }),
+                            async: false,
+                            success: function (data) {
+                                if (data) {
+                                    board[y][x].is_clicked = !board[y][x].is_clicked
+                                    drawInit(c)
+                                } else {
+                                    alert("You cannot place a new building here because it's not in your radius")
+                                }
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            },
+                        })
+
+
+
                     }
-
-
-
-
 
 
                 }
@@ -218,13 +240,14 @@ function resetBoard() {
     let obstacle;
     for (obstacle of obstacles) {
 
-        console.log(obstacle)
+
         board[obstacle.position.y][obstacle.position.x].is_obstacle = true;
 
     }
 
-    board[player1Infos.castle.position.y][player1Infos.castle.position.y].is_castle_player1 = true;
-    board[player2Infos.castle.position.y][player2Infos.castle.position.y].is_castle_player2 = true;
+    board[player1Infos.castle.position.y][player1Infos.castle.position.x].is_castle_player1 = true;
+    board[player2Infos.castle.position.y][player2Infos.castle.position.x].is_castle_player2 = true;
+
 
 
     let entity;

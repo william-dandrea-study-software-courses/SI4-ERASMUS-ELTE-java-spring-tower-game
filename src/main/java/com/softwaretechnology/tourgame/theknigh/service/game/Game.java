@@ -3,8 +3,10 @@ package com.softwaretechnology.tourgame.theknigh.service.game;
 
 import com.softwaretechnology.tourgame.theknigh.service.game.board.Board;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.Tile;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.Entity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.castles.Castle;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.obstacles.Obstacle;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.PlayerEntity;
 import com.softwaretechnology.tourgame.theknigh.service.game.gamemanaging.Player;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.Settings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.game.ObstacleSettings;
@@ -13,10 +15,8 @@ import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Radius;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author D'Andréa William
@@ -61,6 +61,63 @@ public class Game {
 
 
 
+    public boolean canPlayer1PutNewEntityAtThePosition(Position position) {
+        int radius = settings.getGeneralSettings().getRadiusToPlaceBuilding();
+
+
+
+        if (isPlaceAvailable(position)) {
+
+
+            Position castlePosition = player1.getCastle().getPosition();
+            List<Position> positionsAvailable = (new Radius(radius, castlePosition.getX(), castlePosition.getY())).getPositions();
+            System.out.println(positionsAvailable);
+
+            if (positionsAvailable.contains(position))
+                return true;
+
+
+            for (PlayerEntity entity : player1.getEntities()) {
+
+                if (isBuildingEntity(entity.getName())) {
+                    positionsAvailable = (new Radius(radius, castlePosition.getX(), castlePosition.getY())).getPositions();
+                    System.out.println(positionsAvailable);
+                    if (positionsAvailable.contains(position))
+                        return true;
+                }
+            }
+        }
+
+
+
+
+
+
+        return false;
+    }
+
+
+    public boolean canPlayer2PutNewEntityAtThePosition(Position position) {
+        int radius = settings.getGeneralSettings().getRadiusToPlaceBuilding();
+
+        if (!isPlaceAvailable(position))
+            return false;
+
+        Position castlePosition = player2.getCastle().getPosition();
+        List<Position> positionsAvailable = (new Radius(radius, castlePosition.getX(), castlePosition.getY())).getPositions();
+        if (positionsAvailable.contains(position))
+            return true;
+
+        for (PlayerEntity entity : player2.getEntities()) {
+            if (isBuildingEntity(entity.getName())) {
+                positionsAvailable = (new Radius(radius, castlePosition.getX(), castlePosition.getY())).getPositions();
+                if (positionsAvailable.contains(position))
+                    return true;
+            }
+        }
+
+        return false;
+    }
 
 
 
@@ -154,6 +211,43 @@ public class Game {
 
 
 
+    private boolean isBuildingEntity(String nameEntity) {
+        return Objects.equals(nameEntity, "freeze_tower_entity")
+                || Objects.equals(nameEntity, "normal_tower_entity")
+                || Objects.equals(nameEntity, "sniper_tower_entity")
+                || Objects.equals(nameEntity, "goldmine_entity")
+                ;
+    }
+
+
+    private boolean isPlaceAvailable(Position position) {
+        // No castle, obstacle, towers, mine
+
+        List<Position> obstacles = this.board.getObstacles().stream().map(Entity::getPosition).collect(Collectors.toList());
+        List<Position> buildingEntityPlayer1 = this.player1.getEntities().stream().filter(en -> isBuildingEntity(en.getName())).map(Entity::getPosition).collect(Collectors.toList());
+        List<Position> buildingEntityPlayer2 = this.player2.getEntities().stream().filter(en -> isBuildingEntity(en.getName())).map(Entity::getPosition).collect(Collectors.toList());
+
+
+        if (position.equals(player1.getCastle().getPosition()))
+            return false;
+
+        if (position.equals(player2.getCastle().getPosition()))
+            return false;
+
+        if (obstacles.contains(position))
+            return false;
+
+        if (buildingEntityPlayer1.contains(position))
+            return false;
+
+        if (buildingEntityPlayer2.contains(position))
+            return false;
+
+        return true;
+    }
+
+
+
 
 
 
@@ -164,6 +258,8 @@ public class Game {
 
     public void setSettings(Settings settings) {
         this.settings = settings;
-
     }
+
+
+
 }
