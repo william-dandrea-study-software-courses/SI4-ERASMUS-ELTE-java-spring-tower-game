@@ -85,9 +85,42 @@ public class GameManagingController {
             return ResponseEntity.ok(true);
         }
 
+        return ResponseEntity.ok(false);
+    }
+
+    @PostMapping(path = "add-normal-tower")
+    public ResponseEntity<Boolean> addNormalTower(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
+
+        if (this.gameService.getGame().addNewNormalTowerPlayer1(playingPlayerAndPosition.getPosition())) {
+            return ResponseEntity.ok(true);
+        }
 
         return ResponseEntity.ok(false);
     }
+
+    @PostMapping(path = "add-sniper-tower")
+    public ResponseEntity<Boolean> addSniperTower(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
+
+        if (this.gameService.getGame().addNewSniperTowerPlayer1(playingPlayerAndPosition.getPosition())) {
+            return ResponseEntity.ok(true);
+        }
+
+        return ResponseEntity.ok(false);
+    }
+
+
+
+    @GetMapping(path = "get-amount-gold-player-1")
+    public ResponseEntity<Integer> goldAmountPlayer1() {
+        return ResponseEntity.ok(this.gameService.getGame().getPlayer1().getCurrentGold());
+    }
+
+    @GetMapping(path = "get-amount-gold-player-2")
+    public ResponseEntity<Integer> goldAmountPlayer2() {
+        return ResponseEntity.ok(this.gameService.getGame().getPlayer2().getCurrentGold());
+    }
+
+
 
 
 

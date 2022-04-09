@@ -1,6 +1,7 @@
 package com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers;
 
 
+import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.SniperTowerSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 
 /**
@@ -12,6 +13,10 @@ public class SniperTower extends Tower{
 
     public SniperTower(Position position, float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed) {
         super(position, price, shootingRange, simultaneousStrike, percentageRewardIfDestroyed);
+    }
+
+    public SniperTower(Position position, SniperTowerSettings sniperTowerSettings) {
+        super(position, sniperTowerSettings.getPrice(), sniperTowerSettings.getShootingRange(), sniperTowerSettings.getNumberOfSimultaneousStrikes(), 0);
     }
 
     @Override

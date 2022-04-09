@@ -23,7 +23,7 @@
 
         <header id="game-page-header">
 
-            <div id="game-page-header-coins"><img src="../static/ressources/coin.png" th:src="@{ressources/coin.png}"><p>1300 GLD</p></div>
+            <div id="game-page-header-coins"><img src="../static/ressources/coin.png" th:src="@{ressources/coin.png}"><p id="amount-of-gold">1300 GLD</p></div>
             <div id="game-page-header-player">Player 1</div>
 
             <div id="game-page-header-type-action">
@@ -63,8 +63,8 @@
                             <img src="../static/ressources/unit/killer_unit_logo.png" th:src="@{ressources/unit/killer_unit_logo.png}">
                         </div>
                         <div class="units-tower-buttons-icon"><img src="../static/ressources/unit/killer_unit_image.jpg" th:src="@{ressources/unit/killer_unit_image.jpg}"></div>
-                        <div class="units-tower-buttons-initialsHp">KIU - 30HP</div>
-                        <div class="units-tower-buttons-price">300 GLD</div>
+                        <div class="units-tower-buttons-initialsHp" id="symbol-KIU">KIU - 30HP</div>
+                        <div class="units-tower-buttons-price" id="price-KIU">300 GLD</div>
 
                     </div>
 
@@ -72,16 +72,16 @@
 
                         <div class="units-tower-buttons-name"><p>FAST UNIT</p><img src="../static/ressources/unit/fast_unit_logo.png" th:src="@{ressources/unit/fast_unit_logo.png}"></div>
                         <div class="units-tower-buttons-icon"><img src="../static/ressources/unit/fast_unit_image.png" th:src="@{ressources/unit/fast_unit_image.png}"></div>
-                        <div class="units-tower-buttons-initialsHp">FAU - 30HP</div>
-                        <div class="units-tower-buttons-price">300 GLD</div>
+                        <div class="units-tower-buttons-initialsHp" id="symbol-FAU">FAU - 30HP</div>
+                        <div class="units-tower-buttons-price" id="price-FAU">300 GLD</div>
 
                     </div>
 
                     <div id="flight-unit-button" class="units-tower-buttons">
                         <div class="units-tower-buttons-name"><p>FLIGHT UNIT</p><img src="../static/ressources/unit/flight_unit_logo.png" th:src="@{ressources/unit/flight_unit_logo.png}"></div>
                         <div class="units-tower-buttons-icon"><img src="../static/ressources/unit/flight_unit_image.png" th:src="@{ressources/unit/flight_unit_image.png}"></div>
-                        <div class="units-tower-buttons-initialsHp">FLU - 30HP</div>
-                        <div class="units-tower-buttons-price">300 GLD</div>
+                        <div class="units-tower-buttons-initialsHp" id="symbol-FLU">FLU - 30HP</div>
+                        <div class="units-tower-buttons-price" id="price-FLU">300 GLD</div>
 
                     </div>
 
@@ -92,16 +92,16 @@
                     <div id="normal-tower-button" class="units-tower-buttons">
                         <div class="units-tower-buttons-name"><p>NORMAL TOWER</p><img src="../static/ressources/tower/normal_tower_logo.png" th:src="@{ressources/tower/normal_tower_logo.png}"></div>
                         <div class="units-tower-buttons-icon"><img src="../static/ressources/tower/normal_tower_image.png" th:src="@{ressources/tower/normal_tower_image.png}"></div>
-                        <div class="units-tower-buttons-initialsHp">NOT</div>
-                        <div class="units-tower-buttons-price">300 GLD</div>
+                        <div class="units-tower-buttons-initialsHp" id="symbol-NOT">NOT</div>
+                        <div class="units-tower-buttons-price" id="price-NOT">300 GLD</div>
                     </div>
 
                     <div id="freeze-tower-button" class="units-tower-buttons">
 
                         <div class="units-tower-buttons-name"><p>FREEZE TOWER</p><img src="../static/ressources/tower/freeze_tower_logo.png" th:src="@{ressources/tower/freeze_tower_logo.png}"></div>
                         <div class="units-tower-buttons-icon"><img src="../static/ressources/tower/freeze_tower_image.png" th:src="@{ressources/tower/freeze_tower_image.png}"></div>
-                        <div class="units-tower-buttons-initialsHp">FRT</div>
-                        <div class="units-tower-buttons-price">300 GLD</div>
+                        <div class="units-tower-buttons-initialsHp" id="symbol-FRT">FRT</div>
+                        <div class="units-tower-buttons-price" id="price-FRT">300 GLD</div>
 
                     </div>
 
@@ -110,15 +110,15 @@
                     <div id="sniper-tower-button" class="units-tower-buttons">
                         <div class="units-tower-buttons-name"><p>SNIPER TOWER</p><img src="../static/ressources/tower/sniper_tower_logo.png" th:src="@{ressources/tower/sniper_tower_logo.png}"></div>
                         <div class="units-tower-buttons-icon"><img src="../static/ressources/tower/sniper_tower_image.png" th:src="@{ressources/tower/sniper_tower_image.png}"></div>
-                        <div class="units-tower-buttons-initialsHp">SNT</div>
-                        <div class="units-tower-buttons-price">300 GLD</div>
+                        <div class="units-tower-buttons-initialsHp" id="symbol-SNT">SNT</div>
+                        <div class="units-tower-buttons-price" id="price-SNT">300 GLD</div>
 
                     </div>
                 </div>
 
                 <div id="user-button-gold-mine">
                     <div class="units-tower-buttons-name"><p>GOLDMINE</p></div>
-                    <div class="units-tower-buttons-price">300 GLD</div>
+                    <div class="units-tower-buttons-price" id="goldmine-price">300 GLD</div>
                 </div>
 
                 <button id="next-button" class="main-button">

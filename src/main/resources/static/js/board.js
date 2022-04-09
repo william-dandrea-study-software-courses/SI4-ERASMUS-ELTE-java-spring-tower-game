@@ -22,6 +22,7 @@ const c = document.querySelector('.game-board-canvas');
 
 
 getDatasFromGameEngine().then(() => {
+    initializePrice();
     changePlayer(CURRENT_PLAYER)
     resetBoard(c);
     drawInit(c);
@@ -73,21 +74,21 @@ getDatasFromGameEngine().then(() => {
 
 
                                         function actionClickNormalTower(e) {
-                                            alert("You placed a normal Tower")
+                                            addingTower('normal', x, y)
                                             normalTower.removeEventListener("click", actionClickNormalTower);
                                             freezeTower.removeEventListener("click", actionClickFreezeTower);
                                             sniperTower.removeEventListener("click", actionClickSniperTower);
                                         }
 
                                         function actionClickFreezeTower(e) {
-                                            alert("You placed a freeze Tower")
+                                            addingTower('freeze', x, y)
                                             normalTower.removeEventListener("click", actionClickNormalTower);
                                             freezeTower.removeEventListener("click", actionClickFreezeTower);
                                             sniperTower.removeEventListener("click", actionClickSniperTower);
                                         }
 
                                         function actionClickSniperTower(e) {
-                                            alert("You placed a sniper Tower")
+                                            addingTower('sniper', x, y)
                                             normalTower.removeEventListener("click", actionClickNormalTower);
                                             freezeTower.removeEventListener("click", actionClickFreezeTower);
                                             sniperTower.removeEventListener("click", actionClickSniperTower);
@@ -101,7 +102,6 @@ getDatasFromGameEngine().then(() => {
                                     } else {
                                         board[y][x].is_clicked = false;
                                     }
-
 
                                 } else {
                                     alert("You cannot place a new building here because it's not in your radius")
@@ -133,6 +133,42 @@ getDatasFromGameEngine().then(() => {
 
 
 
+
+
+function addingTower(nameTower, x, y) {
+    alert("You placed a " + nameTower + " Tower")
+
+    $.ajax({
+        url: 'http://localhost:8080/manager/add-' + nameTower + '-tower',
+        type: 'POST',
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify({
+            position: {
+                x: x,
+                y: y,
+            },
+            playingPlayer: CURRENT_PLAYER
+        }),
+        success: function (data) {
+
+            if (data) {
+                getDatasFromGameEngine().then(() => {
+                    resetBoard(c);
+                    drawInit(c);
+                });
+            } else {
+                alert("You don't have enough gold");
+            }
+
+        },
+        error: function (error) {
+            console.log(error);
+        },
+    })
+
+
+}
 
 
 
@@ -367,6 +403,15 @@ function resetBoard() {
 
 function drawInit(canvas) {
 
+    const amountOfGoldHTML = document.getElementById('amount-of-gold');
+
+    if (CURRENT_PLAYER === 1) {
+        amountOfGoldHTML.textContent = gameInfos.player1.currentGold + ' GLD';
+    } else {
+        amountOfGoldHTML.textContent = gameInfos.player2.currentGold + ' GLD';
+    }
+
+
     canvas.setAttribute('width', canvasSize+'px');
     canvas.setAttribute('height', canvasSize+'px');
 
@@ -524,4 +569,23 @@ function isInTheRectangle(mouseX, mouseY, rectangleXTopLeft, rectangleYTopLeft, 
     const cond4 = mouseY < rectangleYBottomRight;
 
     return cond1 && cond2 && cond3 && cond4
+}
+
+
+
+function initializePrice() {
+
+    document.getElementById('symbol-KIU').textContent = 'KIU - ' + gameInfos.settings.killerSoldierSettings.initialHealthPoints + 'HP'
+    document.getElementById('price-KIU').textContent = gameInfos.settings.killerSoldierSettings.price + 'GLD'
+    document.getElementById('symbol-FAU').textContent = 'FAU - ' + gameInfos.settings.fastSoldierSettings.initialHealthPoints + 'HP'
+    document.getElementById('price-FAU').textContent = gameInfos.settings.fastSoldierSettings.price+ 'GLD'
+    document.getElementById('symbol-FLU').textContent = 'FLU - ' + gameInfos.settings.flightSoldierSettings.initialHealthPoints + 'HP'
+    document.getElementById('price-FLU').textContent = gameInfos.settings.flightSoldierSettings.price+ 'GLD'
+
+    document.getElementById('price-NOT').textContent = gameInfos.settings.normalTowerSettings.price + 'GLD'
+    document.getElementById('price-FRT').textContent = gameInfos.settings.freezeTowerSettings.price + 'GLD'
+    document.getElementById('price-SNT').textContent = gameInfos.settings.sniperTowerSettings.price + 'GLD'
+
+
+    document.getElementById('goldmine-price').textContent = gameInfos.settings.goldSettings.priceOfGoldMine + 'GLD'
 }

@@ -8,6 +8,8 @@ import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.game
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.obstacles.Obstacle;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.PlayerEntity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.FreezeTower;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.NormalTower;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.SniperTower;
 import com.softwaretechnology.tourgame.theknigh.service.game.gamemanaging.Player;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.Settings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.game.ObstacleSettings;
@@ -65,19 +67,31 @@ public class Game {
 
 
     public boolean addNewFreezeTowerPlayer1(Position position) {
-
         if (this.player1.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
             this.player1.getEntities().add(new FreezeTower(position, this.settings.getFreezeTowerSettings()));
-
+            this.player1.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
             return true;
         }
-
         return false;
-
-
-
     }
 
+    public boolean addNewNormalTowerPlayer1(Position position) {
+        if (this.player1.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
+            this.player1.getEntities().add(new NormalTower(position, this.settings.getNormalTowerSettings()));
+            this.player1.decreaseCurrentGold(this.settings.getNormalTowerSettings().getPrice());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addNewSniperTowerPlayer1(Position position) {
+        if (this.player1.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
+            this.player1.getEntities().add(new SniperTower(position, this.settings.getSniperTowerSettings()));
+            this.player1.decreaseCurrentGold(this.settings.getSniperTowerSettings().getPrice());
+            return true;
+        }
+        return false;
+    }
 
 
 

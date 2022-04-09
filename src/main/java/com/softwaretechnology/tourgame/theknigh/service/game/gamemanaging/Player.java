@@ -49,4 +49,9 @@ public class Player {
     public void setPlaying(boolean playing) {
         isPlaying = playing;
     }
+
+
+    public void decreaseCurrentGold(int amount) {
+        this.currentGold -= amount;
+    }
 }

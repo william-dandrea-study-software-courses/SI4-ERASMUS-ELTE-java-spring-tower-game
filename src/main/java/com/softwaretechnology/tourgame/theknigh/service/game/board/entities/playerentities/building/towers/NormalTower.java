@@ -1,6 +1,7 @@
 package com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers;
 
 
+import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.NormalTowerSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 
 /**
@@ -12,6 +13,10 @@ public class NormalTower extends Tower {
 
     public NormalTower(Position position, float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed) {
         super(position, price, shootingRange, simultaneousStrike, percentageRewardIfDestroyed);
+    }
+
+    public NormalTower(Position position, NormalTowerSettings normalTowerSettings) {
+        super(position, normalTowerSettings.getPrice(), normalTowerSettings.getShootingRange(), normalTowerSettings.getNumberOfSimultaneousStrikes(), 0);
     }
 
     @Override
