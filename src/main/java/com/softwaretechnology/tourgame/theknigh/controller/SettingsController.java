@@ -41,6 +41,8 @@ public class SettingsController {
 
         this.gameService.getGame().setSettings(request);
 
+        log.info("Yoooo: {}", this.gameService.getGame().getSettings().getGeneralSettings().getWidthBoard());
+
         return ResponseEntity.ok(this.gameService.getGame().getSettings());
     }
 
