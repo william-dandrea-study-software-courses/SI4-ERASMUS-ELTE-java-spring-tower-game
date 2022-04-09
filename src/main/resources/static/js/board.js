@@ -125,11 +125,71 @@ getDatasFromGameEngine().then(() => {
 
     })
 
+
+    const killerUnitButton = document.getElementById('killer-unit-button')
+    const fastUnitButton = document.getElementById('fast-unit-button')
+    const flightUnitButton = document.getElementById('flight-unit-button')
+
+    killerUnitButton.addEventListener('click', () => {
+        addingNewUnit('killer')
+    });
+
+    fastUnitButton.addEventListener('click', () => {
+        addingNewUnit('fast')
+    });
+
+    flightUnitButton.addEventListener('click', () => {
+        addingNewUnit('flight')
+    });
+
     window.addEventListener('resize', () => {
         drawInit(c);
     })
 
 })
+
+
+function addingNewUnit(nameUnit) {
+
+
+
+    if (confirm("Do you want to add a new " + nameUnit + " ?")) {
+        $.ajax({
+            url: 'http://localhost:8080/manager/add-' + nameUnit + '-unit',
+            type: 'POST',
+            contentType: "application/json",
+            data: JSON.stringify({
+                position: {
+                    x: 0,
+                    y: 0,
+                },
+                playingPlayer: CURRENT_PLAYER
+            }),
+            async: false,
+            success: function (data) {
+
+                if (data) {
+                    getDatasFromGameEngine().then(() => {
+                        resetBoard(c);
+                        drawInit(c);
+                    });
+                } else {
+                    alert("You don't have enough gold");
+                }
+
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        })
+
+    }
+
+
+
+
+
+}
 
 
 
@@ -345,15 +405,15 @@ function resetBoard() {
         }
 
         if (entity.name === "fast_soldier_entity") {
-            board[entity.position.y][entity.position.x].player1_fast_soldier.add(entity.healthPoint);
+            board[entity.position.y][entity.position.x].player1_fast_soldier.push(entity.healthPoint);
         }
 
         if (entity.name === "flight_soldier_entity") {
-            board[entity.position.y][entity.position.x].player1_flight_soldier.add(entity.healthPoint);
+            board[entity.position.y][entity.position.x].player1_flight_soldier.push(entity.healthPoint);
         }
 
         if (entity.name === "killer_soldier_entity") {
-            board[entity.position.y][entity.position.x].player1_killer_soldier.add(entity.healthPoint);
+            board[entity.position.y][entity.position.x].player1_killer_soldier.push(entity.healthPoint);
         }
     }
 
@@ -376,15 +436,15 @@ function resetBoard() {
         }
 
         if (entity.name === "fast_soldier_entity") {
-            board[entity.position.y][entity.position.x].player2_fast_soldier.add(entity.healthPoint);
+            board[entity.position.y][entity.position.x].player2_fast_soldier.push(entity.healthPoint);
         }
 
         if (entity.name === "flight_soldier_entity") {
-            board[entity.position.y][entity.position.x].player2_flight_soldier.add(entity.healthPoint);
+            board[entity.position.y][entity.position.x].player2_flight_soldier.push(entity.healthPoint);
         }
 
         if (entity.name === "killer_soldier_entity") {
-            board[entity.position.y][entity.position.x].player2_killer_soldier.add(entity.healthPoint);
+            board[entity.position.y][entity.position.x].player2_killer_soldier.push(entity.healthPoint);
         }
     }
 

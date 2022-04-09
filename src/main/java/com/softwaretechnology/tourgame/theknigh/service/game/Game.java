@@ -65,7 +65,7 @@ public class Game {
 
 
 
-    public boolean addKillerUnit(int indexPlayer) {
+    public Boolean addKillerUnit(int indexPlayer) {
         Player player = null;
         if (indexPlayer == 1) {
             player = player1;
@@ -80,7 +80,7 @@ public class Game {
         return false;
     }
 
-    public boolean addFastUnit(int indexPlayer) {
+    public Boolean addFastUnit(int indexPlayer) {
         Player player = null;
         if (indexPlayer == 1) {
             player = player1;
@@ -96,7 +96,7 @@ public class Game {
 
     }
 
-    public boolean addFlightUnit(int indexPlayer) {
+    public Boolean addFlightUnit(int indexPlayer) {
         Player player = null;
         if (indexPlayer == 1) {
             player = player1;

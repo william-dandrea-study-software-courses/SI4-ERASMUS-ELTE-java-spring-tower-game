@@ -1,5 +1,6 @@
 package com.softwaretechnology.tourgame.theknigh.controller;
 
+import com.softwaretechnology.tourgame.theknigh.model.embedded.OnePlayer;
 import com.softwaretechnology.tourgame.theknigh.model.embedded.PlayingPlayerAndPosition;
 import com.softwaretechnology.tourgame.theknigh.service.GameService;
 import com.softwaretechnology.tourgame.theknigh.service.game.Game;
@@ -42,27 +43,7 @@ public class GameManagingController {
 
 
 
-
-    @GetMapping(path="/player1-infos")
-    public ResponseEntity<Player> getPlayer1Infos() {
-        return ResponseEntity.ok(this.gameService.getGame().getPlayer1());
-    }
-
-
-    @GetMapping(path="/player2-infos")
-    public ResponseEntity<Player> getPlayer2Infos() {
-        return ResponseEntity.ok(this.gameService.getGame().getPlayer2());
-    }
-
-    @GetMapping(path="/board-infos")
-    public ResponseEntity<Board> getBoardInfos() {
-        return ResponseEntity.ok(this.gameService.getGame().getBoard());
-    }
-
-
-
-
-    @PostMapping(path = "select-new-tile-for-building")
+    @PostMapping(path = "/select-new-tile-for-building")
     public ResponseEntity<Boolean> selectNewTileForBuild(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
 
 
@@ -78,8 +59,8 @@ public class GameManagingController {
 
 
 
-    @PostMapping(path = "add-freeze-tower")
-    public ResponseEntity<Boolean> addFreezeTower(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
+    @PostMapping(path = "/add-freeze-tower")
+    public ResponseEntity<Boolean> addAPIFreezeTower(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
 
         if (this.gameService.getGame().addNewFreezeTowerPlayer(playingPlayerAndPosition.getPosition(), playingPlayerAndPosition.getPlayingPlayer())) {
             return ResponseEntity.ok(true);
@@ -88,8 +69,8 @@ public class GameManagingController {
         return ResponseEntity.ok(false);
     }
 
-    @PostMapping(path = "add-normal-tower")
-    public ResponseEntity<Boolean> addNormalTower(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
+    @PostMapping(path = "/add-normal-tower")
+    public ResponseEntity<Boolean> addAPINormalTower(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
 
         if (this.gameService.getGame().addNewNormalTowerPlayer(playingPlayerAndPosition.getPosition(), playingPlayerAndPosition.getPlayingPlayer())) {
             return ResponseEntity.ok(true);
@@ -98,8 +79,8 @@ public class GameManagingController {
         return ResponseEntity.ok(false);
     }
 
-    @PostMapping(path = "add-sniper-tower")
-    public ResponseEntity<Boolean> addSniperTower(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
+    @PostMapping(path = "/add-sniper-tower")
+    public ResponseEntity<Boolean> addAPISniperTower(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
 
         if (this.gameService.getGame().addNewSniperTowerPlayer(playingPlayerAndPosition.getPosition(), playingPlayerAndPosition.getPlayingPlayer())) {
             return ResponseEntity.ok(true);
@@ -109,8 +90,8 @@ public class GameManagingController {
     }
 
 
-    @PostMapping(path = "add-sniper-tower")
-    public ResponseEntity<Boolean> addGoldMine(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
+    @PostMapping(path = "/add-gold-mine")
+    public ResponseEntity<Boolean> addAPIGoldMine(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
 
         if (this.gameService.getGame().addGoldMinePlayer(playingPlayerAndPosition.getPosition(), playingPlayerAndPosition.getPlayingPlayer())) {
             return ResponseEntity.ok(true);
@@ -120,20 +101,28 @@ public class GameManagingController {
     }
 
 
-    @PostMapping(path = "add-killer-unit")
-    public ResponseEntity<Boolean> addKillerUnit(@RequestBody Integer player) {
+    @PostMapping(path = "/add-killer-unit")
+    public ResponseEntity<Boolean> addAPIKillerUnit(@RequestBody PlayingPlayerAndPosition player) {
+        if (this.gameService.getGame().addKillerUnit(player.getPlayingPlayer()))
+            return ResponseEntity.ok(true);
 
         return ResponseEntity.ok(false);
     }
 
-    @PostMapping(path = "add-fast-unit")
-    public ResponseEntity<Boolean> addFastUnit(@RequestBody Integer player) {
+    @PostMapping(path = "/add-fast-unit")
+    public ResponseEntity<Boolean> addAPIFastUnit(@RequestBody PlayingPlayerAndPosition player) {
+
+        if (this.gameService.getGame().addFastUnit(player.getPlayingPlayer()))
+            return ResponseEntity.ok(true);
 
         return ResponseEntity.ok(false);
     }
 
-    @PostMapping(path = "add-flight-unit")
-    public ResponseEntity<Boolean> addFlightUnit(@RequestBody Integer player) {
+    @PostMapping(path = "/add-flight-unit")
+    public ResponseEntity<Boolean> addAPIFlightUnit(@RequestBody PlayingPlayerAndPosition player) {
+
+        if (this.gameService.getGame().addFlightUnit(player.getPlayingPlayer()))
+            return ResponseEntity.ok(true);
 
         return ResponseEntity.ok(false);
     }
