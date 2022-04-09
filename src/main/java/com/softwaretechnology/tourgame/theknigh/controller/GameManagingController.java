@@ -65,7 +65,7 @@ public class GameManagingController {
     @PostMapping(path = "select-new-tile-for-building")
     public ResponseEntity<Boolean> selectNewTileForBuild(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
 
-        log.info("Yoooo: {}", playingPlayerAndPosition);
+
 
         if (playingPlayerAndPosition.getPlayingPlayer() == 1)
             return ResponseEntity.ok(this.gameService.getGame().canPlayer1PutNewEntityAtThePosition(playingPlayerAndPosition.getPosition()));
@@ -73,11 +73,21 @@ public class GameManagingController {
         if (playingPlayerAndPosition.getPlayingPlayer() == 2)
             return ResponseEntity.ok(this.gameService.getGame().canPlayer2PutNewEntityAtThePosition(playingPlayerAndPosition.getPosition()));
 
-
         return ResponseEntity.ok(false);
-
     }
 
+
+
+    @PostMapping(path = "add-freeze-tower")
+    public ResponseEntity<Boolean> addFreezeTower(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
+
+        if (this.gameService.getGame().addNewFreezeTowerPlayer1(playingPlayerAndPosition.getPosition())) {
+            return ResponseEntity.ok(true);
+        }
+
+
+        return ResponseEntity.ok(false);
+    }
 
 
 

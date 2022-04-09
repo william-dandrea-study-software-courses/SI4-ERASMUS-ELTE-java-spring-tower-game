@@ -7,6 +7,7 @@ import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.Enti
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.castles.Castle;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.obstacles.Obstacle;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.PlayerEntity;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.FreezeTower;
 import com.softwaretechnology.tourgame.theknigh.service.game.gamemanaging.Player;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.Settings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.game.ObstacleSettings;
@@ -57,6 +58,25 @@ public class Game {
 
 
 
+
+
+
+
+
+
+    public boolean addNewFreezeTowerPlayer1(Position position) {
+
+        if (this.player1.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
+            this.player1.getEntities().add(new FreezeTower(position, this.settings.getFreezeTowerSettings()));
+
+            return true;
+        }
+
+        return false;
+
+
+
+    }
 
 
 

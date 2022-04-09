@@ -1,6 +1,7 @@
 package com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers;
 
 
+import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.FreezeTowerSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 
 /**
@@ -16,6 +17,14 @@ public class FreezeTower extends Tower {
 
         this.numberOfTurnWhereTheSoldierIsFreeze = numberOfTurnWhereTheSoldierIsFreeze;
     }
+
+    public FreezeTower(Position position, FreezeTowerSettings freezeTowerSettings) {
+        super(position, freezeTowerSettings.getPrice(), freezeTowerSettings.getShootingRange(), 3, 0);
+
+        this.numberOfTurnWhereTheSoldierIsFreeze = freezeTowerSettings.getNumberOfRoundsWhereTheSoldierInTheAreaAreFreeze();
+    }
+
+
 
 
     public int getNumberOfTurnWhereTheSoldierIsFreeze() {
