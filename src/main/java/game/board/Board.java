@@ -2,10 +2,14 @@ package game.board;
 
 
 import game.board.entities.gameentities.castles.Castle;
+import game.board.entities.gameentities.obstacles.Obstacle;
 import game.settings.Settings;
+import game.settings.game.ObstacleSettings;
 import game.utils.BoardDimension;
 import game.utils.Position;
+import javafx.geometry.Pos;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -37,7 +41,7 @@ public class Board{
     private Castle castle1;
     private Castle castle2;
 
-    public Board(BoardDimension dimension, int castleInitialHealthPoint) {
+    public Board(BoardDimension dimension, int castleInitialHealthPoint, int numberOfObstacle) {
         Board.dimension = dimension;
 
         for (int i=0;i<=Board.dimension.getLength();i++){
@@ -67,6 +71,45 @@ public class Board{
         board[castle1.getPosition().getX()][castle1.getPosition().getY()].addEntityOnTheTile(castle1);
         this.castle2 = new Castle(castle2Pos, castleInitialHealthPoint);
         board[castle2.getPosition().getX()][castle2.getPosition().getY()].addEntityOnTheTile(castle2);
+
+        /** Create obstacles on the board, the obstacles should not be close to the castles by 6 step
+         and each obstacle should have different position*/
+        ArrayList<Obstacle> obstacles = new ArrayList<>();
+        Position position = new Position(rand.nextInt(this.dimension.getLength()), this.dimension.getWidth());
+        Obstacle obstacle = new Obstacle(position);
+
+        for(int i=0; i<numberOfObstacle; i++){
+            int repeat = 0;
+            boolean repeatFlag = true;
+            position.setXYGetPosition(rand.nextInt(this.dimension.getLength()), this.dimension.getWidth());
+            obstacle.setPosition(position);
+            /** Checking if the obstacle is too close to the castle */
+            while(obstacle.manhattanDistance(castle1) < 6 || obstacle.manhattanDistance(castle2) < 6){
+                position.setXYGetPosition(rand.nextInt(this.dimension.getLength()), this.dimension.getWidth());
+                obstacle.setPosition(position);
+            }
+            /** Check if the obstacle's position is overlap with others */
+            while(repeatFlag){
+                repeat = 0;
+                repeatFlag = true;
+                for (Obstacle ob: obstacles) {
+                    if(ob.getPosition() == obstacle.getPosition()){
+                        repeat += 1;
+                    }
+                }
+                if(repeat == 0){
+                    repeatFlag = false;
+                }else {
+                    position.setXYGetPosition(rand.nextInt(this.dimension.getLength()), this.dimension.getWidth());
+                    obstacle.setPosition(position);
+                }
+            }
+            obstacles.add(obstacle);
+        }
+        /** Checking repeating finished, add them on the board's tiles. */
+        for (Obstacle ob: obstacles) {
+            board[ob.getPosition().getY()][ob.getPosition().getY()].addEntityOnTheTile(ob);
+        }
 
     }
 

@@ -9,7 +9,7 @@ import game.utils.Position;
  */
 public class PlayerEntity extends Entity {
 
-    private double price;
+    private int price;
 
     /**
      * PlayerEntity extends from Entity initiation
@@ -20,7 +20,7 @@ public class PlayerEntity extends Entity {
      * @param price
      * price of the entity to build & make
      */
-    public PlayerEntity(Position position, Player owner, double price) {
+    public PlayerEntity(Position position, Player owner, int price) {
         super(position, owner);
         this.price = price;
     }
@@ -29,7 +29,7 @@ public class PlayerEntity extends Entity {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 }

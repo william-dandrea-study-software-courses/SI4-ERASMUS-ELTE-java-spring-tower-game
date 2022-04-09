@@ -24,7 +24,7 @@ public class Soldier extends PlayerEntity {
      * @param healthPoint
      * health point of the soldier
      */
-    public Soldier(Position position, Player owner, double price, int healthPoint, int numberOfMoveAtEachRound) {
+    public Soldier(Position position, Player owner, int price, int healthPoint, int numberOfMoveAtEachRound) {
         super(position, owner, price);
         this.healthPoint = healthPoint;
         this.isAlive = true;

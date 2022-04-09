@@ -35,12 +35,21 @@ public class Player {
 
     public int getCurrentGold() { return currentGold; }
 
+    public void setCurrentGold(int currentGold) {
+        this.currentGold = currentGold;
+    }
+
     public int getGoldGainedPerRound() { return goldGainedPerRound; }
+
+    public void setGoldGainedPerRound(int goldGainedPerRound) {
+        this.goldGainedPerRound = goldGainedPerRound;
+    }
 
     public Player getPlayer() { return this; }
 
     public void addGold(int gold) {
         currentGold += gold;
     }
+    public void reduceGold(int gold) { currentGold -= gold; }
 
 }

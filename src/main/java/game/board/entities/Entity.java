@@ -89,45 +89,28 @@ public class Entity {
 
     public void setOwner(Player owner) {this.owner = owner;}
 
+    /**
+     * Get the distance between this entity and another entity
+     * @param entity
+     * @return
+     */
     public int manhattanDistance(Entity entity){
-
 
         int x_distance= Math.abs(entity.getPosition().getX() - this.position.getX()) ;
         int y_distance= Math.abs(entity.getPosition().getY() - this.position.getY()) ;
         return x_distance + y_distance ;
     }
 
+    /**
+     * Get the distance between this entity and another tile
+     * @param tile
+     * @return
+     */
     public int manhattanDistance(Tile tile){
-
 
         int x_distance= Math.abs(tile.getPosition().getX() - this.position.getX()) ;
         int y_distance= Math.abs(tile.getPosition().getY() - this.position.getY()) ;
         return x_distance + y_distance ;
-    }
-
-
-    /**
-     * Get the distance to another entity (double value)
-     * @param e
-     * The target entity
-     * @return
-     */
-    public double getDistanceFromAnotherEntity(Entity e){
-        double x_distance = Math.abs(this.position.getX()-e.getPosition().getX());
-        double y_distance = Math.abs(this.position.getY()-e.getPosition().getY());
-        return Math.sqrt(x_distance * x_distance + y_distance * y_distance);
-    }
-
-    /**
-     * Get the distance to another tile (double value)
-     * @param t
-     * The target tile
-     * @return
-     */
-    public double getDistanceFromAnotherEntity(Tile t){
-        double x_distance = Math.abs(this.position.getX()-t.getPosition().getX());
-        double y_distance = Math.abs(this.position.getY()-t.getPosition().getY());
-        return Math.sqrt(x_distance * x_distance + y_distance * y_distance);
     }
 
 

@@ -16,7 +16,7 @@ public class FlightSoldier extends Soldier {
      * @param price
      * @param healthPoint
      */
-    public FlightSoldier(Position position, Player owner, double price, int healthPoint, int numberOfMoveAtEachRound) {
+    public FlightSoldier(Position position, Player owner, int price, int healthPoint, int numberOfMoveAtEachRound) {
 
         super(position, owner, price, healthPoint, numberOfMoveAtEachRound);
     }

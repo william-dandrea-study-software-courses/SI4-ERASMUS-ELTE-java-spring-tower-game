@@ -9,7 +9,7 @@ import game.utils.Position;
 public class NormalTower extends Tower {
 
 
-    public NormalTower(Position position, Player owner, float price, int shootingRange, int simultaneousStrike, int damageToSoldiers, int refundPrice, int upgradePrice, float percentageRewardIfDestroyed) {
+    public NormalTower(Position position, Player owner, int price, int shootingRange, int simultaneousStrike, int damageToSoldiers) {
         super(position, owner, price, shootingRange, simultaneousStrike, damageToSoldiers);
     }
 

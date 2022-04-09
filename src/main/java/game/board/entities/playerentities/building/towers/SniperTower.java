@@ -16,7 +16,7 @@ public class SniperTower extends Tower{
      * @param simultaneousStrike
      * @param damageToSoldiers
      */
-    public SniperTower(Position position, Player owner, float price, int shootingRange, int simultaneousStrike, int damageToSoldiers) {
+    public SniperTower(Position position, Player owner, int price, int shootingRange, int simultaneousStrike, int damageToSoldiers) {
         super(position, owner, price, shootingRange, simultaneousStrike, damageToSoldiers);
     }
 

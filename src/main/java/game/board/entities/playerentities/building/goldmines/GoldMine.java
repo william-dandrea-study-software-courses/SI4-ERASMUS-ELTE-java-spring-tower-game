@@ -21,10 +21,9 @@ public class GoldMine extends BuildingEntity {
      * @param price
      * @param goldDistributedAtEachRound
      * the gold gain for the owner each round
-     * @param percentageRewardIfDestroyed
      */
-    public GoldMine(Position position, Player owner, float price, int goldDistributedAtEachRound, float percentageRewardIfDestroyed) {
-        super(position, owner, price, percentageRewardIfDestroyed);
+    public GoldMine(Position position, Player owner, int price, int goldDistributedAtEachRound) {
+        super(position, owner, price);
         this.goldDistributedAtEachRound = goldDistributedAtEachRound;
     }
 

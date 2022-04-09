@@ -17,8 +17,7 @@ public class Tower extends BuildingEntity {
 
     private int shootingRange;
     private int simultaneousStrike;
-    private int initialAttactPoint=1;
-    private int upgradePrice;
+    private int damageToSoldier=1;
 
     /**
      * Tower entity extended from BuildingEntity
@@ -28,13 +27,13 @@ public class Tower extends BuildingEntity {
      * The shooting range of the tower
      * @param simultaneousStrike
      * The number of soldier it can attack at one time
-     * @param percentageRewardIfDestroyed
      */
-    public Tower(Position position, Player owner, float price, int shootingRange, int simultaneousStrike, float percentageRewardIfDestroyed) {
-        super(position, owner, price, percentageRewardIfDestroyed);
+    public Tower(Position position, Player owner, int price, int shootingRange, int simultaneousStrike, int damageToSoldier) {
+        super(position, owner, price);
 
         this.shootingRange = shootingRange;
         this.simultaneousStrike = simultaneousStrike;
+        this.damageToSoldier = damageToSoldier;
     }
 
 

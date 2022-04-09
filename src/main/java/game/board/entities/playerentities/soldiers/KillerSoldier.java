@@ -19,7 +19,7 @@ public class KillerSoldier extends Soldier {
      * @param damageToSoldier
      * damage made to the other soldier per time
      */
-    public KillerSoldier(Position position, Player owner, double price, int healthPoint, int numberOfMoveAtEachRound, int damageToSoldier) {
+    public KillerSoldier(Position position, Player owner, int price, int healthPoint, int numberOfMoveAtEachRound, int damageToSoldier) {
         super(position, owner, price, healthPoint, numberOfMoveAtEachRound);
         this.damageToSoldier = damageToSoldier;
     }
