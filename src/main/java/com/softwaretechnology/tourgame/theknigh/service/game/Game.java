@@ -38,18 +38,39 @@ public class Game {
     public Game(Settings settings) {
         this.settings = settings;
         this.board = new Board(new BoardDimension(this.settings.getGeneralSettings().getLengthBoard(), this.settings.getGeneralSettings().getWidthBoard()), this.setupObstacles());
+        this.setupTheCastle();
+
 
         this.launchGame();
     }
 
     public void launchGame() {
 
-        this.setupTheCastle();
-
-
+        // We initialize, the player 1 start first
+        this.player1.setPlaying(true);
+        this.player2.setPlaying(false);
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    private boolean isPlayer1Won() {
+        return this.player2.getCastle().getHealthPoint() <= 0;
+    }
+
+    private boolean isPlayer2Won() {
+        return this.player1.getCastle().getHealthPoint() <= 0;
+    }
 
 
 
@@ -100,7 +121,6 @@ public class Game {
 
 
         for (int currentObstacle = 0; currentObstacle < numberOfObstacles; currentObstacle++) {
-
 
 
 

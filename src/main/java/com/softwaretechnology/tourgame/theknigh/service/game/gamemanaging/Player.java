@@ -16,6 +16,7 @@ public class Player {
     private int currentGold;
     private Castle castle;
     private List<PlayerEntity> entities;
+    private boolean isPlaying;
 
 
     public Player(int id, int currentGold, Castle castle) {
@@ -39,5 +40,13 @@ public class Player {
 
     public List<PlayerEntity> getEntities() {
         return entities;
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public void setPlaying(boolean playing) {
+        isPlaying = playing;
     }
 }

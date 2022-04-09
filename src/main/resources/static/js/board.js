@@ -1,5 +1,5 @@
 let CURRENT_PLAYER = 1;
-const PLAYER_1_COLOR = "#000000";
+const PLAYER_1_COLOR = "#5970E9";
 const PLAYER_2_COLOR = "#E95962";
 
 let playerColor = "#5970E9";
@@ -19,9 +19,10 @@ const c = document.querySelector('.game-board-canvas');
 
 
 
-changePlayer(2)
+
 
 getDatasFromGameEngine().then(() => {
+    changePlayer(CURRENT_PLAYER)
     resetBoard(c);
     drawInit(c);
 
@@ -33,12 +34,27 @@ getDatasFromGameEngine().then(() => {
             for (let x = 0; x < SIZE_BOARD; x++) {
 
                 if (isInTheRectangle(xMouse, yMouse, board[y][x].x_top_left, board[y][x].y_top_left, board[y][x].x_bottom_right, board[y][x].y_bottom_right)) {
+
                     console.log("Clicked in a case", board[y][x].index)
-                    board[y][x].is_clicked = !board[y][x].is_clicked
-                    drawInit(c)
 
 
-                    alert(JSON.stringify(board[y][x]));
+                    const checkBoxInfo = document.getElementById("get-informations-tile");
+                    const checkBoxNew = document.getElementById("add-new-entity");
+
+                    if (checkBoxInfo.checked){
+                        alert(JSON.stringify(board[y][x]));
+                    }
+
+                    if (checkBoxNew.checked){
+                        board[y][x].is_clicked = !board[y][x].is_clicked
+                        drawInit(c)
+                    }
+
+
+
+
+
+
                 }
             }
         }
@@ -82,7 +98,7 @@ async function getDatasFromGameEngine() {
             player1Infos = gameInfos.player1;
             player2Infos = gameInfos.player2;
             SIZE_ONE_TILE = (canvasSize / SIZE_BOARD)
-            console.log(SIZE_BOARD)
+            CURRENT_PLAYER = gameInfos.player1.playing ? 1 : 2;
         },
         error: function (error) {
             console.log(error);
