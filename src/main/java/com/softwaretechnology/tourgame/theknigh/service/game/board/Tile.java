@@ -14,23 +14,31 @@ import java.util.List;
 public class Tile {
 
     private final Position position;
-    private final List<Entity> entitiesOnTheTile;
+    // private final List<Entity> entitiesOnTheTile;
 
 
     public Tile(Position position) {
         this.position = position;
-        this.entitiesOnTheTile = new ArrayList<>();
+        // this.entitiesOnTheTile = new ArrayList<>();
     }
+
 
     public Position getPosition() {
         return position;
     }
-
+    /*
     public List<Entity> getEntitiesOnTheTile() {
         return entitiesOnTheTile;
     }
 
     public void addEntityOnTheTile(Entity entity) {
         this.entitiesOnTheTile.add(entity);
+    }*/
+
+    @Override
+    public String toString() {
+        return "Tile{" +
+                "position=" + position +
+                '}';
     }
 }

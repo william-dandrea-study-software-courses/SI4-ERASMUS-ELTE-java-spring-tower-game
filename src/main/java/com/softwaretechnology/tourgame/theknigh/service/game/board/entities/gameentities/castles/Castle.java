@@ -13,6 +13,7 @@ import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 public class Castle extends GameEntity {
 
     private int healthPoint;
+    private String name = "CastleEntity";
 
 
     public Castle(Position position, int healthPoint) {
@@ -26,5 +27,10 @@ public class Castle extends GameEntity {
 
     public void setHealthPoint(int healthPoint) {
         this.healthPoint = healthPoint;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

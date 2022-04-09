@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class GamePageController {
 
-    // private final GameService gameService;
+    private GameService gameService = GameService.getInstance();;
 
     @GetMapping(path="/settings")
     public String getSettingsPage(Model model) {
@@ -22,14 +22,8 @@ public class GamePageController {
         return "home";
     }
 
-
     @GetMapping(path="/play")
     public String getGamePage(Model model) {
         return "game";
     }
-
-
-
-
-
 }

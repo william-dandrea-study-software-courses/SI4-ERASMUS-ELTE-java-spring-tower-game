@@ -20,4 +20,6 @@ public class ObstacleSettings {
     public int getRadiusOfObstacles() {
         return radiusOfObstacles;
     }
+
+
 }

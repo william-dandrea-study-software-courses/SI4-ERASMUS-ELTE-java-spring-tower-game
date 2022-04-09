@@ -9,6 +9,7 @@ import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 public class Entity {
 
     private Position position;
+    private String name = "Entity";
 
 
     public Entity(Position position) {
@@ -23,5 +24,7 @@ public class Entity {
         this.position = position;
     }
 
-
+    public String getName() {
+        return name;
+    }
 }

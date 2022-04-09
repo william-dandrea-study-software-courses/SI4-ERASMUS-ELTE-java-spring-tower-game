@@ -28,7 +28,7 @@ public class GameService {
     private static GameService instance;
 
     private GameService() {
-        this.launchGame();
+        this.game = new Game(setupSettings());
     }
 
 
@@ -58,7 +58,7 @@ public class GameService {
 
 
 
-    private void launchGame() {
+    private Settings setupSettings() {
 
         GeneralSettings generalSettings = new GeneralSettings(10, 10, 3, 2);
         CastelSettings castelSettings = new CastelSettings(200, 10);
@@ -78,7 +78,7 @@ public class GameService {
                 soldierMainSettings, fastSoldierSettings, flightSoldierSettings,killerSoldierSettings, towerMainSettings,
                 freezeTowerSettings, normalTowerSettings, sniperTowerSettings);
 
-        this.game = new Game(settings);
+        return settings;
 
     }
 
