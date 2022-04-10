@@ -11,13 +11,13 @@ public class FastSoldier extends Soldier {
     private int numberOfTileHeCanJump;
     private String name = "fast_soldier_entity";
 
-    public FastSoldier(Position position, double price, int healthPoint, int numberOfTileHeCanJump) {
-        super(position, price, healthPoint);
+    public FastSoldier(Position position, double price, int healthPoint, int numberOfTileHeCanJump, int numberOfMoveAtEachRound) {
+        super(position, price, healthPoint, numberOfMoveAtEachRound);
         this.numberOfTileHeCanJump = numberOfTileHeCanJump;
     }
 
     public FastSoldier(Position position, FastSoldierSettings fastSoldierSettings) {
-        super(position, fastSoldierSettings.getPrice(), fastSoldierSettings.getInitialHealthPoints());
+        super(position, fastSoldierSettings.getPrice(), fastSoldierSettings.getInitialHealthPoints(), fastSoldierSettings.getNumberOfMovesAtEachRound() * fastSoldierSettings.getNumberOfTileHeCanJump());
         this.numberOfTileHeCanJump = fastSoldierSettings.getNumberOfTileHeCanJump();
     }
 

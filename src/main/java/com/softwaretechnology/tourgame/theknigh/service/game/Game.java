@@ -71,7 +71,13 @@ public class Game {
             MyAStartAlgorithm aStartAlgorithm = new MyAStartAlgorithm(this, soldier.getPosition(), player2.getCastle().getPosition());
             List<Position> path = aStartAlgorithm.getPathPositions();
 
+            System.out.println(path);
+            System.out.println(soldier.getNumberOfMoveAtEachRound());
+
             List<Position> pathSoldier = path.stream().limit(soldier.getNumberOfMoveAtEachRound()).collect(Collectors.toList());
+
+
+            System.out.println(pathSoldier);
 
 
             if (pathSoldier.contains(player2.getCastle().getPosition())) {

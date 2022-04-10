@@ -49,5 +49,12 @@ class GameTest {
     void launchGame() {
 
         this.game.launchGame();
+
+        this.game.nextRound();
+
+        this.game.addFastUnit(1);
+        this.game.nextRound();
+
+
     }
 }

@@ -14,13 +14,13 @@ public class KillerSoldier extends Soldier {
     private String name = "killer_soldier_entity";
 
 
-    public KillerSoldier(Position position, double price, int healthPoint, int damageToSoldier) {
-        super(position, price, healthPoint);
+    public KillerSoldier(Position position, double price, int healthPoint, int damageToSoldier, int numberOfMoveAtEachRound) {
+        super(position, price, healthPoint, numberOfMoveAtEachRound);
         this.damageToSoldier = damageToSoldier;
     }
 
     public KillerSoldier(Position position, KillerSoldierSettings killerSoldierSettings) {
-        super(position, killerSoldierSettings.getPrice(), killerSoldierSettings.getInitialHealthPoints());
+        super(position, killerSoldierSettings.getPrice(), killerSoldierSettings.getInitialHealthPoints(), killerSoldierSettings.getNumberOfMovesAtEachRound());
         this.damageToSoldier = killerSoldierSettings.getDamagesInflictedToOtherSoldiers();
     }
 

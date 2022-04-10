@@ -14,9 +14,10 @@ public class Soldier extends PlayerEntity {
     private String name = "soldier_entity";
 
 
-    public Soldier(Position position, double price, int healthPoint) {
+    public Soldier(Position position, double price, int healthPoint, int numberOfMoveAtEachRound) {
         super(position, price);
         this.healthPoint = healthPoint;
+        this.numberOfMoveAtEachRound = numberOfMoveAtEachRound;
     }
 
     public int getHealthPoint() {
