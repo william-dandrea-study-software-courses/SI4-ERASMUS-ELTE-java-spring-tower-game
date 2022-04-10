@@ -3,6 +3,7 @@ package game;
 import game.board.Board;
 import game.board.entities.Entity;
 import game.board.entities.playerentities.building.goldmines.GoldMine;
+import game.board.entities.playerentities.soldiers.FastSoldier;
 import game.board.entities.playerentities.soldiers.Soldier;
 import game.gamemanaging.Player;
 import game.settings.Settings;
@@ -47,36 +48,51 @@ public class Game {
     /**
      * @author Tian Zhenman
      * For button create goldmine, with the in parameter position(mouse click)
-     * and player (decided by turn)
+     * and player (decided by turn), if player don't have enough gold it will
+     * return false
      * @param position
      * @param player
      */
-    public void createGoldMine(Position position, Player player){
+    public boolean createGoldMine(Position position, Player player){
         int goldMinePrice = settings.getGoldSettings().getPriceOfGoldMine();
         int increaseGoldDistributedAtEachRound = settings.getGoldSettings().getAddedGoldAtEachRoundWithGoldMine();
+        /** the player don't have enought gold */
+        if(player.getCurrentGold() < goldMinePrice){
+            return false;
+        }
         GoldMine goldMine = new GoldMine(position, player, goldMinePrice, increaseGoldDistributedAtEachRound);
         board.getTile(position).addEntityOnTheTile(goldMine);
         /** this player's each round's gold gets increased */
         player.setGoldGainedPerRound(player.getGoldGainedPerRound() + increaseGoldDistributedAtEachRound);
         /** this player's gold decreased by the amount of goldmine needed */
         player.reduceGold(goldMinePrice);
+        return true;
     }
 
 
     /**
      * @author Tian Zhenman
-     * Check if the game is over by checking the health point of castle,
-     * The System.out.print is just for demostration.
+     * For button create a fast soldier for one player, with the parameter player,
+     * if the player don't have enough gold it will return false
+     * @param player
      */
-    public void checkIfGameOver(){
-        if(board.getCastle1().getHealthPoint() == 0 && board.getCastle2().getHealthPoint() == 0){
-            System.out.println("Draw!");
-        }else if(board.getCastle1().getHealthPoint() == 0){
-            System.out.println("Player 2 wins!");
-        }else if(board.getCastle2().getHealthPoint() == 0){
-            System.out.println("Player 1 wins!");
+    public boolean createFastSoldier(Player player){
+        Position position = player.getCastle().getPosition();
+        int FastSoldierPrice = settings.getFastSoldierSettings().getPrice();
+        int FastSoldierHealthPoint = settings.getFastSoldierSettings().getInitialHealthPoints();
+        int killRewards = settings.getFastSoldierSettings().getKillRewards();
+        int numberOfMoveAtEachRound = settings.getFastSoldierSettings().getNumberOfTileHeCanJump();
+        /** the player don't have enought gold */
+        if(player.getCurrentGold() < FastSoldierPrice){
+            return false;
         }
+        FastSoldier fastSoldier = new FastSoldier(position, player, FastSoldierPrice, FastSoldierHealthPoint, numberOfMoveAtEachRound, killRewards, numberOfMoveAtEachRound);
+        board.getTile(position).addEntityOnTheTile(fastSoldier);
+        /** this player's gold decreased by the amount of fast soldier needed */
+        player.reduceGold(FastSoldierPrice);
+        return true;
     }
+
 
     /**
      * @author Tian Zhenman
@@ -96,15 +112,28 @@ public class Game {
                             } else {player1.addGold(((Soldier) entity).getKillRewards());}
                             /** remove form board */
                             board.getTile(i, j).removeEntityOnTheTile(entity);
-                        }else if(((Soldier) entity).arriveCastle()){
+                            /** Enemy castle get invaded */
+                        }else if(((Soldier) entity).arriveCastle() != null){
+                            ((Soldier) entity).arriveCastle().gotInvaded(1);
                             board.getTile(i, j).removeEntityOnTheTile(entity);
                         }
                     }
                 }
             }
         }
+        /** Add each-round gold for both players */
         player1.addGold(player1.getGoldGainedPerRound());
         player2.addGold(player2.getGoldGainedPerRound());
+
+        /** Check if the game is over by checking the health point of castle,
+             The System.out.print is just for demonstration. */
+        if(board.getCastle1().getHealthPoint() == 0 && board.getCastle2().getHealthPoint() == 0){
+            System.out.println("Draw!");
+        }else if(board.getCastle1().getHealthPoint() == 0){
+            System.out.println("Player 2 wins!");
+        }else if(board.getCastle2().getHealthPoint() == 0){
+            System.out.println("Player 1 wins!");
+        }
     }
 
     protected void launchGame() {

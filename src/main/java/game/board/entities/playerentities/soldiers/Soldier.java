@@ -133,11 +133,15 @@ public class Soldier extends PlayerEntity {
      * @return
      * Whether the soldier arrived the enemy castle, if arrived let the castle's health points minus 1 and return true, else return false
      */
-    public boolean arriveCastle(){
-        if(this.getPath() == null){
-            return true;
+    public Castle arriveCastle(){
+        if(this.getPath().isEmpty()){
+            for (Entity entity:this.getTile().getEntitiesOnTheTile()) {
+                if(entity instanceof Castle){
+                    return (Castle) entity;
+                }
+            }
         }
-        return false;
+        return null;
     }
 
 }
