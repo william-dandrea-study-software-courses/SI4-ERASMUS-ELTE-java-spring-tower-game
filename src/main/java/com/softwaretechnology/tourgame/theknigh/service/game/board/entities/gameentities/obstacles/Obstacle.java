@@ -22,6 +22,13 @@ public class Obstacle extends GameEntity {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Obstacle{" +
+                "position='" + getPosition() + '\'' +
+                '}';
+    }
 }
 
 

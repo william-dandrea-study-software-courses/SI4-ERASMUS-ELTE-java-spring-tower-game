@@ -3,9 +3,12 @@ package com.softwaretechnology.tourgame.theknigh.service.game.gamemanaging;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.Entity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.castles.Castle;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.PlayerEntity;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.BuildingEntity;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.Soldier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author D'Andréa William
@@ -58,4 +61,24 @@ public class Player {
     public void increaseCurrentGold(int gldToAdd) {
         this.currentGold += gldToAdd;
     }
+
+
+    public List<Entity> getCastleAndBuildingEntities() {
+
+        List<Entity> bEntities = new ArrayList<>();
+        // bEntities.add(castle);
+        bEntities.addAll(this.entities.stream().filter(e -> e instanceof BuildingEntity).collect(Collectors.toList()));
+
+        return bEntities;
+
+    }
+
+
+    public List<PlayerEntity> getAllSoldiers() {
+
+
+        return this.entities.stream().filter(e -> e instanceof Soldier).collect(Collectors.toList());
+
+    }
+
 }

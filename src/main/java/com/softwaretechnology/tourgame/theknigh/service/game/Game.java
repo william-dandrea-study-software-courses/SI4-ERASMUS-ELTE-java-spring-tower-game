@@ -1,5 +1,5 @@
 package com.softwaretechnology.tourgame.theknigh.service.game;
-
+import lombok.extern.slf4j.Slf4j;
 
 import com.softwaretechnology.tourgame.theknigh.service.game.board.Board;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.Tile;
@@ -16,13 +16,12 @@ import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.play
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.FastSoldier;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.FlightSoldier;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.KillerSoldier;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.Soldier;
 import com.softwaretechnology.tourgame.theknigh.service.game.gamemanaging.Player;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.Settings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.game.GoldSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.game.ObstacleSettings;
-import com.softwaretechnology.tourgame.theknigh.service.game.utils.BoardDimension;
-import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
-import com.softwaretechnology.tourgame.theknigh.service.game.utils.Radius;
+import com.softwaretechnology.tourgame.theknigh.service.game.utils.*;
 import lombok.Data;
 
 import java.util.*;
@@ -62,13 +61,30 @@ public class Game {
 
 
     public void nextRound() {
-
         // We switch the user who play
         this.player1.setPlaying(!this.player1.isPlaying());
         this.player2.setPlaying(!this.player2.isPlaying());
 
+        for (PlayerEntity soldierPE : player1.getAllSoldiers()) {
+            Soldier soldier = (Soldier) soldierPE;
+
+            MyAStartAlgorithm aStartAlgorithm = new MyAStartAlgorithm(this, soldier.getPosition(), player2.getCastle().getPosition());
+            List<Position> path = aStartAlgorithm.getPathPositions();
+
+            List<Position> pathSoldier = path.stream().limit(soldier.getNumberOfMoveAtEachRound()).collect(Collectors.toList());
 
 
+            if (pathSoldier.contains(player2.getCastle().getPosition())) {
+                System.out.println("Chateau atteint !");
+            } else {
+                // Player 1 is somewhere in the map
+                Position newPositionSoldier = pathSoldier.get(pathSoldier.size() - 1);
+                soldier.setPosition(newPositionSoldier);
+            }
+
+            System.out.println(soldier.getPosition());
+
+        }
 
 
 
@@ -358,17 +374,19 @@ public class Game {
         List<Position> positions = new ArrayList<>();
         List<Obstacle> obstacles = new ArrayList<>();
 
+        int maxIteration = 0;
 
 
         for (int currentObstacle = 0; currentObstacle < numberOfObstacles; currentObstacle++) {
 
 
-
             int xCenterObstacleCurrent = rand.nextInt(settings.getGeneralSettings().getWidthBoard() - 1);
 
-            while (xCenterObstacle.contains(xCenterObstacleCurrent))
+            while (xCenterObstacle.contains(xCenterObstacleCurrent)) {
                 xCenterObstacleCurrent = rand.nextInt(settings.getGeneralSettings().getWidthBoard() - 1);
-
+                if (maxIteration >= 1000)
+                    break;
+            }
             xCenterObstacle.add(xCenterObstacleCurrent);
         }
 
@@ -428,6 +446,20 @@ public class Game {
 
         return true;
     }
+
+
+    public List<Entity> getAllBuildingEntities() {
+
+        List<Entity> allBuildingEntities = new ArrayList<>();
+
+        allBuildingEntities.addAll(board.getObstacles());
+        allBuildingEntities.addAll(player1.getCastleAndBuildingEntities());
+        allBuildingEntities.addAll(player2.getCastleAndBuildingEntities());
+
+        return allBuildingEntities;
+    }
+
+
 
 
 

@@ -49,4 +49,14 @@ public class Board {
     public List<Obstacle> getObstacles() {
         return obstacles;
     }
+
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "dimension=" + dimension +
+                ", tiles=" + tiles +
+                ", obstacles=" + obstacles +
+                '}';
+    }
 }
