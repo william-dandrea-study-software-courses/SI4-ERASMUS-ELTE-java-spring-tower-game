@@ -370,6 +370,33 @@ public class Game {
         board.getTile(building.getPosition()).removeEntityOnTheTile(building);
     }
 
+    /**
+     * For upgrading the tower, if the tower reach the max level or the player don't
+     * have enough money, it returns false.
+     * @param tower
+     * The upgrading tower
+     * @return
+     * if upgrading successful
+     */
+    public boolean upgradeTower(Tower tower){
+        if(tower instanceof NormalTower){
+            if(tower.getOwner().getCurrentGold() < settings.getNormalTowerSettings().getUpgradeCost()){
+                return false;
+            }
+            return tower.upgrade();
+        }else if(tower instanceof SniperTower){
+            if(tower.getOwner().getCurrentGold() < settings.getSniperTowerSettings().getUpgradeCost()){
+                return false;
+            }
+            return tower.upgrade();
+        }else {
+            if(tower.getOwner().getCurrentGold() < settings.getFreezeTowerSettings().getUpgradeCost()){
+                return false;
+            }
+            return tower.upgrade();
+        }
+    }
+
     protected void launchGame() {
         System.out.println(this.settings.getCastelSettings());
     }

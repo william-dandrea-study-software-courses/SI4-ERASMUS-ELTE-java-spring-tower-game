@@ -49,12 +49,14 @@ public class FreezeTower extends Tower {
     }
 
     @Override
-    public void upgrade(){
+    public boolean upgrade(){
         if(this.getCurrentGrade() < this.getMaxGrade()){
             this.setShootingRange(this.getShootingRange() + 1);
             this.setSimultaneousStrike(this.getSimultaneousStrike() + 1);
             this.numberOfTurnWhereTheSoldierIsFreeze += 1;
+            return true;
         }
+        return false;
     }
 
     public int getNumberOfTurnWhereTheSoldierIsFreeze() {

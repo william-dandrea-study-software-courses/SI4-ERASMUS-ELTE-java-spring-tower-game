@@ -13,13 +13,16 @@ public class SniperTowerSettings extends TowerSettings {
      * @param shootingRange
      * @param numberOfSimultaneousStrikes
      * Changing the number of simultaneous strikes
+     * @param upgradeCost;
      */
-    public SniperTowerSettings(int price, int shootingRange, int numberOfSimultaneousStrikes, int damageToSoldier) {
-        super(price, shootingRange, damageToSoldier);
+    public SniperTowerSettings(int price, int shootingRange, int numberOfSimultaneousStrikes, int damageToSoldier, int upgradeCost) {
+        super(price, shootingRange, damageToSoldier, upgradeCost);
         this.numberOfSimultaneousStrikes = numberOfSimultaneousStrikes;
     }
 
     public int getNumberOfSimultaneousStrikes() {
         return numberOfSimultaneousStrikes;
     }
+
+
 }

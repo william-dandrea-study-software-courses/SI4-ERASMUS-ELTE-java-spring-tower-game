@@ -6,7 +6,7 @@ package game.settings.towers;
 public class FreezeTowerSettings extends TowerSettings {
 
     private final int numberOfSimultaneousStrikes;
-    // Number of turns where the enemies are freezed
+    // Number of turns where the enemies are frozen
     private final int numberOfRoundsWhereTheSoldierInTheAreaAreFreeze;
 
     /**
@@ -16,8 +16,8 @@ public class FreezeTowerSettings extends TowerSettings {
      * @param numberOfRoundsWhereTheSoldierInTheAreaAreFreeze
      * The frozen number of rounds of the soldier in the range
      */
-    public FreezeTowerSettings(int price, int shootingRange, int numberOfSimultaneousStrikes, int numberOfRoundsWhereTheSoldierInTheAreaAreFreeze, int damageToSoldier) {
-        super(price, shootingRange, damageToSoldier);
+    public FreezeTowerSettings(int price, int shootingRange, int numberOfSimultaneousStrikes, int numberOfRoundsWhereTheSoldierInTheAreaAreFreeze, int damageToSoldier, int upgradeCost) {
+        super(price, shootingRange, damageToSoldier, upgradeCost);
         this.numberOfSimultaneousStrikes = numberOfSimultaneousStrikes;
         this.numberOfRoundsWhereTheSoldierInTheAreaAreFreeze = numberOfRoundsWhereTheSoldierInTheAreaAreFreeze;
     }

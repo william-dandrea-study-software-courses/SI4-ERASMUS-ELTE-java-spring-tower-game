@@ -93,11 +93,13 @@ public class Tower extends BuildingEntity {
         return maxGrade;
     }
 
-    public void upgrade(){
+    public boolean upgrade(){
         if(currentGrade < maxGrade){
             this.shootingRange += 1;
             this.simultaneousStrike += 1;
             this.damageToSoldier += 1;
+            return true;
         }
+        return false;
     }
 }

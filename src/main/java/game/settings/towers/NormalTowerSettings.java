@@ -14,8 +14,8 @@ public class NormalTowerSettings extends TowerSettings {
      * @param numberOfSimultaneousStrikes
      * Changing the number of simultaneous strikes
      */
-    public NormalTowerSettings(int price, int shootingRange, int numberOfSimultaneousStrikes, int damageToSoldier) {
-        super(price, shootingRange, damageToSoldier);
+    public NormalTowerSettings(int price, int shootingRange, int numberOfSimultaneousStrikes, int damageToSoldier, int upgradeCost) {
+        super(price, shootingRange, damageToSoldier, upgradeCost);
         this.numberOfSimultaneousStrikes = numberOfSimultaneousStrikes;
     }
 
