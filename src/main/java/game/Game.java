@@ -89,7 +89,7 @@ public class Game {
             for (int j=0;j<=board.getDimension().getWidth();j++){
                 for (Entity entity: board.getTile(i, j).getEntitiesOnTheTile()) {
                     if (entity instanceof Soldier){
-                        if(!((Soldier) entity).isAlive() || ((Soldier) entity).arriveCastle()){
+                        if(((Soldier) entity).getHealthPoint() == 0 || ((Soldier) entity).arriveCastle()){
                             board.getTile(i, j).removeEntityOnTheTile(entity);
                         }
                     }

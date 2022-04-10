@@ -15,7 +15,7 @@ public class Soldier extends PlayerEntity {
     private int numberOfMoveAtEachRound;
     private int numberOfMoveThisRound;
     private int killRewards;
-    private boolean isAlive;
+    private int frozenRound = 0;
 
     /**
      * Soldier entity extended from PlayerEntity
@@ -27,7 +27,6 @@ public class Soldier extends PlayerEntity {
     public Soldier(Position position, Player owner, int price, int healthPoint, int numberOfMoveAtEachRound) {
         super(position, owner, price);
         this.healthPoint = healthPoint;
-        this.isAlive = true;
         this.numberOfMoveAtEachRound=numberOfMoveAtEachRound;
         this.numberOfMoveThisRound=numberOfMoveAtEachRound;
     }
@@ -53,38 +52,73 @@ public class Soldier extends PlayerEntity {
 
     public void setKillRewards(int killRewards) { this.killRewards = killRewards; }
 
-    public boolean isAlive() {
-        if(healthPoint <= 0){
-            isAlive = false;
-            return false;
-        }
-        return isAlive;
-    }
+    public int getFrozenRound() { return frozenRound; }
+
+    public void setFrozenRound(int frozenRound) { this.frozenRound = frozenRound; }
+
+    //    public boolean isAlive() {
+//        if(healthPoint <= 0){
+//            isAlive = false;
+//            return false;
+//        }
+//        return isAlive;
+//    }
 
     public void gotHit(int damage){
         this.healthPoint -= damage;
     }
 
-    public void gotFrozen(){ this.numberOfMoveAtEachRound = 0; }
+    public void gotFrozen(int frozenRound){
+        this.frozenRound = frozenRound;
+    }
     /**
      * @author Andreas Tsironis
      * */
+//    public void move(Entity destination){
+//
+//        this.pathfinding(destination);
+//        Tile nextTile;
+//        int lastElement= this.getPath().size() - 1 ;
+//        if(this.numberOfMoveAtEachRound != 0){
+//
+//            nextTile = this.getNextTilePath();
+//            /**it is basically copies an exact copy of the object at the next tile and deletes it from the previous tile*/
+//            nextTile.addEntityOnTheTile(this);
+//            this.getTile().removeEntityOnTheTile(this);
+//            /**At path,we have the last element as the next one.*/
+//            this.getPath().remove(lastElement);
+//            this.numberOfMoveAtEachRound--;
+//
+//        }
+//    }
+
+    /**
+     * Alternative move method
+     */
     public void move(Entity destination){
 
         this.pathfinding(destination);
         Tile nextTile;
-        int lastElement= this.getPath().size() - 1 ;
-        if(this.numberOfMoveAtEachRound != 0){
+        if(this.frozenRound == 0){
+            while(this.numberOfMoveThisRound != 0){
+                int lastElement= this.getPath().size() - 1 ;
+                nextTile = this.getNextTilePath();
+                /**it is basically copies an exact copy of the object at the next tile and deletes it from the previous tile*/
+                nextTile.addEntityOnTheTile(this);
+                this.getTile().removeEntityOnTheTile(this);
+                /**At path,we have the last element as the next one.*/
+                this.getPath().remove(lastElement);
+                this.numberOfMoveThisRound--;
 
-            nextTile = this.getNextTilePath();
-            /**it is basically copies an exact copy of the object at the next tile and deletes it from the previous tile*/
-            nextTile.addEntityOnTheTile(this);
-            this.getTile().removeEntityOnTheTile(this);
-            /**At path,we have the last element as the next one.*/
-            this.getPath().remove(lastElement);
-            this.numberOfMoveAtEachRound--;
-
+            }
+            // Reset number of movement for next round
+            this.numberOfMoveThisRound = this.numberOfMoveAtEachRound;
         }
+        // If the soldier is frozen, skip the movement and minus the frozenRound by 1
+        if(this.frozenRound>0){
+            this.frozenRound -= 1;
+        }
+
     }
 
     /**

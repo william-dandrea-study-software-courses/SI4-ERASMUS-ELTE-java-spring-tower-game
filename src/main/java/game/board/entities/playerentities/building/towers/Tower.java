@@ -18,7 +18,8 @@ public class Tower extends BuildingEntity {
     private int shootingRange;
     private int simultaneousStrike;
     private int damageToSoldier=1;
-
+    private int maxGrade = 3;
+    private int currentGrade = 1;
     /**
      * Tower entity extended from BuildingEntity
      * @param position
@@ -41,9 +42,14 @@ public class Tower extends BuildingEntity {
         for (int i=0; i<=board.getDimension().getLength(); i++) {
             for (int j=0;j<=board.getDimension().getWidth();j++) {
                 Tile tile = board.getTile(i,j);
-                for(Entity entity: tile.getEntitiesOnTheTile()){
-                    if (entity instanceof Soldier && entity.getOwner() != this.getOwner()) {
-                        ((Soldier) entity).gotHit(1);
+                if(this.manhattanDistance(tile)<=shootingRange){
+                    int strikeNum = 0;
+                    for(Entity entity: tile.getEntitiesOnTheTile()){
+                        if (entity instanceof Soldier && entity.getOwner() != this.getOwner()) {
+                            ((Soldier) entity).gotHit(damageToSoldier);
+                            strikeNum++;
+                        }
+                        if(strikeNum >= simultaneousStrike){return;}
                     }
                 }
             }
@@ -67,5 +73,19 @@ public class Tower extends BuildingEntity {
         this.simultaneousStrike = simultaneousStrike;
     }
 
+    public int getDamageToSoldier() {
+        return damageToSoldier;
+    }
 
+    public void setDamageToSoldier(int damageToSoldier) {
+        this.damageToSoldier = damageToSoldier;
+    }
+
+    public void upgrade(){
+        if(currentGrade < maxGrade){
+            this.shootingRange += 1;
+            this.simultaneousStrike += 1;
+            this.damageToSoldier += 1;
+        }
+    }
 }

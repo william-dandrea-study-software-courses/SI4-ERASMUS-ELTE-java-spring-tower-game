@@ -7,7 +7,6 @@ import game.settings.Settings;
 import game.settings.game.ObstacleSettings;
 import game.utils.BoardDimension;
 import game.utils.Position;
-import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 import java.util.List;
