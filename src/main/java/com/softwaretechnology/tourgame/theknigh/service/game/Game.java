@@ -7,10 +7,12 @@ import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.Enti
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.castles.Castle;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.obstacles.Obstacle;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.PlayerEntity;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.BuildingEntity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.goldmines.GoldMine;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.FreezeTower;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.NormalTower;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.SniperTower;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.Tower;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.FastSoldier;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.FlightSoldier;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.KillerSoldier;
@@ -32,6 +34,8 @@ import java.util.stream.Collectors;
 
 @Data
 public class Game {
+
+    private final static int COST_OF_INCREASE_LEVEL_TOWER = 15;
 
     private Settings settings;
     private Board board;
@@ -62,6 +66,52 @@ public class Game {
 
 
 
+
+    public boolean increaseTower(int indexPlayer, int x, int y) {
+        Player player = null;
+        if (indexPlayer == 1) {
+            player = player1;
+        } else {
+            player = player2;
+        }
+
+        Optional<PlayerEntity> entity = player.getEntities().stream().filter(e -> e.getPosition().getX() == x && e.getPosition().getY() == y).findAny();
+        if (entity.isPresent()) {
+
+            if (player.getCurrentGold() >= COST_OF_INCREASE_LEVEL_TOWER) {
+                Tower tower = (Tower) entity.get();
+                tower.increaseSimultaneousStrike();
+                player.decreaseCurrentGold(COST_OF_INCREASE_LEVEL_TOWER);
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+
+
+    public int deleteTower(int indexPlayer, int x, int y) {
+        Player player = null;
+        if (indexPlayer == 1) {
+            player = player1;
+        } else {
+            player = player2;
+        }
+
+        Optional<PlayerEntity> entity = player.getEntities().stream().filter(e -> e.getPosition().getX() == x && e.getPosition().getY() == y).findAny();
+        int gldToAdd = 0;
+        if (entity.isPresent()) {
+            Tower tower = (Tower) entity.get();
+            gldToAdd = (int) (tower.getPrice() * tower.getPercentageRewardIfDestroyed());
+            player.increaseCurrentGold(gldToAdd);
+            player.getEntities().remove(tower);
+
+        }
+
+        return gldToAdd;
+    }
 
 
 

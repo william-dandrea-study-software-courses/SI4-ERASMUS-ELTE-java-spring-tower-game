@@ -127,6 +127,17 @@ public class GameManagingController {
         return ResponseEntity.ok(false);
     }
 
+    @PostMapping(path = "/delete-tower")
+    public ResponseEntity<Integer> deleteTower(@RequestBody PlayingPlayerAndPosition player) {
+        return ResponseEntity.ok(this.gameService.getGame().deleteTower(player.getPlayingPlayer(), player.getPosition().getX(), player.getPosition().getY()));
+    }
+
+
+    @PostMapping(path = "/increase-tower")
+    public ResponseEntity<Boolean> increaseTower(@RequestBody PlayingPlayerAndPosition player) {
+        return ResponseEntity.ok(this.gameService.getGame().increaseTower(player.getPlayingPlayer(), player.getPosition().getX(), player.getPosition().getY()));
+    }
+
 
 
 

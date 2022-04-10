@@ -19,7 +19,7 @@ public class FreezeTower extends Tower {
     }
 
     public FreezeTower(Position position, FreezeTowerSettings freezeTowerSettings) {
-        super(position, freezeTowerSettings.getPrice(), freezeTowerSettings.getShootingRange(), 3, 0);
+        super(position, freezeTowerSettings.getPrice(), freezeTowerSettings.getShootingRange(), 3, .5F);
 
         this.numberOfTurnWhereTheSoldierIsFreeze = freezeTowerSettings.getNumberOfRoundsWhereTheSoldierInTheAreaAreFreeze();
     }

@@ -14,6 +14,7 @@ public class Tower extends BuildingEntity {
     private int shootingRange;
     private int simultaneousStrike;
     private String name = "tower_entity";
+    private int level;
 
 
 
@@ -22,6 +23,7 @@ public class Tower extends BuildingEntity {
 
         this.shootingRange = shootingRange;
         this.simultaneousStrike = simultaneousStrike;
+        this.level = 1;
     }
 
     public int getShootingRange() {
@@ -38,6 +40,11 @@ public class Tower extends BuildingEntity {
 
     public void setSimultaneousStrike(int simultaneousStrike) {
         this.simultaneousStrike = simultaneousStrike;
+    }
+
+    public void increaseSimultaneousStrike() {
+        this.level += 1;
+        this.simultaneousStrike += 1;
     }
 
     @Override

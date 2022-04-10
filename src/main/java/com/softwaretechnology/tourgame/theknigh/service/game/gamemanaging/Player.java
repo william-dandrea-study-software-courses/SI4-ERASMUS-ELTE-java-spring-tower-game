@@ -54,4 +54,8 @@ public class Player {
     public void decreaseCurrentGold(int amount) {
         this.currentGold -= amount;
     }
+
+    public void increaseCurrentGold(int gldToAdd) {
+        this.currentGold += gldToAdd;
+    }
 }

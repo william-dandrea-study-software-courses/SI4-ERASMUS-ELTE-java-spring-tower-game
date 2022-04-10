@@ -38,7 +38,8 @@
 }
 
 #game-page-header-type-action {
-    text-align: right;
+    text-align: left;
+    padding-left: 50px;
 }
 
 

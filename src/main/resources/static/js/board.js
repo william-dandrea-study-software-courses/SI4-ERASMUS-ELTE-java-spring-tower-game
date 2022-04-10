@@ -41,10 +41,33 @@ getDatasFromGameEngine().then(() => {
 
                     const checkBoxInfo = document.getElementById("get-informations-tile");
                     const checkBoxNew = document.getElementById("add-new-entity");
+                    const checkBoxIncreaseDelete = document.getElementById("increase-or-delete-tower");
 
                     if (checkBoxInfo.checked) {
                         alert(JSON.stringify(board[y][x]));
                     }
+
+
+
+                    if (checkBoxIncreaseDelete.checked && (board[y][x].is_player1_freeze_tower === true || board[y][x].is_player1_normal_tower === true || board[y][x].is_player1_sniper_tower === true || board[y][x].is_player2_freeze_tower === true || board[y][x].is_player2_normal_tower === true || board[y][x].is_player2_sniper_tower === true)) {
+
+
+                        console.log('Yoo')
+                        let choice = prompt("Write 1 if you want to delete this tower (you'll receive 50% of the initial price), 2 if you want to increase it (cost 15GLD)", "1");
+                        if (choice === "1") {
+                            deleteTower(x, y);
+                            alert("You choose to delete this tower");
+
+                        } else if (choice === "2"){
+                            increaseTower(x, y);
+                            alert("You choose to level up this tower");
+                        } else {
+                            alert("You choose to do anything")
+                        }
+                    }
+
+
+
 
                     if (checkBoxNew.checked) {
 
@@ -111,10 +134,10 @@ getDatasFromGameEngine().then(() => {
                                 console.log(error);
                             },
                         })
-
-
-
                     }
+
+
+
 
 
                 }
@@ -147,6 +170,71 @@ getDatasFromGameEngine().then(() => {
     })
 
 })
+
+
+
+function deleteTower(x, y) {
+
+    $.ajax({
+        url: 'http://localhost:8080/manager/delete-tower',
+        type: 'POST',
+        contentType: "application/json",
+        data: JSON.stringify({
+            position: {
+                x: x,
+                y: y,
+            },
+            playingPlayer: CURRENT_PLAYER
+        }),
+        async: false,
+        success: function (data) {
+
+            if (data === 0) {
+                alert("You cannot delete a tower from another player")
+            } else {
+                alert("You delete the tower and won " + data + " more GLD")
+                getDatasFromGameEngine().then(() => {
+                    resetBoard(c);
+                    drawInit(c);
+                });
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        },
+    })
+}
+
+function increaseTower(x, y) {
+    $.ajax({
+        url: 'http://localhost:8080/manager/delete-tower',
+        type: 'POST',
+        contentType: "application/json",
+        data: JSON.stringify({
+            position: {
+                x: x,
+                y: y,
+            },
+            playingPlayer: CURRENT_PLAYER
+        }),
+        async: false,
+        success: function (data) {
+
+            if (data) {
+                alert("You increase your tower")
+                getDatasFromGameEngine().then(() => {
+                    resetBoard(c);
+                    drawInit(c);
+                });
+            } else {
+                alert("You don't have enough GLD or you tried to increase the tower at the other player")
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        },
+    })
+}
 
 
 function addingNewUnit(nameUnit) {

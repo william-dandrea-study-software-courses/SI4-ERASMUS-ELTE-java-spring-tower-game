@@ -16,7 +16,7 @@ public class SniperTower extends Tower{
     }
 
     public SniperTower(Position position, SniperTowerSettings sniperTowerSettings) {
-        super(position, sniperTowerSettings.getPrice(), sniperTowerSettings.getShootingRange(), sniperTowerSettings.getNumberOfSimultaneousStrikes(), 0);
+        super(position, sniperTowerSettings.getPrice(), sniperTowerSettings.getShootingRange(), sniperTowerSettings.getNumberOfSimultaneousStrikes(), .5F);
     }
 
     @Override
