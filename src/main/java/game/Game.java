@@ -2,7 +2,9 @@ package game;
 
 import game.board.Board;
 import game.board.entities.Entity;
+import game.board.entities.playerentities.building.BuildingEntity;
 import game.board.entities.playerentities.building.goldmines.GoldMine;
+import game.board.entities.playerentities.building.towers.Tower;
 import game.board.entities.playerentities.soldiers.FastSoldier;
 import game.board.entities.playerentities.soldiers.FlightSoldier;
 import game.board.entities.playerentities.soldiers.KillerSoldier;
@@ -11,6 +13,7 @@ import game.gamemanaging.Player;
 import game.settings.Settings;
 import game.utils.BoardDimension;
 import game.utils.Position;
+import javafx.geometry.Pos;
 
 /**
  * @author D'Andréa William
@@ -32,13 +35,13 @@ public class Game {
     public Game(Settings settings) {
         this.settings = settings;
 
-        /** Initiate board */
+        /* Initiate board */
         BoardDimension boardDimension = new BoardDimension(settings.getGeneralSettings().getLengthBoard(), settings.getGeneralSettings().getWidthBoard());
         int numberOfObstacle = settings.getObstacleSettings().getNumberOfObstacles();
         int castleInitialHealthPoint = settings.getCastelSettings().getInitialHealthPoints();
         this.board = new Board(boardDimension, castleInitialHealthPoint, numberOfObstacle);
 
-        /** Initiate Player */
+        /* Initiate Player */
         int initialGold = settings.getGoldSettings().getInitialAmountOfGold();
         int goldGainPerRound = settings.getGoldSettings().getAddedGoldAtEachRound();
         Player player1 = new Player("Player1", board.getCastle1(), initialGold, goldGainPerRound);
@@ -58,19 +61,21 @@ public class Game {
     public boolean createGoldMine(Position position, Player player){
         int goldMinePrice = settings.getGoldSettings().getPriceOfGoldMine();
         int increaseGoldDistributedAtEachRound = settings.getGoldSettings().getAddedGoldAtEachRoundWithGoldMine();
-        /** the player don't have enought gold */
+        /* the player don't have enought gold */
         if(player.getCurrentGold() < goldMinePrice){
             return false;
         }
         GoldMine goldMine = new GoldMine(position, player, goldMinePrice, increaseGoldDistributedAtEachRound);
-        board.getTile(position).addEntityOnTheTile(goldMine);
-        /** this player's each round's gold gets increased */
-        player.setGoldGainedPerRound(player.getGoldGainedPerRound() + increaseGoldDistributedAtEachRound);
-        /** this player's gold decreased by the amount of goldmine needed */
-        player.reduceGold(goldMinePrice);
-        return true;
+        /* if the goldmine can be place at this position */
+        if(checkGoldMinePlaceable(goldMine)){
+            board.getTile(position).addEntityOnTheTile(goldMine);
+            /* this player's each round's gold gets increased */
+            player.setGoldGainedPerRound(player.getGoldGainedPerRound() + increaseGoldDistributedAtEachRound);
+            /* this player's gold decreased by the amount of goldmine needed */
+            player.reduceGold(goldMinePrice);
+            return true;
+        }else{return false;}
     }
-
 
     /**
      * @author Tian Zhenman
@@ -182,6 +187,71 @@ public class Game {
         }else if(board.getCastle2().getHealthPoint() == 0){
             System.out.println("Player 1 wins!");
         }
+    }
+
+    /**
+     * @author Tian Zhenman
+     * Check if a tower can be place at it's position
+     * @param tower
+     * @return
+     */
+    public boolean checkTowerPlaceable(Tower tower){
+        boolean ourSidePlaceable = false;
+        boolean enemySidePlaceable = true;
+        for (int i=0;i<=board.getDimension().getLength();i++) {
+            for (int j = 0; j <= board.getDimension().getWidth(); j++) {
+                for (Entity entity : board.getTile(i, j).getEntitiesOnTheTile()) {
+                    /** Check if the tower is too far from our buildings */
+                    if(entity.getOwner() == tower.getOwner()){
+                        if(entity.manhattanDistance(tower) < settings.getGeneralSettings().getRadiusToPlaceBuilding()){
+                            ourSidePlaceable = true;
+                        }
+                    /** Check if the tower is too close to the enemy's buildings */
+                    }else if(entity.getOwner() != tower.getOwner()){
+                        if(entity.manhattanDistance(tower) < settings.getGeneralSettings().getEnemyForbiddenRadiusForBuilding()){
+                            enemySidePlaceable = false;
+                        }
+                    }
+                    /** Check if the tower blocks the way of two sides of soldiers */
+                    if(entity instanceof Soldier){
+                        if(entity.getOwner() == player1){
+                            if(!entity.checkPath(player2.getCastle())){
+                                return false;
+                            }
+                        }else if(!entity.checkPath(player1.getCastle())){
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return ourSidePlaceable && enemySidePlaceable;
+    }
+
+    /**
+     * @author Tian Zhenman
+     * Check if a goldmine can be place at it's position
+     * @param goldMine
+     * @return
+     */
+    public boolean checkGoldMinePlaceable(GoldMine goldMine) {
+        for (int i = 0; i <= board.getDimension().getLength(); i++) {
+            for (int j = 0; j <= board.getDimension().getWidth(); j++) {
+                for (Entity entity : board.getTile(i, j).getEntitiesOnTheTile()) {
+                    /** Check if the tower blocks the way of two sides of soldiers */
+                    if(entity instanceof Soldier){
+                        if(entity.getOwner() == player1){
+                            if(!entity.checkPath(player2.getCastle())){
+                                return false;
+                            }
+                        }else if(!entity.checkPath(player1.getCastle())){
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     protected void launchGame() {
