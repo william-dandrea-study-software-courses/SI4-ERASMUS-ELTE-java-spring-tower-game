@@ -33,4 +33,11 @@ public class Castle extends GameEntity {
     public String getName() {
         return name;
     }
+
+    public int removeHealthPoint(int healthPointsRemovedWhenSoldierReachCastle) {
+
+        this.healthPoint = this.healthPoint - healthPointsRemovedWhenSoldierReachCastle;
+        return this.healthPoint;
+
+    }
 }

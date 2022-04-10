@@ -34,6 +34,9 @@ public class MyAStartAlgorithm {
     private int currentNumberOfIterations;
 
 
+
+
+
     public MyAStartAlgorithm(Game game, Position startPosition, Position endPosition) {
         this.startNode = new MyNode(startPosition);
         this.endNode = new MyNode(endPosition);
@@ -69,6 +72,8 @@ public class MyAStartAlgorithm {
         return this.generatePath().stream().map(n -> n.position).collect(Collectors.toList());
 
     }
+
+
 
 
 

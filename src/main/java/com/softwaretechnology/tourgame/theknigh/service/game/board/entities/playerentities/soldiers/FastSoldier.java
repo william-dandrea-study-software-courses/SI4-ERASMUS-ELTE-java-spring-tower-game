@@ -33,4 +33,7 @@ public class FastSoldier extends Soldier {
     public String getName() {
         return name;
     }
+
+
+
 }

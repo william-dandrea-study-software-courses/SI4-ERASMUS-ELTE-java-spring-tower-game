@@ -46,6 +46,9 @@ public class GameService {
         return this.game;
     }
 
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     public Settings setSettings(Settings settings) {
         this.game = new Game(settings);

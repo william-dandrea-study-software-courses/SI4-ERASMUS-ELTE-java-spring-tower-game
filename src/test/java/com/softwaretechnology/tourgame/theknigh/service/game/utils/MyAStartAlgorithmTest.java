@@ -29,7 +29,7 @@ class MyAStartAlgorithmTest {
     CastelSettings castelSettings = new CastelSettings(200, 10);
     GoldSettings goldSettings = new GoldSettings(100, 30, 200, 30);
     MonsterSettings monsterSettings = new MonsterSettings(10, 3);
-    ObstacleSettings obstacleSettings = new ObstacleSettings(9, 4);
+    ObstacleSettings obstacleSettings = new ObstacleSettings(2, 2);
     SoldierMainSettings soldierMainSettings = new SoldierMainSettings();
     FastSoldierSettings fastSoldierSettings = new FastSoldierSettings(50, 30, 5, 2);
     KillerSoldierSettings killerSoldierSettings = new KillerSoldierSettings(50, 40, 5, 5);

@@ -36,4 +36,6 @@ public class KillerSoldier extends Soldier {
     public String getName() {
         return name;
     }
+
+
 }

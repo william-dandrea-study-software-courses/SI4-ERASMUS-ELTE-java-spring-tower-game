@@ -23,4 +23,7 @@ public class FlightSoldier extends Soldier {
     public String getName() {
         return name;
     }
+
+
+
 }

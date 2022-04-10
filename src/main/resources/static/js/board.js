@@ -175,11 +175,12 @@ getDatasFromGameEngine().then(() => {
             contentType: "application/json",
             async: false,
             success: function (data) {
-                gameInfos = data;
-                initializePrice();
-                changePlayer()
-                resetBoard(c);
-                drawInit(c);
+                getDatasFromGameEngine().then(() => {
+                    initializePrice();
+                    changePlayer()
+                    resetBoard(c);
+                    drawInit(c);
+                })
             },
             error: function (error) {
                 console.log(error);

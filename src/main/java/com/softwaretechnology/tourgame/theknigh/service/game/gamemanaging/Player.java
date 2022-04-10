@@ -5,6 +5,7 @@ import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.game
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.PlayerEntity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.BuildingEntity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.Soldier;
+import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,11 +75,35 @@ public class Player {
     }
 
 
-    public List<PlayerEntity> getAllSoldiers() {
+    public List<Soldier> getAllSoldiers() {
+
+        List<PlayerEntity> soldiersP = this.entities.stream().filter(e -> e instanceof Soldier).collect(Collectors.toList());
+
+        List<Soldier> soldiers = new ArrayList<>();
+
+        for (PlayerEntity s : soldiersP) {
+            if (s instanceof Soldier) {
+                soldiers.add((Soldier) s);
+            }
+        }
 
 
-        return this.entities.stream().filter(e -> e instanceof Soldier).collect(Collectors.toList());
+        return soldiers;
 
+    }
+
+
+
+    public void removeSoldierAtThisPositon(Position position) {
+        List<PlayerEntity> newEntities = new ArrayList<>();
+
+        for (PlayerEntity entity : this.entities) {
+            if (!entity.getPosition().equals(position)){
+                newEntities.add(entity);
+            }
+        }
+
+        this.entities = newEntities;
     }
 
 }

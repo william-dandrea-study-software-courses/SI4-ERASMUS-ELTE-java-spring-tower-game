@@ -40,4 +40,15 @@ public class Soldier extends PlayerEntity {
     public String getName() {
         return name;
     }
+
+
+    @Override
+    public String toString() {
+        return "Soldier{" +
+                "healthPoint=" + healthPoint +
+                ", numberOfMoveAtEachRound=" + numberOfMoveAtEachRound +
+                ", name='" + name + '\'' +
+                ", position='" + getPosition() + '\'' +
+                '}';
+    }
 }

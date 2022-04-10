@@ -41,6 +41,9 @@ public class Game {
     private Player player1;
     private Player player2;
 
+    private boolean isPlayer1Won = false;
+    private boolean isPlayer2Won = false;
+
     public Game(Settings settings) {
         this.settings = settings;
         this.board = new Board(new BoardDimension(this.settings.getGeneralSettings().getLengthBoard(), this.settings.getGeneralSettings().getWidthBoard()), this.setupObstacles());
@@ -60,44 +63,75 @@ public class Game {
 
 
 
-    public void nextRound() {
+    public Game nextRound() {
         // We switch the user who play
         this.player1.setPlaying(!this.player1.isPlaying());
         this.player2.setPlaying(!this.player2.isPlaying());
 
-        for (PlayerEntity soldierPE : player1.getAllSoldiers()) {
-            Soldier soldier = (Soldier) soldierPE;
+        manageSoldiersDuringPlay();
+
+        return this;
+
+    }
+
+
+
+
+    private void manageSoldiersDuringPlay() {
+        for (Soldier soldier : player1.getAllSoldiers()) {
 
             MyAStartAlgorithm aStartAlgorithm = new MyAStartAlgorithm(this, soldier.getPosition(), player2.getCastle().getPosition());
             List<Position> path = aStartAlgorithm.getPathPositions();
-
-            System.out.println(path);
-            System.out.println(soldier.getNumberOfMoveAtEachRound());
-
             List<Position> pathSoldier = path.stream().limit(soldier.getNumberOfMoveAtEachRound()).collect(Collectors.toList());
-
-
-            System.out.println(pathSoldier);
-
 
             if (pathSoldier.contains(player2.getCastle().getPosition())) {
                 System.out.println("Chateau atteint !");
+                soldier.setPosition(player2.getCastle().getPosition());
+
+                this.player2.getCastle().removeHealthPoint(this.settings.getCastelSettings().getHealthPointsRemovedWhenSoldierReachCastle());
+
+                if (this.player2.getCastle().getHealthPoint() <= 0) {
+                    System.out.println("Player 1 won");
+                    isPlayer1Won = true;
+                }
             } else {
                 // Player 1 is somewhere in the map
                 Position newPositionSoldier = pathSoldier.get(pathSoldier.size() - 1);
                 soldier.setPosition(newPositionSoldier);
             }
 
-            System.out.println(soldier.getPosition());
+        }
 
+
+        for (Soldier soldier : player2.getAllSoldiers()) {
+
+            MyAStartAlgorithm aStartAlgorithm = new MyAStartAlgorithm(this, soldier.getPosition(), player1.getCastle().getPosition());
+            List<Position> path = aStartAlgorithm.getPathPositions();
+
+            List<Position> pathSoldier = path.stream().limit(soldier.getNumberOfMoveAtEachRound()).collect(Collectors.toList());
+
+            if (pathSoldier.contains(player1.getCastle().getPosition())) {
+                System.out.println("Chateau atteint !");
+                soldier.setPosition(player1.getCastle().getPosition());
+
+                this.player1.getCastle().removeHealthPoint(this.settings.getCastelSettings().getHealthPointsRemovedWhenSoldierReachCastle());
+
+                if (this.player1.getCastle().getHealthPoint() <= 0) {
+                    System.out.println("Player 2 won");
+                    isPlayer2Won = true;
+                }
+            } else {
+                // Player 1 is somewhere in the map
+                Position newPositionSoldier = pathSoldier.get(pathSoldier.size() - 1);
+                soldier.setPosition(newPositionSoldier);
+            }
         }
 
 
 
-
+        this.player1.removeSoldierAtThisPositon(this.player2.getCastle().getPosition());
+        this.player2.removeSoldierAtThisPositon(this.player1.getCastle().getPosition());
     }
-
-
 
 
 
@@ -158,9 +192,14 @@ public class Game {
             player = player2;
         }
         if (player.getCurrentGold() >= this.settings.getKillerSoldierSettings().getPrice()) {
-            player.getEntities().add(new KillerSoldier(player.getCastle().getPosition(), this.settings.getKillerSoldierSettings()));
+            Soldier soldier = new KillerSoldier(player.getCastle().getPosition(), this.settings.getKillerSoldierSettings());
+            player.getEntities().add(soldier);
+
+
             player.decreaseCurrentGold(this.settings.getKillerSoldierSettings().getPrice());
             return true;
+
+
         }
         return false;
     }
@@ -173,9 +212,15 @@ public class Game {
             player = player2;
         }
         if (player.getCurrentGold() >= this.settings.getFastSoldierSettings().getPrice()) {
-            player.getEntities().add(new FastSoldier(player.getCastle().getPosition(), this.settings.getFastSoldierSettings()));
+            Soldier soldier = new FastSoldier(player.getCastle().getPosition(), this.settings.getFastSoldierSettings());
+            player.getEntities().add(soldier);
+
+
             player.decreaseCurrentGold(this.settings.getFastSoldierSettings().getPrice());
             return true;
+
+
+
         }
         return false;
 
@@ -189,9 +234,12 @@ public class Game {
             player = player2;
         }
         if (player.getCurrentGold() >= this.settings.getFlightSoldierSettings().getPrice()) {
-            player.getEntities().add(new FlightSoldier(player.getCastle().getPosition(), this.settings.getFlightSoldierSettings()));
+
+            Soldier soldier = new FlightSoldier(player.getCastle().getPosition(), this.settings.getFlightSoldierSettings());
+            player.getEntities().add(soldier);
             player.decreaseCurrentGold(this.settings.getFlightSoldierSettings().getPrice());
             return true;
+
         }
         return false;
 
@@ -208,9 +256,17 @@ public class Game {
         }
 
         if (player.getCurrentGold() >= this.settings.getGoldSettings().getPriceOfGoldMine()) {
-            player.getEntities().add(new GoldMine(position, this.settings.getGoldSettings()));
-            player.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
-            return true;
+
+            GoldMine goldMine = new GoldMine(position, this.settings.getGoldSettings());
+
+            player.getEntities().add(goldMine);
+
+            if (this.verifyIfPathBetween2Castles()) {
+                player.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
+                return true;
+            }
+
+            player.getEntities().remove(goldMine);
         }
         return false;
     }
@@ -225,9 +281,15 @@ public class Game {
         }
 
         if (player.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
-            player.getEntities().add(new FreezeTower(position, this.settings.getFreezeTowerSettings()));
-            player.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
-            return true;
+            Tower tower = new FreezeTower(position, this.settings.getFreezeTowerSettings());
+            player.getEntities().add(tower);
+
+            if (this.verifyIfPathBetween2Castles()) {
+                player.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
+                return true;
+            }
+            player.getEntities().remove(tower);
+
         }
         return false;
     }
@@ -241,9 +303,14 @@ public class Game {
         }
 
         if (player.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
-            player.getEntities().add(new NormalTower(position, this.settings.getNormalTowerSettings()));
-            player.decreaseCurrentGold(this.settings.getNormalTowerSettings().getPrice());
-            return true;
+            Tower tower = new NormalTower(position, this.settings.getNormalTowerSettings());
+            player.getEntities().add(tower);
+
+            if (this.verifyIfPathBetween2Castles()) {
+                player.decreaseCurrentGold(this.settings.getNormalTowerSettings().getPrice());
+                return true;
+            }
+            player.getEntities().remove(tower);
         }
         return false;
     }
@@ -257,9 +324,14 @@ public class Game {
         }
 
         if (player.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
-            player.getEntities().add(new SniperTower(position, this.settings.getSniperTowerSettings()));
-            player.decreaseCurrentGold(this.settings.getSniperTowerSettings().getPrice());
-            return true;
+            Tower tower = new SniperTower(position, this.settings.getSniperTowerSettings());
+            player.getEntities().add(tower);
+
+            if (this.verifyIfPathBetween2Castles()) {
+                player.decreaseCurrentGold(this.settings.getSniperTowerSettings().getPrice());
+                return true;
+            }
+            player.getEntities().remove(tower);
         }
         return false;
     }
@@ -268,8 +340,6 @@ public class Game {
 
     public boolean canPlayer1PutNewEntityAtThePosition(Position position) {
         int radius = settings.getGeneralSettings().getRadiusToPlaceBuilding();
-
-
 
         if (isPlaceAvailable(position)) {
 
@@ -466,7 +536,14 @@ public class Game {
     }
 
 
+    private boolean verifyIfPathBetween2Castles() {
 
+        MyAStartAlgorithm aStat = new MyAStartAlgorithm(this, this.player1.getCastle().getPosition(), this.player2.getCastle().getPosition());
+
+        return !aStat.getPathPositions().isEmpty();
+
+
+    }
 
 
 
