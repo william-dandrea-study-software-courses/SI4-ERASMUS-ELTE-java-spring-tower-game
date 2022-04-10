@@ -4,6 +4,8 @@ import game.board.Board;
 import game.board.entities.Entity;
 import game.board.entities.playerentities.building.goldmines.GoldMine;
 import game.board.entities.playerentities.soldiers.FastSoldier;
+import game.board.entities.playerentities.soldiers.FlightSoldier;
+import game.board.entities.playerentities.soldiers.KillerSoldier;
 import game.board.entities.playerentities.soldiers.Soldier;
 import game.gamemanaging.Player;
 import game.settings.Settings;
@@ -93,6 +95,52 @@ public class Game {
         return true;
     }
 
+    /**
+     * @author Tian Zhenman
+     * For button create a Flight soldier for one player, with the parameter player,
+     * if the player don't have enough gold it will return false
+     * @param player
+     */
+    public boolean createFlightSoldier(Player player){
+        Position position = player.getCastle().getPosition();
+        int FlightSoldierPrice = settings.getFlightSoldierSettings().getPrice();
+        int FlightSoldierHealthPoint = settings.getFlightSoldierSettings().getInitialHealthPoints();
+        int killRewards = settings.getFlightSoldierSettings().getKillRewards();
+        int numberOfMoveAtEachRound = settings.getFlightSoldierSettings().getNumberOfMovesAtEachRound();
+        /** the player don't have enought gold */
+        if(player.getCurrentGold() < FlightSoldierPrice){
+            return false;
+        }
+        FlightSoldier flightSoldier = new FlightSoldier(position, player, FlightSoldierPrice, FlightSoldierHealthPoint, numberOfMoveAtEachRound, killRewards);
+        board.getTile(position).addEntityOnTheTile(flightSoldier);
+        /** this player's gold decreased by the amount of fast soldier needed */
+        player.reduceGold(FlightSoldierPrice);
+        return true;
+    }
+
+    /**
+     * @author Tian Zhenman
+     * For button create a Killer soldier for one player, with the parameter player,
+     * if the player don't have enough gold it will return false
+     * @param player
+     */
+    public boolean createKillerSoldier(Player player){
+        Position position = player.getCastle().getPosition();
+        int KillerSoldierPrice = settings.getKillerSoldierSettings().getPrice();
+        int KillerSoldierHealthPoint = settings.getKillerSoldierSettings().getInitialHealthPoints();
+        int killRewards = settings.getKillerSoldierSettings().getKillRewards();
+        int numberOfMoveAtEachRound = settings.getKillerSoldierSettings().getNumberOfMovesAtEachRound();
+        int damageToSoldier = settings.getKillerSoldierSettings().getDamagesInflictedToOtherSoldiers();
+        /** the player don't have enought gold */
+        if(player.getCurrentGold() < KillerSoldierPrice){
+            return false;
+        }
+        KillerSoldier killerSoldier = new KillerSoldier(position, player, KillerSoldierPrice, KillerSoldierHealthPoint, numberOfMoveAtEachRound, killRewards, damageToSoldier);
+        board.getTile(position).addEntityOnTheTile(killerSoldier);
+        /** this player's gold decreased by the amount of fast soldier needed */
+        player.reduceGold(KillerSoldierPrice);
+        return true;
+    }
 
     /**
      * @author Tian Zhenman
