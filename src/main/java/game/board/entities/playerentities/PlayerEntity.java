@@ -25,7 +25,7 @@ public class PlayerEntity extends Entity {
         this.price = price;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 

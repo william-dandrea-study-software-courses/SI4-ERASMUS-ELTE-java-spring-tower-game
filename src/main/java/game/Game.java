@@ -2,8 +2,12 @@ package game;
 
 import game.board.Board;
 import game.board.entities.Entity;
+import game.board.entities.gameentities.obstacles.Obstacle;
 import game.board.entities.playerentities.building.BuildingEntity;
 import game.board.entities.playerentities.building.goldmines.GoldMine;
+import game.board.entities.playerentities.building.towers.FreezeTower;
+import game.board.entities.playerentities.building.towers.NormalTower;
+import game.board.entities.playerentities.building.towers.SniperTower;
 import game.board.entities.playerentities.building.towers.Tower;
 import game.board.entities.playerentities.soldiers.FastSoldier;
 import game.board.entities.playerentities.soldiers.FlightSoldier;
@@ -13,7 +17,6 @@ import game.gamemanaging.Player;
 import game.settings.Settings;
 import game.utils.BoardDimension;
 import game.utils.Position;
-import javafx.geometry.Pos;
 
 /**
  * @author D'Andréa William
@@ -53,8 +56,8 @@ public class Game {
     /**
      * @author Tian Zhenman
      * For button create goldmine, with the in parameter position(mouse click)
-     * and player (decided by turn), if player don't have enough gold it will
-     * return false
+     * and player (decided by turn), if player don't have enough gold or the
+     * position is not suitable it will return false
      * @param position
      * Position of the goldmine (mouse hover)
      * @param player
@@ -75,6 +78,94 @@ public class Game {
             player.setGoldGainedPerRound(player.getGoldGainedPerRound() + increaseGoldDistributedAtEachRound);
             /* this player's gold decreased by the amount of goldmine needed */
             player.reduceGold(goldMinePrice);
+            return true;
+        }else{return false;}
+    }
+
+    /**
+     * @author Bai Zimo
+     * For button create normal tower, with the in parameter position(mouse click)
+     * and player (decided by turn), if player don't have enough gold or the
+     * position is not suitable it will return false
+     * @param position
+     * Position of the normal tower (mouse hover)
+     * @param player
+     * Owner of the normal tower
+     */
+    public boolean createNormalTower(Position position, Player player){
+        int price = settings.getNormalTowerSettings().getPrice();
+        int shootingRange = settings.getNormalTowerSettings().getShootingRange();
+        int simultaneousStrike = settings.getNormalTowerSettings().getNumberOfSimultaneousStrikes();
+        int damageToSoldiers = settings.getNormalTowerSettings().getDamageToSoldier();
+        /* the player don't have enough gold */
+        if(player.getCurrentGold() < price){
+            return false;
+        }
+        NormalTower normalTower = new NormalTower(position, player, price, shootingRange, simultaneousStrike, damageToSoldiers);
+        /* if the normal tower can be place at this position */
+        if(checkTowerPlaceable(normalTower)){
+            board.getTile(position).addEntityOnTheTile(normalTower);
+            /* this player's gold decreased by the amount of normal tower needed */
+            player.reduceGold(price);
+            return true;
+        }else{return false;}
+    }
+
+    /**
+     * @author Bai Zimo
+     * For button create sniper tower, with the in parameter position(mouse click)
+     * and player (decided by turn), if player don't have enough gold or the
+     * position is not suitable it will return false
+     * @param position
+     * Position of the sniper tower (mouse hover)
+     * @param player
+     * Owner of the sniper tower
+     */
+    public boolean createSniperTower(Position position, Player player){
+        int price = settings.getSniperTowerSettings().getPrice();
+        int shootingRange = settings.getSniperTowerSettings().getShootingRange();
+        int simultaneousStrike = settings.getSniperTowerSettings().getNumberOfSimultaneousStrikes();
+        int damageToSoldiers = settings.getSniperTowerSettings().getDamageToSoldier();
+        /* the player don't have enough gold */
+        if(player.getCurrentGold() < price){
+            return false;
+        }
+        SniperTower sniperTower = new SniperTower(position, player, price, shootingRange, simultaneousStrike, damageToSoldiers);
+        /* if the sniper tower can be place at this position */
+        if(checkTowerPlaceable(sniperTower)){
+            board.getTile(position).addEntityOnTheTile(sniperTower);
+            /* this player's gold decreased by the amount of sniper tower needed */
+            player.reduceGold(price);
+            return true;
+        }else{return false;}
+    }
+
+    /**
+     * @author Bai Zimo
+     * For button create freeze tower, with the in parameter position(mouse click)
+     * and player (decided by turn), if player don't have enough gold or the
+     * position is not suitable it will return false
+     * @param position
+     * Position of the freeze tower (mouse hover)
+     * @param player
+     * Owner of the freeze tower
+     */
+    public boolean createFreezeTower(Position position, Player player){
+        int price = settings.getFreezeTowerSettings().getPrice();
+        int shootingRange = settings.getFreezeTowerSettings().getShootingRange();
+        int simultaneousStrike = settings.getFreezeTowerSettings().getNumberOfSimultaneousStrikes();
+        int numberOfRound = settings.getFreezeTowerSettings().getNumberOfRoundsWhereTheSoldierInTheAreaAreFreeze();
+        int damageToSoldiers = settings.getSniperTowerSettings().getDamageToSoldier();
+        /* the player don't have enough gold */
+        if(player.getCurrentGold() < price){
+            return false;
+        }
+        FreezeTower freezeTower = new FreezeTower(position, player, price, shootingRange, simultaneousStrike, numberOfRound, damageToSoldiers);
+        /* if the freeze tower can be place at this position */
+        if(checkTowerPlaceable(freezeTower)){
+            board.getTile(position).addEntityOnTheTile(freezeTower);
+            /* this player's gold decreased by the amount of freeze tower needed */
+            player.reduceGold(price);
             return true;
         }else{return false;}
     }
@@ -205,6 +296,12 @@ public class Game {
     public boolean checkTowerPlaceable(Tower tower){
         boolean ourSidePlaceable = false;
         boolean enemySidePlaceable = true;
+        // First check if this position has any other obstacles or buildings
+        for (Entity entity: tower.getTile().getEntitiesOnTheTile()) {
+            if(entity instanceof Obstacle || entity instanceof BuildingEntity){
+                return false;
+            }
+        }
         for (int i=0;i<=board.getDimension().getLength();i++) {
             for (int j = 0; j <= board.getDimension().getWidth(); j++) {
                 for (Entity entity : board.getTile(i, j).getEntitiesOnTheTile()) {
@@ -261,6 +358,16 @@ public class Game {
             }
         }
         return true;
+    }
+
+    /**
+     * For recycle the buildings the player got 50% of the initial building price back
+     * @param building
+     * The recycled building
+     */
+    public void recycleBuildings(BuildingEntity building){
+        building.getOwner().addGold(building.getPrice()/2);
+        board.getTile(building.getPosition()).removeEntityOnTheTile(building);
     }
 
     protected void launchGame() {
