@@ -42,11 +42,6 @@ public class Game {
     private Player player1;
     private Player player2;
 
-
-
-
-
-
     public Game(Settings settings) {
         this.settings = settings;
         this.board = new Board(new BoardDimension(this.settings.getGeneralSettings().getLengthBoard(), this.settings.getGeneralSettings().getWidthBoard()), this.setupObstacles());
@@ -59,9 +54,27 @@ public class Game {
     public void launchGame() {
 
         // We initialize, the player 1 start first
-        this.player1.setPlaying(true);
-        this.player2.setPlaying(false);
+        this.player1.setPlaying(false);
+        this.player2.setPlaying(true);
     }
+
+
+
+
+    public void nextRound() {
+
+        // We switch the user who play
+        this.player1.setPlaying(!this.player1.isPlaying());
+        this.player2.setPlaying(!this.player2.isPlaying());
+
+
+
+
+
+
+
+    }
+
 
 
 

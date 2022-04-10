@@ -18,12 +18,9 @@ const c = document.querySelector('.game-board-canvas');
 
 
 
-
-
-
 getDatasFromGameEngine().then(() => {
     initializePrice();
-    changePlayer(CURRENT_PLAYER)
+    changePlayer()
     resetBoard(c);
     drawInit(c);
 
@@ -168,6 +165,31 @@ getDatasFromGameEngine().then(() => {
     window.addEventListener('resize', () => {
         drawInit(c);
     })
+
+    const nextButton = document.getElementById('next-button');
+    nextButton.addEventListener('click', () => {
+
+        $.ajax({
+            url: 'http://localhost:8080/manager/next-round',
+            type: 'POST',
+            contentType: "application/json",
+            async: false,
+            success: function (data) {
+                gameInfos = data;
+                initializePrice();
+                changePlayer()
+                resetBoard(c);
+                drawInit(c);
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        })
+
+
+    })
+
+
 
 })
 
@@ -376,9 +398,14 @@ async function getDatasFromGameEngine() {
 // ****************************************************************************************************************** //
 
 
-function changePlayer(playerNumber) {
+function changePlayer() {
 
-    CURRENT_PLAYER = playerNumber;
+    if (gameInfos.player1.playing) {
+        CURRENT_PLAYER = 1;
+    } else {
+        CURRENT_PLAYER = 2;
+    }
+
 
     if (CURRENT_PLAYER === 1) {
         playerColor = PLAYER_1_COLOR;

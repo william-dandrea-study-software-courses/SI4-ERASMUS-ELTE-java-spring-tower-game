@@ -140,6 +140,15 @@ public class GameManagingController {
 
 
 
+    @PostMapping(path = "/next-round")
+    public ResponseEntity<Game> nextRound() {
+
+        this.gameService.getGame().nextRound();
+
+        return ResponseEntity.ok(this.gameService.getGame());
+    }
+
+
 
 
 
