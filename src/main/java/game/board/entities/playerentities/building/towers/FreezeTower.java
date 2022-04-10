@@ -37,8 +37,8 @@ public class FreezeTower extends Tower {
                 if(this.manhattanDistance(tile)<=this.getShootingRange()){
                     int strikeNum = 0;
                     for(Entity entity: tile.getEntitiesOnTheTile()){
-                        if (entity instanceof Soldier && entity.getOwner() != this.getOwner()) {
-                            ((Soldier) entity).gotHit(this.getDamageToSoldier());
+                        if (entity instanceof Soldier && entity.getOwner() != this.getOwner() && ((Soldier) entity).getFrozenRound() ==0) {
+                            ((Soldier) entity).gotFrozen(this.numberOfTurnWhereTheSoldierIsFreeze);
                             strikeNum++;
                         }
                         if(strikeNum >= this.getSimultaneousStrike()){return;}
@@ -48,6 +48,14 @@ public class FreezeTower extends Tower {
         }
     }
 
+    @Override
+    public void upgrade(){
+        if(this.getCurrentGrade() < this.getMaxGrade()){
+            this.setShootingRange(this.getShootingRange() + 1);
+            this.setSimultaneousStrike(this.getSimultaneousStrike() + 1);
+            this.numberOfTurnWhereTheSoldierIsFreeze += 1;
+        }
+    }
 
     public int getNumberOfTurnWhereTheSoldierIsFreeze() {
         return numberOfTurnWhereTheSoldierIsFreeze;

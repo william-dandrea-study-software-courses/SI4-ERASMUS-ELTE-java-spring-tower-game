@@ -31,7 +31,7 @@ public class Entity {
         this.tile = tile;
         this.position = tile.getPosition() ;
         this.owner = owner;
-        this.unpassable_entities = List.of("Obstacle","Tower");
+        this.unpassable_entities = List.of("Obstacle","Tower","GoldMine");
 
     }
 
@@ -40,20 +40,21 @@ public class Entity {
         this.tile = Board.getTile(position);
         this.position = position ;
         this.owner = owner;
-        this.unpassable_entities = List.of("Obstacle","Tower");
+        this.unpassable_entities = List.of("Obstacle","Tower","GoldMine");
 
     }
     public Entity(Tile tile) {
         this.tile = tile;
         this.position = tile.getPosition() ;
-        this.unpassable_entities = List.of("Obstacle","Tower");
+        this.unpassable_entities = List.of("Obstacle","Tower","GoldMine");
 
     }
     public Entity(Position position) {
 
         this.tile = Board.getTile(position);
         this.position = position ;
-        this.unpassable_entities = List.of("Obstacle","Tower");
+        this.unpassable_entities = List.of("Obstacle","Tower","GoldMine");
+
 
     }
 

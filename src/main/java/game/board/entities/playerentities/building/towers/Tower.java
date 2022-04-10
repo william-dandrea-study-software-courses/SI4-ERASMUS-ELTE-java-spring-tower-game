@@ -81,6 +81,18 @@ public class Tower extends BuildingEntity {
         this.damageToSoldier = damageToSoldier;
     }
 
+    public int getCurrentGrade() {
+        return currentGrade;
+    }
+
+    public void setCurrentGrade(int currentGrade) {
+        this.currentGrade = currentGrade;
+    }
+
+    public int getMaxGrade() {
+        return maxGrade;
+    }
+
     public void upgrade(){
         if(currentGrade < maxGrade){
             this.shootingRange += 1;

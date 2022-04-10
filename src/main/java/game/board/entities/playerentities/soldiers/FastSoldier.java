@@ -21,6 +21,7 @@ public class FastSoldier extends Soldier {
     public FastSoldier(Position position, Player owner, int price, int healthPoint, int numberOfMoveAtEachRound, int numberOfTileHeCanJump) {
         super(position, owner, price, healthPoint, numberOfMoveAtEachRound);
         this.numberOfTileHeCanJump = numberOfTileHeCanJump;
+        this.setNumberOfMoveAtEachRound(numberOfTileHeCanJump);
     }
 
 
