@@ -9,6 +9,7 @@ public class SoldierSettings {
     private final int initialHealthPoints;
     private final int numberOfMovesAtEachRound;
     private int healthPoints;
+    private int killRewards;
     /**
      * The general soldier settings of the game
      * @param price
@@ -18,12 +19,12 @@ public class SoldierSettings {
      * @param numberOfMovesAtEachRound
      * The move the soldier can make each round
      */
-    public SoldierSettings(int price, int initialHealthPoints, int numberOfMovesAtEachRound) {
+    public SoldierSettings(int price, int initialHealthPoints, int numberOfMovesAtEachRound, int killRewards) {
         this.price = price;
         this.initialHealthPoints = initialHealthPoints;
         this.healthPoints = initialHealthPoints;
         this.numberOfMovesAtEachRound = numberOfMovesAtEachRound;
-        
+        this.killRewards = killRewards;
     }
 
     public int getPrice() {
@@ -38,6 +39,7 @@ public class SoldierSettings {
         return numberOfMovesAtEachRound;
     }
 
-    }
+    public int getKillRewards() { return killRewards; }
+}
 
 

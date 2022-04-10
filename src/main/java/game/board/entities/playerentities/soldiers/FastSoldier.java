@@ -13,13 +13,16 @@ public class FastSoldier extends Soldier {
     /**
      * Fast soldier entity extended from Soldier
      * @param position
+     * @param owner
      * @param price
      * @param healthPoint
+     * @param numberOfMoveAtEachRound
+     * @param killRewards
      * @param numberOfTileHeCanJump
      * The number of tile (step) the fast soldier can move per time
      */
-    public FastSoldier(Position position, Player owner, int price, int healthPoint, int numberOfMoveAtEachRound, int numberOfTileHeCanJump) {
-        super(position, owner, price, healthPoint, numberOfMoveAtEachRound);
+    public FastSoldier(Position position, Player owner, int price, int healthPoint, int numberOfMoveAtEachRound, int killRewards, int numberOfTileHeCanJump) {
+        super(position, owner, price, healthPoint, numberOfMoveAtEachRound, killRewards);
         this.numberOfTileHeCanJump = numberOfTileHeCanJump;
         this.setNumberOfMoveAtEachRound(numberOfTileHeCanJump);
     }

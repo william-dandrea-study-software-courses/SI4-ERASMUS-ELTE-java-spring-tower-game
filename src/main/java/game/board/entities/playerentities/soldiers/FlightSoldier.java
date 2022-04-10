@@ -10,15 +10,19 @@ public class FlightSoldier extends Soldier {
 
     private boolean ignoreObstacles = true;
 
+
     /**
      * Flight soldier entity extended from Soldier
      * @param position
+     * @param owner
      * @param price
      * @param healthPoint
+     * @param numberOfMoveAtEachRound
+     * @param killRewards
      */
-    public FlightSoldier(Position position, Player owner, int price, int healthPoint, int numberOfMoveAtEachRound) {
+    public FlightSoldier(Position position, Player owner, int price, int healthPoint, int numberOfMoveAtEachRound, int killRewards) {
 
-        super(position, owner, price, healthPoint, numberOfMoveAtEachRound);
+        super(position, owner, price, healthPoint, numberOfMoveAtEachRound, killRewards);
     }
 
 

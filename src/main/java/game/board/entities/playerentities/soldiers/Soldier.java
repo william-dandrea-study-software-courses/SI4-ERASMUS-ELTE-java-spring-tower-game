@@ -20,15 +20,21 @@ public class Soldier extends PlayerEntity {
     /**
      * Soldier entity extended from PlayerEntity
      * @param position
+     * @param owner
      * @param price
      * @param healthPoint
      * health point of the soldier
+     * @param numberOfMoveAtEachRound
+     * number of move of each round
+     * @param killRewards
+     * the gold rewards to the opposite if this soldier get killed
      */
-    public Soldier(Position position, Player owner, int price, int healthPoint, int numberOfMoveAtEachRound) {
+    public Soldier(Position position, Player owner, int price, int healthPoint, int numberOfMoveAtEachRound, int killRewards) {
         super(position, owner, price);
         this.healthPoint = healthPoint;
         this.numberOfMoveAtEachRound=numberOfMoveAtEachRound;
         this.numberOfMoveThisRound=numberOfMoveAtEachRound;
+        this.killRewards = killRewards;
     }
 
 

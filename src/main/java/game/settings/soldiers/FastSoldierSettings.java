@@ -15,8 +15,8 @@ public class FastSoldierSettings extends SoldierSettings {
      * @param numberOfTileHeCanJump
      * The number of tile the fast soldier can jump (instead of moving one tile by one tile)
      */
-    public FastSoldierSettings(int price, int initialHealthPoints, int numberOfMovesAtEachRound, int numberOfTileHeCanJump) {
-        super(price, initialHealthPoints, numberOfMovesAtEachRound);
+    public FastSoldierSettings(int price, int initialHealthPoints, int numberOfMovesAtEachRound, int killRewards, int numberOfTileHeCanJump) {
+        super(price, initialHealthPoints, numberOfMovesAtEachRound, killRewards);
         this.numberOfTileHeCanJump = numberOfTileHeCanJump;
     }
 

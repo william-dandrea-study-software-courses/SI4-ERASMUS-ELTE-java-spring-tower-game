@@ -11,8 +11,8 @@ public class FlightSoldierSettings extends SoldierSettings {
      * @param initialHealthPoints
      * @param numberOfMovesAtEachRound
      */
-    public FlightSoldierSettings(int price, int initialHealthPoints, int numberOfMovesAtEachRound) {
-        super(price, initialHealthPoints, numberOfMovesAtEachRound);
+    public FlightSoldierSettings(int price, int initialHealthPoints, int numberOfMovesAtEachRound, int killRewards) {
+        super(price, initialHealthPoints, numberOfMovesAtEachRound, killRewards);
     }
 
 

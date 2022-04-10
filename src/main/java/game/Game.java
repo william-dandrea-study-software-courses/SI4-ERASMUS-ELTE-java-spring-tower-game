@@ -89,7 +89,14 @@ public class Game {
             for (int j=0;j<=board.getDimension().getWidth();j++){
                 for (Entity entity: board.getTile(i, j).getEntitiesOnTheTile()) {
                     if (entity instanceof Soldier){
-                        if(((Soldier) entity).getHealthPoint() == 0 || ((Soldier) entity).arriveCastle()){
+                        if(((Soldier) entity).getHealthPoint() == 0){
+                            /** Add killRewards to the opposite */
+                            if(entity.getOwner() == player1){
+                                player2.addGold(((Soldier) entity).getKillRewards());
+                            } else {player1.addGold(((Soldier) entity).getKillRewards());}
+                            /** remove form board */
+                            board.getTile(i, j).removeEntityOnTheTile(entity);
+                        }else if(((Soldier) entity).arriveCastle()){
                             board.getTile(i, j).removeEntityOnTheTile(entity);
                         }
                     }

@@ -15,8 +15,8 @@ public class KillerSoldierSettings  extends SoldierSettings {
      * @param damagesInflictedToOtherSoldiers
      * the damage the killer soldier could make to other units
      */
-    public KillerSoldierSettings(int price, int initialHealthPoints, int numberOfMovesAtEachRound, int damagesInflictedToOtherSoldiers) {
-        super(price, initialHealthPoints, numberOfMovesAtEachRound);
+    public KillerSoldierSettings(int price, int initialHealthPoints, int numberOfMovesAtEachRound, int killRewards, int damagesInflictedToOtherSoldiers) {
+        super(price, initialHealthPoints, numberOfMovesAtEachRound, killRewards);
         this.damagesInflictedToOtherSoldiers = damagesInflictedToOtherSoldiers;
     }
 
