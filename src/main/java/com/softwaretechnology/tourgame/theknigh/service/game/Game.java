@@ -194,6 +194,15 @@ public class Game {
             for (Soldier soldier : player1.getAllSoldiers()) {
 
                 MyAStartAlgorithm aStartAlgorithm = new MyAStartAlgorithm(this, soldier.getPosition(), player2.getCastle().getPosition());
+
+                if (soldier instanceof FlightSoldier) {
+                    List<Position> buildingEntitiesAndNoObstacles = this.player1.getBuildingEntities().stream().map(Entity::getPosition).collect(Collectors.toList());
+                    buildingEntitiesAndNoObstacles.addAll(this.player2.getBuildingEntities().stream().map(Entity::getPosition).collect(Collectors.toList()));
+
+                    aStartAlgorithm = new MyAStartAlgorithm(this, buildingEntitiesAndNoObstacles, soldier.getPosition(), player2.getCastle().getPosition());
+                }
+
+
                 List<Position> path = aStartAlgorithm.getPathPositions();
                 List<Position> pathSoldier = path.stream().limit(soldier.getNumberOfMoveAtEachRound()).collect(Collectors.toList());
 
