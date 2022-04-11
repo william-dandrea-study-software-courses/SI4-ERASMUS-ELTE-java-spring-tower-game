@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author D'Andréa William
+ * To set up the settings of the game
  */
 
 @Service
@@ -50,18 +51,24 @@ public class GameService {
         this.game = game;
     }
 
+    /**
+     * Change the game settings
+     * @param settings
+     * the new settings
+     * @return
+     * the settings of the game after changing
+     */
     public Settings setSettings(Settings settings) {
         this.game = new Game(settings);
         return this.game.getSettings();
     }
 
 
-
-
-
-
-
-
+    /**
+     * Initiate default game settings
+     * @return
+     * return this default game settings
+     */
     private Settings setupSettings() {
 
         GeneralSettings generalSettings = new GeneralSettings(10, 10, 3, 2);
