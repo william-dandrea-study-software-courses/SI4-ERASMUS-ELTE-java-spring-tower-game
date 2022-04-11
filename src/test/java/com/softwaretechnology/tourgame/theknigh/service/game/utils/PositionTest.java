@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Bai Zimo
  */
-public class PositionTest {
+class PositionTest {
 
     @BeforeEach
     void setUp() {
