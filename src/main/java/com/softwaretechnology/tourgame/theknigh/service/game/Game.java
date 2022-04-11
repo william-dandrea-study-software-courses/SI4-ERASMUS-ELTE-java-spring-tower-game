@@ -637,7 +637,7 @@ public class Game {
             player = player2;
         }
 
-        if (player.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
+        if (player.getCurrentGold() >= this.settings.getSniperTowerSettings().getPrice()) {
             Tower tower = new SniperTower(position, this.settings.getSniperTowerSettings());
             player.getEntities().add(tower);
 
@@ -881,7 +881,7 @@ public class Game {
     }
 
     /**
-     * Check if the way between a castle and a position has been blocked
+     * Check if the way between two castles and a position has been blocked
      * @param position
      * the specific position
      * @return
