@@ -10,6 +10,7 @@ import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.Fre
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.NormalTowerSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.SniperTowerSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.TowerMainSettings;
+import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -53,8 +54,13 @@ class GameTest {
         this.game.nextRound();
 
         this.game.addFastUnit(1);
+        this.game.addNewNormalTowerPlayer(new Position(1,2),1);
+        this.game.increaseTower(1, 1, 2);
         this.game.nextRound();
 
 
+
     }
+
+
 }
