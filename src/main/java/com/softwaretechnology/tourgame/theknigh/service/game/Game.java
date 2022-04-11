@@ -83,8 +83,39 @@ public class Game {
 
         generateMonsters();
 
+        manageKillerSoldier(1);
+        manageKillerSoldier(2);
+
         return this;
 
+    }
+
+    private void manageKillerSoldier(int indexPlayer) {
+        Player player = null;
+        Player playerEnemy = null;
+        if (indexPlayer == 1) {
+            player = player1;
+            playerEnemy = player2;
+        } else {
+            player = player2;
+            playerEnemy = player1;
+        }
+
+
+        if (this.isNewRound()) {
+
+            for (Soldier soldier : player.getAllSoldiers()) {
+
+                for (Soldier enemySoldier : playerEnemy.getAllSoldiers()) {
+
+                    if (enemySoldier instanceof KillerSoldier && enemySoldier.getPosition().equals(soldier.getPosition())) {
+
+                        soldier.removeHealthPoints(this.settings.getKillerSoldierSettings().getDamagesInflictedToOtherSoldiers());
+
+                    }
+                }
+            }
+        }
     }
 
     private void generateMonsters() {
