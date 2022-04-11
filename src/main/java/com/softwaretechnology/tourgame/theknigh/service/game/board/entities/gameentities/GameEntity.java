@@ -6,10 +6,9 @@ import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 
 /**
  * @author D'Andréa William
+ * GameEntity type drived from Entity type
  */
 public class GameEntity extends Entity {
-
-    private String name = "game_entity";
 
     public GameEntity(Position position) {
         super(position);
@@ -17,6 +16,6 @@ public class GameEntity extends Entity {
 
     @Override
     public String getName() {
-        return name;
+        return "game_entity";
     }
 }

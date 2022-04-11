@@ -7,12 +7,14 @@ import java.util.Set;
 
 /**
  * @author D'Andréa William
+ *
+ * The
  */
 public class Radius {
 
-    private int radius = 1;
-    private int initialX;
-    private int initialY;
+    private final int radius;
+    private final int initialX;
+    private final int initialY;
 
     public Radius(int radius, int initialX, int initialY) {
         this.radius = radius;
@@ -43,7 +45,6 @@ public class Radius {
     }
 
 
-
     public List<Position> getPositionsWhenZero() {
 
         int yInit = - (this.radius - 1);
@@ -55,9 +56,8 @@ public class Radius {
 
             int middle = elem / 2;
             int startX = -middle;
-            int endX = middle;
 
-            for (int x = startX; x <= endX; x++) {
+            for (int x = startX; x <= middle; x++) {
                 positions.add(new Position(x, yInit));
             }
 
@@ -71,7 +71,11 @@ public class Radius {
     }
 
 
-
+    /**
+     * Generating the unit scale on the board
+     * @return
+     * the list of the width of the unit at each row
+     */
     List<Integer> generateRows() {
 
         List<Integer> rows = new ArrayList<>();
