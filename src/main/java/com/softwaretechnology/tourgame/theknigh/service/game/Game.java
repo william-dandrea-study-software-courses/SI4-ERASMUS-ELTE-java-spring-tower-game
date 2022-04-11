@@ -59,6 +59,9 @@ public class Game {
         this.launchGame();
     }
 
+    /**
+     * Launch the game by first initiating the two players
+     */
     public void launchGame() {
 
         // We initialize, the player 1 start first
@@ -67,8 +70,13 @@ public class Game {
     }
 
 
-
-
+    /**
+     * Processing the behaviors of all the units on the board,
+     * while adding the money for both player and switch the
+     * control between them too.
+     * @return
+     * the game itself
+     */
     public Game nextRound() {
         round += 1;
         // We switch the user who play
@@ -90,6 +98,13 @@ public class Game {
 
     }
 
+    /**
+     * In the beginning of a new round if one player's killing soldier
+     * is at the same position of another player's killing soldier,
+     * they fight each other.
+     * @param indexPlayer
+     * The current player
+     */
     private void manageKillerSoldier(int indexPlayer) {
         Player player = null;
         Player playerEnemy = null;
@@ -118,6 +133,13 @@ public class Game {
         }
     }
 
+    /**
+     * If the round is a setting up monster appearing round,
+     * creating default amount of monster on the free place
+     * on the board then for both player's army, the soldier
+     * who has the same position with the monster get 5 points
+     * damage from the monster's appearing position.
+     */
     private void generateMonsters() {
 
         if (this.round % this.settings.getMonsterSettings().getRoundsFrequencyOfPopping() == 0) {
@@ -206,6 +228,11 @@ public class Game {
         return this.round % 2 == 0;
     }
 
+    /**
+     * After each round adding the gold for both players by calculating
+     * the number of goldmines they hold and plus the default each round
+     * gold gaining.
+     */
     private void increaseAmountOfGoldForEachPlayer() {
 
         if (isNewRound()) {
@@ -218,7 +245,12 @@ public class Game {
 
     }
 
-
+    /**
+     * Implementing the movement of the fast soldier and flight soldier,
+     * where the flight soldier can ignore the obstacles on the board.
+     * When the soldier reaches enemy's castle, and make damage to the
+     * castle while checking if the castle is destroyed.
+     */
     private void manageSoldiersDuringPlay() {
 
         if (isNewRound()) {
@@ -288,8 +320,17 @@ public class Game {
     }
 
 
-
-
+    /**
+     * Upgrading a tower on the specific position
+     * @param indexPlayer
+     * the index of the player
+     * @param x
+     * x-position of the specific position
+     * @param y
+     * y-position of the specific position
+     * @return
+     * if the upgrading is success or not
+     */
     public boolean increaseTower(int indexPlayer, int x, int y) {
         Player player = null;
         if (indexPlayer == 1) {
@@ -314,7 +355,17 @@ public class Game {
     }
 
 
-
+    /**
+     * Deleting a tower on the specific position
+     * @param indexPlayer
+     * the index of the player
+     * @param x
+     * x-position of the specific position
+     * @param y
+     * y-position of the specific position
+     * @return
+     * the recycling gold of the tower, if fail then return 0
+     */
     public int deleteTower(int indexPlayer, int x, int y) {
         Player player = null;
         if (indexPlayer == 1) {
@@ -337,7 +388,13 @@ public class Game {
     }
 
 
-
+    /**
+     * create a killer soldier for the specific player
+     * @param indexPlayer
+     * the index of the player
+     * @return
+     * if the creating is successful
+     */
     public Boolean addKillerUnit(int indexPlayer) {
         Player player = null;
         if (indexPlayer == 1) {
@@ -358,6 +415,13 @@ public class Game {
         return false;
     }
 
+    /**
+     * create a fast soldier for the specific player
+     * @param indexPlayer
+     * the index of the player
+     * @return
+     * if the creating is successful
+     */
     public Boolean addFastUnit(int indexPlayer) {
         Player player = null;
         if (indexPlayer == 1) {
@@ -380,6 +444,13 @@ public class Game {
 
     }
 
+    /**
+     * create a flight soldier for the specific player
+     * @param indexPlayer
+     * the index of the player
+     * @return
+     * if the creating is successful
+     */
     public Boolean addFlightUnit(int indexPlayer) {
         Player player = null;
         if (indexPlayer == 1) {
@@ -400,9 +471,10 @@ public class Game {
     }
 
     /**
-     *
+     * Checking if the placing of a tower is allowed or not
      * @param position
-     * @return true if you can place the tour (all the units are moved), or false if you cannot place the tower at this place
+     * The specific position
+     * @return true if you can place the tower (all the units are moved), or false if you cannot place the tower at this place
      */
     public boolean verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(Position position) {
 
@@ -445,8 +517,15 @@ public class Game {
     }
 
 
-
-
+    /**
+     * create a goldmine for the specific player
+     * @param position
+     * the specific position
+     * @param indexPlayer
+     * the specific player
+     * @return
+     * if the creating is successful
+     */
     public boolean addGoldMinePlayer(Position position, int indexPlayer) {
 
         Player player = null;
@@ -476,7 +555,15 @@ public class Game {
         return false;
     }
 
-
+    /**
+     * create a freeze tower for the specific player
+     * @param position
+     * the specific position
+     * @param indexPlayer
+     * the specific player
+     * @return
+     * if the creating is successful
+     */
     public boolean addNewFreezeTowerPlayer(Position position, int indexPlayer) {
         Player player = null;
         if (indexPlayer == 1) {
@@ -501,6 +588,15 @@ public class Game {
         return false;
     }
 
+    /**
+     * create a normal tower for the specific player
+     * @param position
+     * the specific position
+     * @param indexPlayer
+     * the specific player
+     * @return
+     * if the creating is successful
+     */
     public boolean addNewNormalTowerPlayer(Position position, int indexPlayer) {
         Player player = null;
         if (indexPlayer == 1) {
@@ -524,6 +620,15 @@ public class Game {
         return false;
     }
 
+    /**
+     * create a sniper tower for the specific player
+     * @param position
+     * the specific position
+     * @param indexPlayer
+     * the specific player
+     * @return
+     * if the creating is successful
+     */
     public boolean addNewSniperTowerPlayer(Position position, int indexPlayer) {
         Player player = null;
         if (indexPlayer == 1) {
@@ -548,8 +653,15 @@ public class Game {
         return false;
     }
 
-
-
+    /**
+     * Check if the specific position is available for a player to put units on it
+     * @param position
+     * the specific position
+     * @param indexPlayer
+     * the index of the player
+     * @return
+     * if the position is available
+     */
     public boolean canPlayerPutNewEntityAtThePosition(Position position, int indexPlayer) {
         Player player = null;
         if (indexPlayer == 1) {
@@ -588,7 +700,10 @@ public class Game {
     }
 
 
-
+    /**
+     * Randomly set both player's castle on the position of the top and bottom of the board,
+     * an assign them to the player respectively
+     */
     private void setupTheCastle() {
 
         Random rand = new Random();
@@ -620,7 +735,11 @@ public class Game {
     }
 
 
-
+    /**
+     * Generating the obstacles according to the requirements and the default settings
+     * @return
+     * the list of the obstacles
+     */
     private List<Obstacle> setupObstacles() {
 
         Random rand = new Random();
@@ -665,12 +784,13 @@ public class Game {
         return obstacles;
     }
 
-
-
-
-
-
-
+    /**
+     * Check if the name belongs to one of the building entity
+     * @param nameEntity
+     * the string name of the entity
+     * @return
+     * if it's true or not
+     */
     private boolean isBuildingEntity(String nameEntity) {
         return Objects.equals(nameEntity, "freeze_tower_entity")
                 || Objects.equals(nameEntity, "normal_tower_entity")
@@ -679,7 +799,13 @@ public class Game {
                 ;
     }
 
-
+    /**
+     * Initial check for the position if it's available to build a building
+     * @param position
+     * The specific position
+     * @return
+     * if it's true or not
+     */
     private boolean isPlaceAvailable(Position position) {
         // No castle, obstacle, towers, mine
 
@@ -706,7 +832,11 @@ public class Game {
         return true;
     }
 
-
+    /**
+     * Getting a list of all the building entities including the obstacles
+     * @return
+     * the list of the entities
+     */
     public List<Entity> getAllBuildingEntities() {
 
         List<Entity> allBuildingEntities = new ArrayList<>();
@@ -719,7 +849,11 @@ public class Game {
     }
 
 
-
+    /**
+     * By filter the board with all the building entities(including castles) we get all the free positions on the board
+     * @return
+     * the list of the free positions
+     */
     public List<Position> getAllFreePositions() {
 
         List<Entity> allBuildingEntities = getAllBuildingEntities();
@@ -734,7 +868,11 @@ public class Game {
         return allPositions.stream().distinct().collect(Collectors.toList());
     }
 
-
+    /**
+     * Check if the way between two castle has been blocked
+     * @return
+     * if it's true or not
+     */
     private boolean verifyIfPathBetween2Castles() {
 
         MyAStartAlgorithm aStat = new MyAStartAlgorithm(this, this.player1.getCastle().getPosition(), this.player2.getCastle().getPosition());
@@ -742,6 +880,13 @@ public class Game {
         return !aStat.getPathPositions().isEmpty();
     }
 
+    /**
+     * Check if the way between a castle and a position has been blocked
+     * @param position
+     * the specific position
+     * @return
+     * if it's true or not
+     */
     private boolean verifyIfPathBetween1PositionAnd2Castles(Position position) {
 
         MyAStartAlgorithm aStat = new MyAStartAlgorithm(this, position, this.player2.getCastle().getPosition());
