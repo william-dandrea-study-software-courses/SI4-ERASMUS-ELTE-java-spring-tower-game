@@ -28,6 +28,10 @@ public class Soldier extends PlayerEntity {
         this.healthPoint = healthPoint;
     }
 
+    public void removeHealthPoints(int healthPoint) {
+        this.healthPoint -= healthPoint;
+    }
+
     public int getNumberOfMoveAtEachRound() {
         return numberOfMoveAtEachRound;
     }
@@ -50,5 +54,25 @@ public class Soldier extends PlayerEntity {
                 ", name='" + name + '\'' +
                 ", position='" + getPosition() + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Soldier soldier = (Soldier) o;
+
+        if (healthPoint != soldier.healthPoint) return false;
+        if (numberOfMoveAtEachRound != soldier.numberOfMoveAtEachRound) return false;
+        return name != null ? name.equals(soldier.name) : soldier.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = healthPoint;
+        result = 31 * result + numberOfMoveAtEachRound;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 }

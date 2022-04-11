@@ -5,11 +5,13 @@ import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.game
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.PlayerEntity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.BuildingEntity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.goldmines.GoldMine;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.Tower;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.Soldier;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -106,6 +108,18 @@ public class Player {
 
     }
 
+    public List<Tower> getAllTowers() {
+        List<Tower> towers =  new ArrayList<>();
+
+        for (Entity e : this.entities) {
+            if (e instanceof Tower) {
+                towers.add((Tower) e);
+            }
+        }
+
+        return towers;
+    }
+
 
 
     public void removeSoldierAtThisPositon(Position position) {
@@ -119,5 +133,53 @@ public class Player {
 
         this.entities = newEntities;
     }
+
+
+    public List<Soldier> soldierAtThisPositions(List<Position> positions) {
+
+        List<Soldier> soldierAtThisPosition = new ArrayList<>();
+
+        for (Soldier soldier : this.getAllSoldiers()) {
+
+            for (Position pos : positions) {
+                if (pos.equals(soldier.getPosition())) {
+                    soldierAtThisPosition.add(soldier);
+                    break;
+                }
+            }
+        }
+
+        return soldierAtThisPosition;
+    }
+
+
+    public void removeHealthPointToSoldier(Soldier soldier, int numberOfHealthPointToRemove) {
+
+        soldier.removeHealthPoints(numberOfHealthPointToRemove);
+
+        if (soldier.getHealthPoint() <= 0) {
+            this.entities.remove(soldier);
+        }
+    }
+
+
+
+    public List<Soldier> getEntitiesInThisPosition(Position position) {
+
+        List<Soldier> entitiesAtThisPosition = new ArrayList<>();
+
+        for (Soldier entity : this.getAllSoldiers()) {
+
+            if (entity.getPosition().equals(position)) {
+                entitiesAtThisPosition.add(entity);
+            }
+        }
+
+        return entitiesAtThisPosition;
+    }
+
+
+
+
 
 }

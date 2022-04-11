@@ -20,6 +20,13 @@ public class Radius {
         this.initialY = initialY;
     }
 
+    public Radius(int radius, Position positionCenter) {
+        this.radius = radius;
+        this.initialX = positionCenter.getX();
+        this.initialY = positionCenter.getY();
+    }
+
+
     public List<Position> getPositions() {
 
         List<Position> positionsWith0 = getPositionsWhenZero();

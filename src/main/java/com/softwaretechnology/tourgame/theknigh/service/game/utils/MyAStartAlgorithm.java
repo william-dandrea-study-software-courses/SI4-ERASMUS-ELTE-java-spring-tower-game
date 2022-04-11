@@ -49,13 +49,39 @@ public class MyAStartAlgorithm {
             }
         });
 
+        this.initializeSearchBoardWithNodes(game.getAllBuildingEntities().stream().map(Entity::getPosition).collect(Collectors.toList()));
+    }
+
+
+    public MyAStartAlgorithm(Game game, List<Position> obstaclesPositions, Position startPosition, Position endPosition) {
+        this.startNode = new MyNode(startPosition);
+        this.endNode = new MyNode(endPosition);
+        this.searchBoard = new MyNode[game.getBoard().getDimension().getLength()][game.getBoard().getDimension().getWidth()];
+
+        this.currentNumberOfIterations = 0;
+
+        this.closedNodes = new HashSet<>();
+        this.openNodes = new PriorityQueue<MyNode>(new Comparator<MyNode>() {
+            @Override
+            public int compare(MyNode n1, MyNode n2) {
+                return Integer.compare(n1.f, n2.f);
+            }
+        });
+
+        this.initializeSearchBoardWithNodes(obstaclesPositions);
+    }
+
+
+
+
+    private void initializeSearchBoardWithNodes(List<Position> obstaclesPositions) {
         /** Initialize the searchBoard with all the nodes **/
         for (int y = 0; y < this.searchBoard.length; y++) {
             for (int x = 0; x < this.searchBoard[0].length; x++) {
                 MyNode node = new MyNode(new Position(x, y));
                 node.setHeuristic(this.endNode.position);
 
-                List<Position> obstacles = game.getAllBuildingEntities().stream().map(Entity::getPosition).collect(Collectors.toList());
+                List<Position> obstacles = obstaclesPositions;
                 if (obstacles.contains(new Position(x, y)))
                     node.isObstacle = true;
 
@@ -64,12 +90,12 @@ public class MyAStartAlgorithm {
         }
     }
 
+
     public List<Position> getPathPositions() {
 
         return this.generatePath().stream().map(n -> n.position).collect(Collectors.toList());
 
     }
-
 
 
 

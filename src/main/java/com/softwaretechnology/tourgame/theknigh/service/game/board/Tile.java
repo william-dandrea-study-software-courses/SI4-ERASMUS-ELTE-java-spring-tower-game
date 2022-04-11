@@ -41,4 +41,20 @@ public class Tile {
                 "position=" + position +
                 '}';
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tile tile = (Tile) o;
+
+        return position != null ? position.equals(tile.position) : tile.position == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return position != null ? position.hashCode() : 0;
+    }
 }
