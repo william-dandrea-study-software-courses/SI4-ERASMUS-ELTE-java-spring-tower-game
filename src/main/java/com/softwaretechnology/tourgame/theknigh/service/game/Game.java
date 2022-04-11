@@ -27,6 +27,8 @@ import lombok.Data;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.softwaretechnology.tourgame.theknigh.service.game.utils.Constants.POSITION_WE_CAN_GO;
+
 /**
  * @author D'Andréa William
  */
@@ -44,6 +46,8 @@ public class Game {
     private boolean isPlayer1Won = false;
     private boolean isPlayer2Won = false;
 
+    private int round = 0;
+
     public Game(Settings settings) {
         this.settings = settings;
         this.board = new Board(new BoardDimension(this.settings.getGeneralSettings().getLengthBoard(), this.settings.getGeneralSettings().getWidthBoard()), this.setupObstacles());
@@ -56,81 +60,113 @@ public class Game {
     public void launchGame() {
 
         // We initialize, the player 1 start first
-        this.player1.setPlaying(false);
-        this.player2.setPlaying(true);
+        this.player1.setPlaying(true);
+        this.player2.setPlaying(false);
     }
 
 
 
 
     public Game nextRound() {
+        round += 1;
         // We switch the user who play
         this.player1.setPlaying(!this.player1.isPlaying());
         this.player2.setPlaying(!this.player2.isPlaying());
 
         manageSoldiersDuringPlay();
+        increaseAmountOfGoldForEachPlayer();
+
+        updateHealthPointsOfUnitBecauseOfTowers();
 
         return this;
 
     }
 
+    private void updateHealthPointsOfUnitBecauseOfTowers() {
 
+        if (isNewRound()) {
+
+
+
+
+
+        }
+    }
+
+    private boolean isNewRound() {
+        return this.round % 2 == 0;
+    }
+
+    private void increaseAmountOfGoldForEachPlayer() {
+
+        if (isNewRound()) {
+            int numberOfGOldMinePlayer1 = this.player1.getAllGoldMines().size();
+            int numberOfGOldMinePlayer2 = this.player2.getAllGoldMines().size();
+
+            this.player1.increaseCurrentGold(numberOfGOldMinePlayer1 * this.settings.getGoldSettings().getAddedGoldAtEachRoundWithGoldMine() + this.settings.getGoldSettings().getAddedGoldAtEachRound());
+            this.player2.increaseCurrentGold(numberOfGOldMinePlayer2 * this.settings.getGoldSettings().getAddedGoldAtEachRoundWithGoldMine() + this.settings.getGoldSettings().getAddedGoldAtEachRound());
+        }
+
+    }
 
 
     private void manageSoldiersDuringPlay() {
-        for (Soldier soldier : player1.getAllSoldiers()) {
 
-            MyAStartAlgorithm aStartAlgorithm = new MyAStartAlgorithm(this, soldier.getPosition(), player2.getCastle().getPosition());
-            List<Position> path = aStartAlgorithm.getPathPositions();
-            List<Position> pathSoldier = path.stream().limit(soldier.getNumberOfMoveAtEachRound()).collect(Collectors.toList());
+        if (isNewRound()) {
+            for (Soldier soldier : player1.getAllSoldiers()) {
 
-            if (pathSoldier.contains(player2.getCastle().getPosition())) {
-                System.out.println("Chateau atteint !");
-                soldier.setPosition(player2.getCastle().getPosition());
+                MyAStartAlgorithm aStartAlgorithm = new MyAStartAlgorithm(this, soldier.getPosition(), player2.getCastle().getPosition());
+                List<Position> path = aStartAlgorithm.getPathPositions();
+                List<Position> pathSoldier = path.stream().limit(soldier.getNumberOfMoveAtEachRound()).collect(Collectors.toList());
 
-                this.player2.getCastle().removeHealthPoint(this.settings.getCastelSettings().getHealthPointsRemovedWhenSoldierReachCastle());
+                if (pathSoldier.contains(player2.getCastle().getPosition())) {
+                    System.out.println("Chateau atteint !");
+                    soldier.setPosition(player2.getCastle().getPosition());
 
-                if (this.player2.getCastle().getHealthPoint() <= 0) {
-                    System.out.println("Player 1 won");
-                    isPlayer1Won = true;
+                    this.player2.getCastle().removeHealthPoint(this.settings.getCastelSettings().getHealthPointsRemovedWhenSoldierReachCastle());
+
+                    if (this.player2.getCastle().getHealthPoint() <= 0) {
+                        System.out.println("Player 1 won");
+                        isPlayer1Won = true;
+                    }
+                } else {
+                    // Player 1 is somewhere in the map
+                    Position newPositionSoldier = pathSoldier.get(pathSoldier.size() - 1);
+                    soldier.setPosition(newPositionSoldier);
                 }
-            } else {
-                // Player 1 is somewhere in the map
-                Position newPositionSoldier = pathSoldier.get(pathSoldier.size() - 1);
-                soldier.setPosition(newPositionSoldier);
+
             }
 
+
+            for (Soldier soldier : player2.getAllSoldiers()) {
+
+                MyAStartAlgorithm aStartAlgorithm = new MyAStartAlgorithm(this, soldier.getPosition(), player1.getCastle().getPosition());
+                List<Position> path = aStartAlgorithm.getPathPositions();
+
+                List<Position> pathSoldier = path.stream().limit(soldier.getNumberOfMoveAtEachRound()).collect(Collectors.toList());
+
+                if (pathSoldier.contains(player1.getCastle().getPosition())) {
+                    System.out.println("Chateau atteint !");
+                    soldier.setPosition(player1.getCastle().getPosition());
+
+                    this.player1.getCastle().removeHealthPoint(this.settings.getCastelSettings().getHealthPointsRemovedWhenSoldierReachCastle());
+
+                    if (this.player1.getCastle().getHealthPoint() <= 0) {
+                        System.out.println("Player 2 won");
+                        isPlayer2Won = true;
+                    }
+                } else {
+                    // Player 1 is somewhere in the map
+                    Position newPositionSoldier = pathSoldier.get(pathSoldier.size() - 1);
+                    soldier.setPosition(newPositionSoldier);
+                }
+            }
+
+            this.player1.removeSoldierAtThisPositon(this.player2.getCastle().getPosition());
+            this.player2.removeSoldierAtThisPositon(this.player1.getCastle().getPosition());
         }
 
 
-        for (Soldier soldier : player2.getAllSoldiers()) {
-
-            MyAStartAlgorithm aStartAlgorithm = new MyAStartAlgorithm(this, soldier.getPosition(), player1.getCastle().getPosition());
-            List<Position> path = aStartAlgorithm.getPathPositions();
-
-            List<Position> pathSoldier = path.stream().limit(soldier.getNumberOfMoveAtEachRound()).collect(Collectors.toList());
-
-            if (pathSoldier.contains(player1.getCastle().getPosition())) {
-                System.out.println("Chateau atteint !");
-                soldier.setPosition(player1.getCastle().getPosition());
-
-                this.player1.getCastle().removeHealthPoint(this.settings.getCastelSettings().getHealthPointsRemovedWhenSoldierReachCastle());
-
-                if (this.player1.getCastle().getHealthPoint() <= 0) {
-                    System.out.println("Player 2 won");
-                    isPlayer2Won = true;
-                }
-            } else {
-                // Player 1 is somewhere in the map
-                Position newPositionSoldier = pathSoldier.get(pathSoldier.size() - 1);
-                soldier.setPosition(newPositionSoldier);
-            }
-        }
-
-
-
-        this.player1.removeSoldierAtThisPositon(this.player2.getCastle().getPosition());
-        this.player2.removeSoldierAtThisPositon(this.player1.getCastle().getPosition());
     }
 
 
@@ -245,6 +281,53 @@ public class Game {
 
     }
 
+    /**
+     *
+     * @param position
+     * @return true if you can place the tour (all the units are moved), or false if you cannot place the tower at this place
+     */
+    public boolean verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(Position position) {
+
+        List<Soldier> allSoldiers = this.player1.getAllSoldiers();
+        allSoldiers.addAll(this.player2.getAllSoldiers());
+
+        // Search all the soldiers
+        for (Soldier soldier : allSoldiers) {
+
+            // If a soldier is on the position of the building entity
+            if (soldier.getPosition().equals(position)) {
+
+                // We'll have 4 try (4 potential moves : POSITION_WE_CAN_GO), if we find any way, we cannot place the tower here
+                int numberOfTry = 0;
+
+                // We try to watch the position arounds
+                for (Position possiblePosition : POSITION_WE_CAN_GO) {
+                    possiblePosition.setX(position.getX() + possiblePosition.getX());
+                    possiblePosition.setY(position.getY() + possiblePosition.getY());
+
+                    // Now we watch if there exist a path from here to the castle
+                    boolean wayBetweenSoldierAndCastles = verifyIfPathBetween1PositionAnd2Castles(possiblePosition);
+
+                    if (wayBetweenSoldierAndCastles) {
+                        soldier.setPosition(possiblePosition);
+                        break;
+                    }
+
+                    numberOfTry += 1;
+                }
+
+                if (numberOfTry == POSITION_WE_CAN_GO.size()) {
+                    return false;
+                }
+            }
+        }
+
+        // If any entity, we can place the building entity
+        return true;
+    }
+
+
+
 
     public boolean addGoldMinePlayer(Position position, int indexPlayer) {
 
@@ -258,12 +341,16 @@ public class Game {
         if (player.getCurrentGold() >= this.settings.getGoldSettings().getPriceOfGoldMine()) {
 
             GoldMine goldMine = new GoldMine(position, this.settings.getGoldSettings());
-
             player.getEntities().add(goldMine);
 
             if (this.verifyIfPathBetween2Castles()) {
-                player.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
-                return true;
+
+                if (verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(position)) {
+                    player.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
+                    return true;
+                }
+
+
             }
 
             player.getEntities().remove(goldMine);
@@ -285,8 +372,10 @@ public class Game {
             player.getEntities().add(tower);
 
             if (this.verifyIfPathBetween2Castles()) {
-                player.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
-                return true;
+                if (verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(position)) {
+                    player.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
+                    return true;
+                }
             }
             player.getEntities().remove(tower);
 
@@ -307,8 +396,10 @@ public class Game {
             player.getEntities().add(tower);
 
             if (this.verifyIfPathBetween2Castles()) {
-                player.decreaseCurrentGold(this.settings.getNormalTowerSettings().getPrice());
-                return true;
+                if (verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(position)) {
+                    player.decreaseCurrentGold(this.settings.getNormalTowerSettings().getPrice());
+                    return true;
+                }
             }
             player.getEntities().remove(tower);
         }
@@ -328,8 +419,11 @@ public class Game {
             player.getEntities().add(tower);
 
             if (this.verifyIfPathBetween2Castles()) {
-                player.decreaseCurrentGold(this.settings.getSniperTowerSettings().getPrice());
-                return true;
+
+                if (verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(position)) {
+                    player.decreaseCurrentGold(this.settings.getSniperTowerSettings().getPrice());
+                    return true;
+                }
             }
             player.getEntities().remove(tower);
         }
@@ -541,14 +635,23 @@ public class Game {
         MyAStartAlgorithm aStat = new MyAStartAlgorithm(this, this.player1.getCastle().getPosition(), this.player2.getCastle().getPosition());
 
         return !aStat.getPathPositions().isEmpty();
+    }
 
+    private boolean verifyIfPathBetween1PositionAnd2Castles(Position position) {
 
+        MyAStartAlgorithm aStat = new MyAStartAlgorithm(this, position, this.player2.getCastle().getPosition());
+        MyAStartAlgorithm aStat2 = new MyAStartAlgorithm(this, position, this.player1.getCastle().getPosition());
+
+        return !aStat.getPathPositions().isEmpty() && !aStat.getPathPositions().isEmpty();
     }
 
 
-
-
-
+    public boolean getIsPlayer1Won() {
+        return this.isPlayer1Won;
+    }
+    public boolean getIsPlayer2Won() {
+        return this.isPlayer2Won;
+    }
 
     public Settings getSettings() {
         return settings;

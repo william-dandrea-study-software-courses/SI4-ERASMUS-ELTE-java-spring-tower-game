@@ -40,6 +40,9 @@ getDatasFromGameEngine().then(() => {
                     const checkBoxNew = document.getElementById("add-new-entity");
                     const checkBoxIncreaseDelete = document.getElementById("increase-or-delete-tower");
 
+
+
+
                     if (checkBoxInfo.checked) {
                         alert(JSON.stringify(board[y][x]));
                     }
@@ -192,6 +195,8 @@ getDatasFromGameEngine().then(() => {
 
 
 
+
+
 })
 
 
@@ -329,7 +334,7 @@ function addingTower(nameTower, x, y) {
                     drawInit(c);
                 });
             } else {
-                alert("You don't have enough gold");
+                alert("You can't place the tower because you didn't fill one of this option \n - You don't have enough gold \n - Some units are in this position and they cannot move somewhere else \n - You close the road for going to the next castle");
             }
 
         },
@@ -367,11 +372,38 @@ async function getDatasFromGameEngine() {
             player2Infos = gameInfos.player2;
             SIZE_ONE_TILE = (canvasSize / SIZE_BOARD)
             CURRENT_PLAYER = gameInfos.player1.playing ? 1 : 2;
+
+            if (gameInfos.isPlayer1Won && gameInfos.isPlayer2Won) {
+                console.log("Equality - End of the game");
+                alert("Equality between the 2 players");
+                window.location.replace("http://localhost:8080/");
+            } else {
+                if (gameInfos.isPlayer1Won) {
+                    console.log("Player 1 won");
+                    alert("Player 1 win");
+                    window.location.replace("http://localhost:8080/");
+                }
+
+                if (gameInfos.isPlayer2Won) {
+                    console.log("Player 2 won");
+                    alert("Player 2 win");
+                    window.location.replace("http://localhost:8080/");
+                }
+            }
+
+
+
+
         },
         error: function (error) {
             console.log(error);
         },
     })
+
+
+
+
+
 
 }
 
@@ -764,4 +796,11 @@ function initializePrice() {
 
 
     document.getElementById('goldmine-price').textContent = gameInfos.settings.goldSettings.priceOfGoldMine + 'GLD'
+
+
+    const levelCastle1div = document.getElementById("hp-castle-player1");
+    const levelCastle2div = document.getElementById("hp-castle-player2");
+
+    levelCastle1div.textContent = gameInfos.player1.castle.healthPoint
+    levelCastle2div.textContent = gameInfos.player1.castle.healthPoint
 }

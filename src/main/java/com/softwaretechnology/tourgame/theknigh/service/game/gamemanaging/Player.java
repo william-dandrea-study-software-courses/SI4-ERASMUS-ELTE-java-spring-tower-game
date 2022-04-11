@@ -4,6 +4,7 @@ import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.Enti
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.castles.Castle;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.PlayerEntity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.BuildingEntity;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.goldmines.GoldMine;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.Soldier;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 
@@ -72,6 +73,19 @@ public class Player {
 
         return bEntities;
 
+    }
+
+    public List<GoldMine> getAllGoldMines() {
+
+        List<GoldMine> bEntities = new ArrayList<>();
+
+        for (Entity entity : this.entities) {
+            if (entity instanceof GoldMine) {
+                bEntities.add((GoldMine) entity);
+            }
+        }
+
+        return bEntities;
     }
 
 

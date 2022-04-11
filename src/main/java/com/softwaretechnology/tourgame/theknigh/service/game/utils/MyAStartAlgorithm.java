@@ -7,6 +7,8 @@ import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.Enti
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.softwaretechnology.tourgame.theknigh.service.game.utils.Constants.POSITION_WE_CAN_GO;
+
 /**
  * @author D'Andréa William
  */
@@ -16,12 +18,7 @@ public class MyAStartAlgorithm {
     private final static int MAXIMUM_ITERATIONS = 100;
 
     // {x, y}
-    private final static List<Position> POSITION_WE_CAN_GO = new ArrayList<Position>() {{
-            add(new Position(1 , 0 ));
-            add(new Position(0 , -1));
-            add(new Position(-1, 0 ));
-            add(new Position(0 , 1));
-    }};
+
 
 
     private PriorityQueue<MyNode> openNodes;
