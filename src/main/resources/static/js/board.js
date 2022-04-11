@@ -187,6 +187,7 @@ getDatasFromGameEngine().then(() => {
                     changePlayer()
                     resetBoard(c);
                     drawInit(c);
+
                 })
             },
             error: function (error) {
@@ -377,6 +378,10 @@ async function getDatasFromGameEngine() {
             player2Infos = gameInfos.player2;
             SIZE_ONE_TILE = (canvasSize / SIZE_BOARD)
             CURRENT_PLAYER = gameInfos.player1.playing ? 1 : 2;
+
+            if (gameInfos.monsterTurn) {
+                alert("Monsters pop on the board !")
+            }
 
             if (gameInfos.isPlayer1Won && gameInfos.isPlayer2Won) {
                 console.log("Equality - End of the game");

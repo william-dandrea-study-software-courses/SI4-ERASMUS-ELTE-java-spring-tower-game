@@ -4,6 +4,7 @@ import com.softwaretechnology.tourgame.theknigh.service.game.board.Board;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.Tile;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.Entity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.castles.Castle;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.monsters.Monster;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.obstacles.Obstacle;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.PlayerEntity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.BuildingEntity;
@@ -44,7 +45,10 @@ public class Game {
     private boolean isPlayer1Won = false;
     private boolean isPlayer2Won = false;
 
+    private boolean isMonsterTurn = false;
+
     private int round = 0;
+    private List<FreezeSoldierInTheGame> soldiersAreFreezeUntilTheRound = new ArrayList<>();
 
     public Game(Settings settings) {
         this.settings = settings;
@@ -74,20 +78,96 @@ public class Game {
         manageSoldiersDuringPlay();
         increaseAmountOfGoldForEachPlayer();
 
-        updateHealthPointsOfUnitBecauseOfTowers();
+        updateHealthPointsOfUnitBecauseOfTowers(1);
+        updateHealthPointsOfUnitBecauseOfTowers(2);
+
+        generateMonsters();
 
         return this;
 
     }
 
-    private void updateHealthPointsOfUnitBecauseOfTowers() {
+    private void generateMonsters() {
+
+        if (this.round % this.settings.getMonsterSettings().getRoundsFrequencyOfPopping() == 0) {
+            this.isMonsterTurn = true;
+            List<Position> allFreePositions = getAllFreePositions();
+
+            // Get N random element from this list
+            Collections.shuffle(allFreePositions);
+
+            for (int i = 0; i < this.settings.getMonsterSettings().getPoppingMonsterAtEachNRounds(); i++) {
+
+                List<Soldier> player1UnitsAtThisPosition = player1.getEntitiesInThisPosition(allFreePositions.get(i));
+                List<Soldier> player2UnitsAtThisPosition = player2.getEntitiesInThisPosition(allFreePositions.get(i));
+
+                if (!player1UnitsAtThisPosition.isEmpty()) {
+                    player1UnitsAtThisPosition.forEach(s -> s.removeHealthPoints(5));
+                }
+                if (!player2UnitsAtThisPosition.isEmpty()) {
+                    player2UnitsAtThisPosition.forEach(s -> s.removeHealthPoints(5));
+                }
+            }
+        } else {
+            this.isMonsterTurn = false;
+        }
+
+
+    }
+
+    /**
+     * This method remove health point to the soldier if there are in the area of a tower
+     */
+    private void updateHealthPointsOfUnitBecauseOfTowers(int indexPlayer) {
+
+        Player player = null;
+        Player playerEnemy = null;
+        if (indexPlayer == 1) {
+            player = player1;
+            playerEnemy = player2;
+        } else {
+            player = player2;
+            playerEnemy = player1;
+        }
+
+
+        List<Tower> towersPlayer = player.getAllTowers();
 
         if (isNewRound()) {
+            for (Tower towerPlayer : towersPlayer) {
+
+                List<Position> positionsInThisArea = (new Radius(towerPlayer.getShootingRange(), towerPlayer.getPosition())).getPositions();
+                List<Soldier> enemySoldiersInThisArea = playerEnemy.soldierAtThisPositions(positionsInThisArea);
+                enemySoldiersInThisArea = enemySoldiersInThisArea.stream().limit(towerPlayer.getSimultaneousStrike()).collect(Collectors.toList());
+
+                if (towerPlayer instanceof FreezeTower) {
+
+                    towerPlayer = (FreezeTower) towerPlayer;
+
+                    for (Soldier frozeSoldier : enemySoldiersInThisArea) {
+
+                        FreezeSoldierInTheGame freezeSoldierInTheGame = new FreezeSoldierInTheGame(frozeSoldier.getPosition(), this.round + ((FreezeTower) towerPlayer).getNumberOfTurnWhereTheSoldierIsFreeze(), frozeSoldier);
+
+                        if (!soldiersAreFreezeUntilTheRound.contains(freezeSoldierInTheGame)) {
+                            soldiersAreFreezeUntilTheRound.add(freezeSoldierInTheGame);
+                        }
+                    }
+
+
+                } else {
+
+                    Player finalPlayerEnemy = playerEnemy;
+                    Tower finalTowerPlayer = towerPlayer;
+                    enemySoldiersInThisArea.forEach(s -> finalPlayerEnemy.removeHealthPointToSoldier(s, finalTowerPlayer.getSimultaneousStrike()));
+                }
+            }
 
 
 
-
-
+            // Now we reset the position of the frozen soldiers
+            for (FreezeSoldierInTheGame freSol : soldiersAreFreezeUntilTheRound) {
+                freSol.freezeSoldier.setPosition(freSol.positionWhereHeIsFreeze);
+            }
         }
     }
 
@@ -599,6 +679,22 @@ public class Game {
     }
 
 
+
+    public List<Position> getAllFreePositions() {
+
+        List<Entity> allBuildingEntities = getAllBuildingEntities();
+        allBuildingEntities.add(this.player1.getCastle());
+        allBuildingEntities.add(this.player2.getCastle());
+
+        List<Position> allBuildingEntitiesP = allBuildingEntities.stream().map(Entity::getPosition).collect(Collectors.toList());
+
+        List<Position> allPositions = this.board.getTiles().stream().map(Tile::getPosition).collect(Collectors.toList());
+        allPositions.addAll(allBuildingEntitiesP);
+
+        return allPositions.stream().distinct().collect(Collectors.toList());
+    }
+
+
     private boolean verifyIfPathBetween2Castles() {
 
         MyAStartAlgorithm aStat = new MyAStartAlgorithm(this, this.player1.getCastle().getPosition(), this.player2.getCastle().getPosition());
@@ -630,6 +726,7 @@ public class Game {
         this.settings = settings;
     }
 
-
-
+    public boolean isMonsterTurn() {
+        return isMonsterTurn;
+    }
 }
