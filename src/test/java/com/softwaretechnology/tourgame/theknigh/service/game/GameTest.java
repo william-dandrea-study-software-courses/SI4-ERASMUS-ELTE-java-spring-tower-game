@@ -61,6 +61,112 @@ class GameTest {
     }
 
     @Test
+    void increaseTower(){
+        this.game.launchGame();
+        this.game.nextRound();
+        this.game.addNewNormalTowerPlayer(new Position(1,1), 1);
+        assertTrue(this.game.increaseTower(1,1,1));
+        this.game.getPlayer1().decreaseCurrentGold(75);
+        assertFalse(this.game.increaseTower(1,1,1));
+        assertEquals(12, this.game.deleteTower(1,1,1));
+    }
+
+    @Test
+    void deleteTowerTest(){
+        this.game.launchGame();
+        this.game.nextRound();
+        assertEquals(0, this.game.deleteTower(1,1,1));
+        this.game.addNewNormalTowerPlayer(new Position(1,1), 1);
+        assertEquals(12, this.game.deleteTower(1,1,1));
+    }
+
+    @Test
+    void addKillerUnit(){
+        this.game.launchGame();
+        this.game.nextRound();
+
+        //without enough gold
+        this.game.getPlayer1().decreaseCurrentGold(100);
+        assertFalse(this.game.addKillerUnit(1));
+    }
+
+    @Test
+    void addFastUnit(){
+        this.game.launchGame();
+        this.game.nextRound();
+
+        //without enough gold
+        this.game.getPlayer1().decreaseCurrentGold(100);
+        assertFalse(this.game.addFastUnit(1));
+    }
+
+    @Test
+    void addFlightUnitTest(){
+        this.game.launchGame();
+        this.game.nextRound();
+
+        //without enough gold
+        this.game.getPlayer1().decreaseCurrentGold(100);
+        assertFalse(this.game.addFlightUnit(1));
+    }
+
+    @Test
+    void verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntityTest(){
+        this.game.launchGame();
+
+        this.game.nextRound();
+        this.game.getPlayer1().increaseCurrentGold(1000);
+        this.game.addFastUnit(1);
+
+        //surrounding the player 1 castle by tower when the player1 soldier is at the player1 castle
+        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
+        this.game.addNewNormalTowerPlayer(position,1);
+        position = new Position(this.game.getPlayer1().getCastle().getPosition().getX()+1, 0);
+        this.game.addNewNormalTowerPlayer(position,1);
+        position = new Position(this.game.getPlayer1().getCastle().getPosition().getX()-1, 0);
+        this.game.addNewNormalTowerPlayer(position,1);
+
+        assertFalse(this.game.verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(this.game.getPlayer1().getCastle().getPosition()));
+
+    }
+
+    @Test
+    void addGoldMinePlayerTest(){
+        this.game.launchGame();
+        this.game.nextRound();
+
+        //Position is good, but without enough gold
+        this.game.getPlayer1().decreaseCurrentGold(100);
+        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
+        assertFalse(this.game.addGoldMinePlayer(position,1));
+
+    }
+
+    @Test
+    void addNewFreezeTowerPlayerTest(){
+        this.game.launchGame();
+        this.game.nextRound();
+
+        //Position is good, but without enough gold
+        this.game.getPlayer1().decreaseCurrentGold(100);
+        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
+        assertFalse(this.game.addNewFreezeTowerPlayer(position,1));
+
+    }
+
+    @Test
+    void addNewNormalTowerPlayerTest(){
+        this.game.launchGame();
+        this.game.nextRound();
+
+        //Position is good, but without enough gold
+        this.game.getPlayer1().decreaseCurrentGold(100);
+        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
+        assertFalse(this.game.addNewNormalTowerPlayer(position,1));
+
+    }
+
+    @Test
     void addNewSniperTowerPlayerTest(){
         this.game.launchGame();
         this.game.nextRound();

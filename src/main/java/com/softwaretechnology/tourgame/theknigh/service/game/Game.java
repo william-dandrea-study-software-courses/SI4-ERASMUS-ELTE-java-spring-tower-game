@@ -527,7 +527,6 @@ public class Game {
      * if the creating is successful
      */
     public boolean addGoldMinePlayer(Position position, int indexPlayer) {
-
         Player player = null;
         if (indexPlayer == 1) {
             player = player1;
@@ -536,20 +535,15 @@ public class Game {
         }
 
         if (player.getCurrentGold() >= this.settings.getGoldSettings().getPriceOfGoldMine()) {
-
             GoldMine goldMine = new GoldMine(position, this.settings.getGoldSettings());
             player.getEntities().add(goldMine);
 
             if (this.verifyIfPathBetween2Castles()) {
-
                 if (verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(position)) {
-                    player.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
+                    player.decreaseCurrentGold(this.settings.getGoldSettings().getPriceOfGoldMine());
                     return true;
                 }
-
-
             }
-
             player.getEntities().remove(goldMine);
         }
         return false;
@@ -583,7 +577,6 @@ public class Game {
                 }
             }
             player.getEntities().remove(tower);
-
         }
         return false;
     }
