@@ -1,5 +1,4 @@
 package com.softwaretechnology.tourgame.theknigh.service.game;
-import lombok.extern.slf4j.Slf4j;
 
 import com.softwaretechnology.tourgame.theknigh.service.game.board.Board;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.Tile;
@@ -19,7 +18,6 @@ import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.play
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.Soldier;
 import com.softwaretechnology.tourgame.theknigh.service.game.gamemanaging.Player;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.Settings;
-import com.softwaretechnology.tourgame.theknigh.service.game.settings.game.GoldSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.game.ObstacleSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.*;
 import lombok.Data;
@@ -432,61 +430,32 @@ public class Game {
 
 
 
-    public boolean canPlayer1PutNewEntityAtThePosition(Position position) {
+    public boolean canPlayerPutNewEntityAtThePosition(Position position, int indexPlayer) {
+        Player player = null;
+        if (indexPlayer == 1) {
+            player = player1;
+        } else {
+            player = player2;
+        }
+
         int radius = settings.getGeneralSettings().getRadiusToPlaceBuilding();
 
         if (isPlaceAvailable(position)) {
-
-
-            Position castlePosition = player1.getCastle().getPosition();
+            Position castlePosition = player.getCastle().getPosition();
             List<Position> positionsAvailable = (new Radius(radius, castlePosition.getX(), castlePosition.getY())).getPositions();
-            System.out.println(positionsAvailable);
-
-            if (positionsAvailable.contains(position))
-                return true;
 
 
-            for (PlayerEntity entity : player1.getEntities()) {
-
-                if (isBuildingEntity(entity.getName())) {
-                    positionsAvailable = (new Radius(radius, castlePosition.getX(), castlePosition.getY())).getPositions();
-                    System.out.println(positionsAvailable);
-                    if (positionsAvailable.contains(position))
-                        return true;
-                }
+            for (Entity entity : player.getBuildingEntities()) {
+                positionsAvailable.addAll((new Radius(radius, entity.getPosition().getX(), entity.getPosition().getY())).getPositions());
             }
+
+            return positionsAvailable.contains(position);
         }
-
-
-
-
-
-
         return false;
     }
 
 
-    public boolean canPlayer2PutNewEntityAtThePosition(Position position) {
-        int radius = settings.getGeneralSettings().getRadiusToPlaceBuilding();
 
-        if (!isPlaceAvailable(position))
-            return false;
-
-        Position castlePosition = player2.getCastle().getPosition();
-        List<Position> positionsAvailable = (new Radius(radius, castlePosition.getX(), castlePosition.getY())).getPositions();
-        if (positionsAvailable.contains(position))
-            return true;
-
-        for (PlayerEntity entity : player2.getEntities()) {
-            if (isBuildingEntity(entity.getName())) {
-                positionsAvailable = (new Radius(radius, castlePosition.getX(), castlePosition.getY())).getPositions();
-                if (positionsAvailable.contains(position))
-                    return true;
-            }
-        }
-
-        return false;
-    }
 
 
 
@@ -623,8 +592,8 @@ public class Game {
         List<Entity> allBuildingEntities = new ArrayList<>();
 
         allBuildingEntities.addAll(board.getObstacles());
-        allBuildingEntities.addAll(player1.getCastleAndBuildingEntities());
-        allBuildingEntities.addAll(player2.getCastleAndBuildingEntities());
+        allBuildingEntities.addAll(player1.getBuildingEntities());
+        allBuildingEntities.addAll(player2.getBuildingEntities());
 
         return allBuildingEntities;
     }

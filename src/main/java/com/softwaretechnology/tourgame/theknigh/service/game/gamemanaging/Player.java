@@ -65,7 +65,7 @@ public class Player {
     }
 
 
-    public List<Entity> getCastleAndBuildingEntities() {
+    public List<Entity> getBuildingEntities() {
 
         List<Entity> bEntities = new ArrayList<>();
         // bEntities.add(castle);

@@ -89,7 +89,7 @@ getDatasFromGameEngine().then(() => {
                                     drawInit(c)
 
                                     if (confirm("Do you want to place a new tower or gold mine on this place ?")) {
-                                        alert("Click on a tower ir gold mine");
+                                        alert("Click on a tower or gold mine");
 
                                         const normalTower = document.getElementById('normal-tower-button');
                                         const freezeTower = document.getElementById('freeze-tower-button');
@@ -126,8 +126,12 @@ getDatasFromGameEngine().then(() => {
                                         board[y][x].is_clicked = false;
                                     }
 
+                                    drawInit(c)
+
                                 } else {
                                     alert("You cannot place a new building here because it's not in your radius")
+                                    board[y][x].is_clicked = false;
+                                    drawInit(c)
                                 }
                             },
                             error: function (error) {
@@ -312,7 +316,7 @@ function addingNewUnit(nameUnit) {
 
 
 function addingTower(nameTower, x, y) {
-    alert("You placed a " + nameTower + " Tower")
+
 
     $.ajax({
         url: 'http://localhost:8080/manager/add-' + nameTower + '-tower',
@@ -332,6 +336,7 @@ function addingTower(nameTower, x, y) {
                 getDatasFromGameEngine().then(() => {
                     resetBoard(c);
                     drawInit(c);
+                    alert("You placed a " + nameTower + " Tower")
                 });
             } else {
                 alert("You can't place the tower because you didn't fill one of this option \n - You don't have enough gold \n - Some units are in this position and they cannot move somewhere else \n - You close the road for going to the next castle");

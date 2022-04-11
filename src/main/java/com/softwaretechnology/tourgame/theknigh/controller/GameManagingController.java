@@ -45,16 +45,8 @@ public class GameManagingController {
 
     @PostMapping(path = "/select-new-tile-for-building")
     public ResponseEntity<Boolean> selectNewTileForBuild(@RequestBody PlayingPlayerAndPosition playingPlayerAndPosition) {
+        return ResponseEntity.ok(this.gameService.getGame().canPlayerPutNewEntityAtThePosition(playingPlayerAndPosition.getPosition(), playingPlayerAndPosition.getPlayingPlayer()));
 
-
-
-        if (playingPlayerAndPosition.getPlayingPlayer() == 1)
-            return ResponseEntity.ok(this.gameService.getGame().canPlayer1PutNewEntityAtThePosition(playingPlayerAndPosition.getPosition()));
-
-        if (playingPlayerAndPosition.getPlayingPlayer() == 2)
-            return ResponseEntity.ok(this.gameService.getGame().canPlayer2PutNewEntityAtThePosition(playingPlayerAndPosition.getPosition()));
-
-        return ResponseEntity.ok(false);
     }
 
 
