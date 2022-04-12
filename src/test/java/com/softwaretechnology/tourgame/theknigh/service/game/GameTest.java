@@ -54,8 +54,9 @@ class GameTest {
         this.game.nextRound();
 
         this.game.addFastUnit(1);
-        this.game.addNewNormalTowerPlayer(new Position(1,2),1);
-        this.game.increaseTower(1, 1, 2);
+        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
+        assertTrue(this.game.addNewNormalTowerPlayer(position,1));
+        assertTrue(this.game.increaseTower(1, this.game.getPlayer1().getCastle().getPosition().getX(), 1));
         this.game.nextRound();
 
     }
@@ -64,20 +65,22 @@ class GameTest {
     void increaseTower(){
         this.game.launchGame();
         this.game.nextRound();
-        this.game.addNewNormalTowerPlayer(new Position(1,1), 1);
-        assertTrue(this.game.increaseTower(1,1,1));
+        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
+        this.game.addNewNormalTowerPlayer(position, 1);
+        assertTrue(this.game.increaseTower(1,this.game.getPlayer1().getCastle().getPosition().getX(),1));
         this.game.getPlayer1().decreaseCurrentGold(75);
-        assertFalse(this.game.increaseTower(1,1,1));
-        assertEquals(12, this.game.deleteTower(1,1,1));
+        assertFalse(this.game.increaseTower(1,this.game.getPlayer1().getCastle().getPosition().getX(),1));
+        assertEquals(12, this.game.deleteTower(1,this.game.getPlayer1().getCastle().getPosition().getX(),1));
     }
 
     @Test
     void deleteTowerTest(){
         this.game.launchGame();
         this.game.nextRound();
+        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
         assertEquals(0, this.game.deleteTower(1,1,1));
-        this.game.addNewNormalTowerPlayer(new Position(1,1), 1);
-        assertEquals(12, this.game.deleteTower(1,1,1));
+        this.game.addNewNormalTowerPlayer(position, 1);
+        assertEquals(12, this.game.deleteTower(1,this.game.getPlayer1().getCastle().getPosition().getX(),1));
     }
 
     @Test
