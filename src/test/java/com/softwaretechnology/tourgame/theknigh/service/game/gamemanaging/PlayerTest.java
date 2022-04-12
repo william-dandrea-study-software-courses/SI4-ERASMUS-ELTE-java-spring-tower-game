@@ -50,7 +50,7 @@ public class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        this.game = new Game(settings);
+        this.game = new Game(this.settings);
     }
 
     @Test
@@ -100,10 +100,12 @@ public class PlayerTest {
 //        this.game.nextRound();
         this.game.getPlayer1().increaseCurrentGold(1000);
         assertEquals(0, this.game.getPlayer1().getAllGoldMines().size());
-        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
-        assertTrue(this.game.addGoldMinePlayer(position,1));
-        position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 2);
-        assertTrue(this.game.addGoldMinePlayer(position,1));
+//        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
+//        assertTrue(this.game.addGoldMinePlayer(position,1));
+        assertTrue(this.game.addGoldMinePlayer(new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1),1));
+//        position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 2);
+//        assertTrue(this.game.addGoldMinePlayer(position,1));
+        assertTrue(this.game.addGoldMinePlayer(new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 2),1));
         assertEquals(2, this.game.getPlayer1().getAllGoldMines().size());
     }
 
