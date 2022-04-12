@@ -85,13 +85,11 @@ public class PlayerTest {
         this.game.launchGame();
 
         this.game.nextRound();
-        List<Entity> testList = new ArrayList<>();
-        assertEquals(testList, this.game.getPlayer1().getBuildingEntities());
+        assertEquals(0, this.game.getPlayer1().getBuildingEntities().size());
         Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
         this.game.addNewNormalTowerPlayer(position,1);
         this.game.addFastUnit(1);
-        testList.add(this.game.getPlayer1().getBuildingEntities().get(0));
-        assertTrue(testList.get(0) instanceof NormalTower);
+        assertTrue(this.game.getPlayer1().getBuildingEntities().get(0) instanceof NormalTower);
     }
 
     @Test
@@ -99,14 +97,13 @@ public class PlayerTest {
         this.game.launchGame();
 
         this.game.nextRound();
-        List<GoldMine> testList;
         this.game.getPlayer1().increaseCurrentGold(1000);
+        assertEquals(0, this.game.getPlayer1().getAllGoldMines().size());
         Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
         this.game.addGoldMinePlayer(position,1);
         position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 0);
         this.game.addGoldMinePlayer(position,1);
-        testList = this.game.getPlayer1().getAllGoldMines();
-        assertEquals(2, testList.size());
+        assertEquals(2, this.game.getPlayer1().getAllGoldMines().size());
     }
 
     @Test
@@ -127,14 +124,13 @@ public class PlayerTest {
         this.game.launchGame();
 
         this.game.nextRound();
-        List<Tower> testList;
         this.game.getPlayer1().increaseCurrentGold(1000);
+        assertEquals(0, this.game.getPlayer1().getAllTowers().size());
         Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
         this.game.addNewNormalTowerPlayer(position,1);
         position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 0);
         this.game.addNewNormalTowerPlayer(position,1);
-        testList = this.game.getPlayer1().getAllTowers();
-        assertEquals(2, testList.size());
+        assertEquals(2, this.game.getPlayer1().getAllTowers().size());
     }
 
     @Test
