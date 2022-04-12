@@ -87,7 +87,8 @@ public class PlayerTest {
         this.game.nextRound();
         List<Entity> testList = new ArrayList<>();
         assertEquals(testList, this.game.getPlayer1().getBuildingEntities());
-        this.game.addNewNormalTowerPlayer(new Position(1,1), 1);
+        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
+        this.game.addNewNormalTowerPlayer(position,1);
         this.game.addFastUnit(1);
         testList.add(this.game.getPlayer1().getBuildingEntities().get(0));
         assertTrue(testList.get(0) instanceof NormalTower);
@@ -100,8 +101,10 @@ public class PlayerTest {
         this.game.nextRound();
         List<GoldMine> testList;
         this.game.getPlayer1().increaseCurrentGold(1000);
-        this.game.addGoldMinePlayer(new Position(1,1),1);
-        this.game.addGoldMinePlayer(new Position(1,2),1);
+        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
+        this.game.addGoldMinePlayer(position,1);
+        position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 0);
+        this.game.addGoldMinePlayer(position,1);
         testList = this.game.getPlayer1().getAllGoldMines();
         assertEquals(2, testList.size());
     }
@@ -126,8 +129,10 @@ public class PlayerTest {
         this.game.nextRound();
         List<Tower> testList;
         this.game.getPlayer1().increaseCurrentGold(1000);
-        this.game.addNewNormalTowerPlayer(new Position(1,1),1);
-        this.game.addNewSniperTowerPlayer(new Position(1,2),1);
+        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
+        this.game.addNewNormalTowerPlayer(position,1);
+        position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 0);
+        this.game.addNewNormalTowerPlayer(position,1);
         testList = this.game.getPlayer1().getAllTowers();
         assertEquals(2, testList.size());
     }
