@@ -32,7 +32,7 @@ public class PlayerTest {
     CastelSettings castelSettings = new CastelSettings(200, 10);
     GoldSettings goldSettings = new GoldSettings(100, 30, 200, 30);
     MonsterSettings monsterSettings = new MonsterSettings(10, 3);
-    ObstacleSettings obstacleSettings = new ObstacleSettings(2, 2);
+    ObstacleSettings obstacleSettings = new ObstacleSettings(2, 1);
     SoldierMainSettings soldierMainSettings = new SoldierMainSettings();
     FastSoldierSettings fastSoldierSettings = new FastSoldierSettings(50, 30, 5, 2);
     KillerSoldierSettings killerSoldierSettings = new KillerSoldierSettings(50, 40, 5, 5);
@@ -57,7 +57,7 @@ public class PlayerTest {
     void simpleGetterTest(){
         this.game.launchGame();
 
-        this.game.nextRound();
+//        this.game.nextRound();
 
         assertEquals(1, this.game.getPlayer1().getId());
 
@@ -69,9 +69,9 @@ public class PlayerTest {
         Soldier soldier = this.game.getPlayer1().getAllSoldiers().get(0);
         assertTrue(this.game.getPlayer1().getEntities().contains(soldier));
 
-        assertFalse(this.game.getPlayer1().isPlaying());
-        this.game.getPlayer1().setPlaying(true);
         assertTrue(this.game.getPlayer1().isPlaying());
+        this.game.getPlayer1().setPlaying(false);
+        assertFalse(this.game.getPlayer1().isPlaying());
 
         this.game.getPlayer2().decreaseCurrentGold(10);
         assertEquals(90, this.game.getPlayer2().getCurrentGold());
@@ -84,7 +84,7 @@ public class PlayerTest {
     void getBuildingEntitiesTest(){
         this.game.launchGame();
 
-        this.game.nextRound();
+//        this.game.nextRound();
         assertEquals(0, this.game.getPlayer1().getBuildingEntities().size());
         Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
         this.game.addNewNormalTowerPlayer(position,1);
@@ -96,7 +96,7 @@ public class PlayerTest {
     void getAllGoldMinesTest(){
         this.game.launchGame();
 
-        this.game.nextRound();
+//        this.game.nextRound();
         this.game.getPlayer1().increaseCurrentGold(1000);
         assertEquals(0, this.game.getPlayer1().getAllGoldMines().size());
         Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
@@ -110,7 +110,7 @@ public class PlayerTest {
     void getAllSoldiersTest(){
         this.game.launchGame();
 
-        this.game.nextRound();
+//        this.game.nextRound();
         List<Soldier> testList;
         this.game.getPlayer1().increaseCurrentGold(1000);
         this.game.addFastUnit(1);
@@ -123,7 +123,7 @@ public class PlayerTest {
     void getAllTowersTest(){
         this.game.launchGame();
 
-        this.game.nextRound();
+//        this.game.nextRound();
         this.game.getPlayer1().increaseCurrentGold(1000);
         assertEquals(0, this.game.getPlayer1().getAllTowers().size());
         Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
@@ -137,7 +137,7 @@ public class PlayerTest {
     void removeSoldierAtThisPositonTest(){
         this.game.launchGame();
 
-        this.game.nextRound();
+//        this.game.nextRound();
         this.game.getPlayer1().increaseCurrentGold(1000);
         this.game.addFastUnit(1);
         this.game.addFlightUnit(1);
@@ -151,7 +151,7 @@ public class PlayerTest {
     void soldierAtThisPositionsTest(){
         this.game.launchGame();
 
-        this.game.nextRound();
+//        this.game.nextRound();
         this.game.getPlayer1().increaseCurrentGold(1000);
         List<Position> testList = new ArrayList<>();
         testList.add(this.game.getPlayer1().getCastle().getPosition());
@@ -164,7 +164,7 @@ public class PlayerTest {
     void removeHealthPointToSoldierTest(){
         this.game.launchGame();
 
-        this.game.nextRound();
+//        this.game.nextRound();
         this.game.getPlayer1().increaseCurrentGold(1000);
         this.game.addFastUnit(1);
         this.game.getPlayer1().removeHealthPointToSoldier(this.game.getPlayer1().getAllSoldiers().get(0), 10);
@@ -175,7 +175,7 @@ public class PlayerTest {
     void getEntitiesInThisPositionTest(){
         this.game.launchGame();
 
-        this.game.nextRound();
+//        this.game.nextRound();
         this.game.getPlayer1().increaseCurrentGold(1000);
         this.game.addFastUnit(1);
         this.game.addFlightUnit(1);

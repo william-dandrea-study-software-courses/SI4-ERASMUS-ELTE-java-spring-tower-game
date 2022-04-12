@@ -25,7 +25,7 @@ class GameTest {
     CastelSettings castelSettings = new CastelSettings(200, 10);
     GoldSettings goldSettings = new GoldSettings(100, 30, 200, 30);
     MonsterSettings monsterSettings = new MonsterSettings(10, 3);
-    ObstacleSettings obstacleSettings = new ObstacleSettings(2, 3);
+    ObstacleSettings obstacleSettings = new ObstacleSettings(2, 1);
     SoldierMainSettings soldierMainSettings = new SoldierMainSettings();
     FastSoldierSettings fastSoldierSettings = new FastSoldierSettings(50, 30, 5, 2);
     KillerSoldierSettings killerSoldierSettings = new KillerSoldierSettings(50, 40, 5, 5);
@@ -51,7 +51,7 @@ class GameTest {
 
         this.game.launchGame();
 
-        this.game.nextRound();
+//        this.game.nextRound();
 
         this.game.addFastUnit(1);
         Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
@@ -64,10 +64,10 @@ class GameTest {
     @Test
     void increaseTower(){
         this.game.launchGame();
-        this.game.nextRound();
+//        this.game.nextRound();
         Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
         this.game.addNewNormalTowerPlayer(position, 1);
-        assertTrue(this.game.increaseTower(1,this.game.getPlayer1().getCastle().getPosition().getX(),1));
+        assertTrue(this.game.increaseTower(1, this.game.getPlayer1().getCastle().getPosition().getX(),1));
         this.game.getPlayer1().decreaseCurrentGold(75);
         assertFalse(this.game.increaseTower(1,this.game.getPlayer1().getCastle().getPosition().getX(),1));
         assertEquals(12, this.game.deleteTower(1,this.game.getPlayer1().getCastle().getPosition().getX(),1));
@@ -76,17 +76,17 @@ class GameTest {
     @Test
     void deleteTowerTest(){
         this.game.launchGame();
-        this.game.nextRound();
+//        this.game.nextRound();
         Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
         assertEquals(0, this.game.deleteTower(1,1,1));
         this.game.addNewNormalTowerPlayer(position, 1);
-        assertEquals(12, this.game.deleteTower(1,this.game.getPlayer1().getCastle().getPosition().getX(),1));
+        assertEquals(12, this.game.deleteTower(1,position.getX(),1));
     }
 
     @Test
     void addKillerUnit(){
         this.game.launchGame();
-        this.game.nextRound();
+//        this.game.nextRound();
 
         //without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
@@ -96,7 +96,7 @@ class GameTest {
     @Test
     void addFastUnit(){
         this.game.launchGame();
-        this.game.nextRound();
+//        this.game.nextRound();
 
         //without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
@@ -106,7 +106,7 @@ class GameTest {
     @Test
     void addFlightUnitTest(){
         this.game.launchGame();
-        this.game.nextRound();
+//        this.game.nextRound();
 
         //without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
@@ -117,7 +117,7 @@ class GameTest {
     void verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntityTest(){
         this.game.launchGame();
 
-        this.game.nextRound();
+//        this.game.nextRound();
         this.game.getPlayer1().increaseCurrentGold(1000);
         this.game.addFastUnit(1);
 
@@ -136,7 +136,7 @@ class GameTest {
     @Test
     void addGoldMinePlayerTest(){
         this.game.launchGame();
-        this.game.nextRound();
+//        this.game.nextRound();
 
         //Position is good, but without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
@@ -148,7 +148,7 @@ class GameTest {
     @Test
     void addNewFreezeTowerPlayerTest(){
         this.game.launchGame();
-        this.game.nextRound();
+//        this.game.nextRound();
 
         //Position is good, but without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
@@ -160,7 +160,7 @@ class GameTest {
     @Test
     void addNewNormalTowerPlayerTest(){
         this.game.launchGame();
-        this.game.nextRound();
+//        this.game.nextRound();
 
         //Position is good, but without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
@@ -172,7 +172,7 @@ class GameTest {
     @Test
     void addNewSniperTowerPlayerTest(){
         this.game.launchGame();
-        this.game.nextRound();
+//        this.game.nextRound();
 
         //Position is good, but without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
