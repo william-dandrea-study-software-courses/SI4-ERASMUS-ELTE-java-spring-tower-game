@@ -1,3 +1,7 @@
+
+
+
+
 let CURRENT_PLAYER = 1;
 const PLAYER_1_COLOR = "#5970E9";
 const PLAYER_2_COLOR = "#E95962";
@@ -94,7 +98,15 @@ getDatasFromGameEngine().then(() => {
                                         const normalTower = document.getElementById('normal-tower-button');
                                         const freezeTower = document.getElementById('freeze-tower-button');
                                         const sniperTower = document.getElementById('sniper-tower-button');
+                                        const goldMine = document.getElementById('user-button-gold-mine');
 
+
+                                        function actionClickGoldMine(e) {
+                                            addingTower('goldmine', x, y)
+                                            normalTower.removeEventListener("click", actionClickNormalTower);
+                                            freezeTower.removeEventListener("click", actionClickFreezeTower);
+                                            sniperTower.removeEventListener("click", actionClickSniperTower);
+                                        }
 
                                         function actionClickNormalTower(e) {
                                             addingTower('normal', x, y)
@@ -120,6 +132,7 @@ getDatasFromGameEngine().then(() => {
                                         normalTower.addEventListener("click", actionClickNormalTower);
                                         freezeTower.addEventListener("click", actionClickFreezeTower);
                                         sniperTower.addEventListener("click", actionClickSniperTower);
+                                        goldMine.addEventListener("click", actionClickGoldMine);
 
 
                                     } else {
@@ -187,6 +200,7 @@ getDatasFromGameEngine().then(() => {
                     changePlayer()
                     resetBoard(c);
                     drawInit(c);
+                    setHPCastles();
 
                 })
             },
@@ -318,9 +332,15 @@ function addingNewUnit(nameUnit) {
 
 function addingTower(nameTower, x, y) {
 
+    let url = "";
+    if (nameTower === "goldmine") {
+        url = 'http://localhost:8080/manager/add-gold-mine'
+    } else {
+        url = 'http://localhost:8080/manager/add-' + nameTower + '-tower'
+    }
 
     $.ajax({
-        url: 'http://localhost:8080/manager/add-' + nameTower + '-tower',
+        url: url,
         type: 'POST',
         contentType: "application/json",
         async: false,
@@ -378,6 +398,8 @@ async function getDatasFromGameEngine() {
             player2Infos = gameInfos.player2;
             SIZE_ONE_TILE = (canvasSize / SIZE_BOARD)
             CURRENT_PLAYER = gameInfos.player1.playing ? 1 : 2;
+
+            setHPCastles();
 
             if (gameInfos.monsterTurn) {
                 alert("Monsters pop on the board !")
@@ -808,9 +830,14 @@ function initializePrice() {
     document.getElementById('goldmine-price').textContent = gameInfos.settings.goldSettings.priceOfGoldMine + 'GLD'
 
 
+
+}
+
+
+function setHPCastles() {
     const levelCastle1div = document.getElementById("hp-castle-player1");
     const levelCastle2div = document.getElementById("hp-castle-player2");
 
     levelCastle1div.textContent = gameInfos.player1.castle.healthPoint
-    levelCastle2div.textContent = gameInfos.player1.castle.healthPoint
+    levelCastle2div.textContent = gameInfos.player2.castle.healthPoint
 }

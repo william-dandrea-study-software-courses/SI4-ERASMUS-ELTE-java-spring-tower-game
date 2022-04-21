@@ -37,13 +37,56 @@
                 <label for="increase-or-delete-tower">Increase or delete a tower</label><br>
             </div>
 
-            <div>
-                Health Points Castle player 1 : <a id="hp-castle-player1">0</a>HP<br>
-                Health Points Castle player 2 : <a id="hp-castle-player2">0</a>HP
-            </div>
 
 
         </header>
+
+        <section id="description-state-game">
+
+            <div class="description-state-game-players-section">
+                <h3>Player 1</h3>
+                <div class="players-details">
+                    <div class="players-details-desc">
+                        <h4>Number of killer units</h4>
+                    </div>
+
+                    <div class="players-details-desc">
+                        <h4>Number of fast units</h4>
+                    </div>
+
+                    <div class="players-details-desc">
+                        <h4>Number of flight units</h4>
+                    </div>
+
+                    <h4 class="players-details-desc">Castle health point : <a id="hp-castle-player1">0</a> HP </h4>
+
+                </div>
+            </div>
+
+            <div class="description-state-game-players-section">
+                <h3>Player 2</h3>
+                <div class="players-details">
+                    <div class="players-details-desc">
+                        <h4>Number of killer units</h4>
+                    </div>
+
+                    <div class="players-details-desc">
+                        <h4>Number of fast units</h4>
+                    </div>
+
+                    <div class="players-details-desc">
+                        <h4>Number of flight units</h4>
+                    </div>
+
+
+                    <h4 class="players-details-desc">Castle health point : <a id="hp-castle-player2">0</a> HP </h4>
+                </div>
+            </div>
+
+
+
+
+        </section>
 
 
         <section id="game-body">
@@ -125,12 +168,14 @@
                         <div class="units-tower-buttons-price" id="price-SNT">300 GLD</div>
 
                     </div>
+
+                    <div id="user-button-gold-mine" class="units-tower-buttons">
+                        <div class="units-tower-buttons-name"><p>GOLDMINE</p></div>
+                        <div class="units-tower-buttons-price" id="goldmine-price">300 GLD</div>
+                    </div>
+
                 </div>
 
-                <div id="user-button-gold-mine">
-                    <div class="units-tower-buttons-name"><p>GOLDMINE</p></div>
-                    <div class="units-tower-buttons-price" id="goldmine-price">300 GLD</div>
-                </div>
 
                 <button id="next-button" class="main-button">
                     NEXT

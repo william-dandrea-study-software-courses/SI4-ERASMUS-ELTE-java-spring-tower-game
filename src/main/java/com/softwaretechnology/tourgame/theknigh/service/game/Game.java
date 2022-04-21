@@ -94,6 +94,9 @@ public class Game {
         manageKillerSoldier(1);
         manageKillerSoldier(2);
 
+        System.out.println(this.player1.getCastle().getHealthPoint());
+        System.out.println(this.player2.getCastle().getHealthPoint());
+
         return this;
 
     }

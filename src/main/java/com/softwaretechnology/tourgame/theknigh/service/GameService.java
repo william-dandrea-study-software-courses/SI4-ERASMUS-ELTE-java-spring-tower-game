@@ -27,6 +27,7 @@ public class GameService {
 
     private Game game;
     private static GameService instance;
+    private Settings settings;
 
     private GameService() {
         this.game = new Game(setupSettings());
@@ -39,10 +40,9 @@ public class GameService {
         }
         return instance;
     }
-
-
-
-
+    public void launchNewGame() {
+        this.game = new Game(this.settings);
+    }
     public Game getGame() {
         return this.game;
     }
@@ -59,6 +59,7 @@ public class GameService {
      * the settings of the game after changing
      */
     public Settings setSettings(Settings settings) {
+        this.settings = settings;
         this.game = new Game(settings);
         return this.game.getSettings();
     }
@@ -75,7 +76,7 @@ public class GameService {
         CastelSettings castelSettings = new CastelSettings(200, 10);
         GoldSettings goldSettings = new GoldSettings(100, 30, 200, 30);
         MonsterSettings monsterSettings = new MonsterSettings(10, 3);
-        ObstacleSettings obstacleSettings = new ObstacleSettings(2, 3);
+        ObstacleSettings obstacleSettings = new ObstacleSettings(2, 2);
         SoldierMainSettings soldierMainSettings = new SoldierMainSettings();
         FastSoldierSettings fastSoldierSettings = new FastSoldierSettings(50, 30, 5, 2);
         KillerSoldierSettings killerSoldierSettings = new KillerSoldierSettings(50, 40, 5, 5);

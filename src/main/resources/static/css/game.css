@@ -7,7 +7,7 @@
 }
 
 #game-page-header {
-    flex: 1;
+    flex: 0.5;
     display: flex;
     padding: 5px;
     align-items: center;
@@ -114,9 +114,6 @@
 }
 
 #user-button-gold-mine {
-    flex: 1;
-    padding: 20px;
-    margin: 20px;
 
     background: #FFFFFF;
     box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -152,7 +149,7 @@
 .units-tower-buttons {
     flex: 1;
     padding: 5px;
-    margin: 20px;
+    margin: 5px;
 
     display: flex;
     flex-direction: column;
@@ -209,6 +206,8 @@
     color: white;
     text-align: center;
     margin: 0 30px;
+    padding-right: 20px;
+    padding-left: 20px;
     font-size: 14px;
 }
 .units-tower-buttons-price {
@@ -226,6 +225,32 @@ footer {
 }
 
 
+
+#description-state-game {
+    border: 1px solid black;
+    flex: 0.5;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.description-state-game-players-section {
+    flex: 1;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.players-details {
+    flex: 0.2;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.players-details-desc {
+    border: 1px solid red;
+}
 
 
 
