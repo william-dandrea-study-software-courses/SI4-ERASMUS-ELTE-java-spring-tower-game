@@ -24,6 +24,6 @@ public class GamePageController {
 
     @GetMapping(path="/play")
     public String getGamePage(Model model) {
-        return "game";
+        return "gamev2";
     }
 }
