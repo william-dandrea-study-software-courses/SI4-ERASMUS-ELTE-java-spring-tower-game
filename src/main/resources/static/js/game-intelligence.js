@@ -29,29 +29,149 @@ let canvas = document.getElementById('game-canvas');
 
 let currentPlayer = undefined;
 
+let mode = 0;
+
 
 
 function mainLoop() {
 
-    setInfosRound().then(() => {
-        console.log(gameInfos)
+    refreshScreen();
 
-        setupTheBoardAndPlayingUser();
-        console.log(board);
-        drawBoard();
-        setFrontendVariables();
-
-        listenTheCanvasClicks();
-
-    })
+    addUnits();
+    addTowerAndGoldMine();
+    nextButtonHandler();
+    // listenTheCanvasClicks()
+    // listenTheCanvasClicks().then(() => {console.log("Clicked")});
 
     verifyAvailabilityTail(2,2).then(r => {
         console.log(r);
     })
 }
 
+function refreshScreen() {
+    setInfosRound().then(() => {
+        console.log(gameInfos)
+        setupTheBoardAndPlayingUser();
+        drawBoard();
+        setFrontendVariables();
+    })
+}
 
 
+
+/** Add new unit */
+function addUnits() {
+
+    const fastUnitButton = document.getElementById("fast-unit-button");
+    const killerUnitButton = document.getElementById("killer-unit-button");
+    const flightUnitButton = document.getElementById("flight-unit-button");
+
+    killerUnitButton.addEventListener("click", (e) => {
+        APIaddKillerUnit().then(isAdded => {
+            if (isAdded) {
+                alert("Killer Unit added")
+            } else {
+                alert("You cannot add a killer unit")
+            }
+            refreshScreen();
+        })
+    });
+
+    fastUnitButton.addEventListener("click", (e) => {
+        APIaddFastUnit().then(isAdded => {
+            if (isAdded) {
+                alert("Fast Unit added")
+            } else {
+                alert("You cannot add a fast unit")
+            }
+            refreshScreen();
+        })
+    });
+
+    flightUnitButton.addEventListener("click", (e) => {
+        APIaddFlightUnit().then(isAdded => {
+            if (isAdded) {
+                alert("Flight Unit added")
+            } else {
+                alert("You cannot add a flight unit")
+            }
+            refreshScreen();
+        })
+    });
+}
+
+function addTowerAndGoldMine() {
+
+    const freezeTowerButton = document.getElementById("freeze-tower-button");
+    const normalTowerButton = document.getElementById("normal-tower-button");
+    const sniperTowerButton = document.getElementById("sniper-tower-button");
+    const goldMineButton = document.getElementById("gold-mine-button");
+
+
+    function listenerHandler(e, APIFunction) {
+
+        const [xMouse, yMouse] = getCursorPosition(canvas, e)
+
+        board.tiles.forEach(tile => {
+            if (isInTheRectangle(xMouse, yMouse, tile.xTopLeft, tile.yTopLeft, tile.xBottomRight, tile.yBottomRight)) {
+                console.log(tile);
+                APIFunction(tile.positionX, tile.positionY).then((result) => {
+                    if (result)
+                        alert("Entity placed with success");
+                    else
+                        alert("You cannot place the entity")
+                    refreshScreen();
+                });
+            }
+        });
+
+        // canvas.removeEventListener("click", listenerHandler);
+    }
+
+
+    freezeTowerButton.addEventListener("click", (ev) => {
+        alert("Click on a tile");
+        canvas.addEventListener("click", e => listenerHandler(e, APIaddFreezeTower), {once: true})
+    });
+
+    normalTowerButton.addEventListener("click", (ev) => {
+        alert("Click on a tile");
+        canvas.addEventListener("click", e => listenerHandler(e, APIaddNormalTower), {once: true})
+    });
+
+    sniperTowerButton.addEventListener("click", (ev) => {
+        alert("Click on a tile");
+        canvas.addEventListener("click", e => listenerHandler(e, APIaddSniperTower), {once: true})
+    });
+
+    goldMineButton.addEventListener("click", (ev) => {
+        alert("Click on a tile");
+        canvas.addEventListener("click", e => listenerHandler(e, APIaddGoldMine), {once: true})
+    });
+
+}
+
+/** Next button handler */
+function nextButtonHandler() {
+    const nextButton = document.getElementById("next-button");
+
+    nextButton.addEventListener("click", () => {
+        APInextRound().then(() => {
+            refreshScreen();
+
+            if (verifyIfAPlayerWon() === 1) {
+                alert("Player 1 won");
+                window.location.replace("http://localhost:8080/");
+            } else if (verifyIfAPlayerWon() === 2) {
+                alert("Player 2 won");
+                window.location.replace("http://localhost:8080/");
+            }
+        })
+    })
+}
+
+
+/** Set all the  */
 function setFrontendVariables() {
 
     const freezeTowerPrice = document.getElementById("freeze-tower-price");
@@ -107,14 +227,13 @@ function setFrontendVariables() {
     normalTowerPrice.textContent = gameInfos.settings.normalTowerSettings.price + "GLD" ;
     sniperTowerPrice.textContent = gameInfos.settings.sniperTowerSettings.price + "GLD" ;
     goldMinePrice.textContent = gameInfos.settings.goldSettings.priceOfGoldMine + "GLD";
-    fastUnitPrice.textContent = gameInfos.settings.fastSoldierSettings.price + "GLD" + gameInfos.settings.fastSoldierSettings.initialHealthPoints + "HP";
-    killerUnitPrice.textContent = gameInfos.settings.killerSoldierSettings.price + "GLD" + gameInfos.settings.killerSoldierSettings.initialHealthPoints + "HP";
-    flightUnitPrice.textContent = gameInfos.settings.flightSoldierSettings.price + "GLD" + gameInfos.settings.flightSoldierSettings.initialHealthPoints + "HP";
+    fastUnitPrice.textContent = gameInfos.settings.fastSoldierSettings.price + "GLD - " + gameInfos.settings.fastSoldierSettings.initialHealthPoints + "HP";
+    killerUnitPrice.textContent = gameInfos.settings.killerSoldierSettings.price + "GLD - " + gameInfos.settings.killerSoldierSettings.initialHealthPoints + "HP";
+    flightUnitPrice.textContent = gameInfos.settings.flightSoldierSettings.price + "GLD - " + gameInfos.settings.flightSoldierSettings.initialHealthPoints + "HP";
 
 
 
 }
-
 
 /** Draw board **/
 function drawBoard() {
@@ -151,6 +270,7 @@ function drawBoard() {
             tile.isPlayer2SniperTower = true;
 
         if (tile.positionX === 2 && tile.positionY === 3) {
+            tile.isPlayer1Castle = true;
             tile.addPlayer1FastSoldier(30);
             tile.addPlayer2FastSoldier(30);
         }
@@ -264,17 +384,18 @@ function drawBoard() {
 
 /** Listen when someone click on the board and get the tile */
 function listenTheCanvasClicks() {
-    canvas.addEventListener('mousedown', (e) => {
+
+    canvas.addEventListener('click', (e) => {
         const [xMouse, yMouse] = getCursorPosition(canvas, e)
+
 
         board.tiles.forEach(tile => {
             if (isInTheRectangle(xMouse, yMouse, tile.xTopLeft, tile.yTopLeft, tile.xBottomRight, tile.yBottomRight)) {
-                console.log(tile);
+                console.log(tile)
             }
         });
     })
 }
-
 
 
 /** Verify if a player won, return the number of the winner or 0 if any winner */
@@ -430,7 +551,7 @@ function setupTheBoardAndPlayingUser() {
 
 /** Go to the next round and update the gameInfos variable */
 async function APInextRound() {
-    gameInfos = await GETRequest(URL_NEXT_ROUND);
+    gameInfos = await POSTRequest(URL_NEXT_ROUND, "");
 }
 /** Delete the tower from current user at (positionX, positionY) and return a Promise on Integer (number of gold remaining, if fail, 0) */
 async function APIdeleteTower(positionX, positionY) {
