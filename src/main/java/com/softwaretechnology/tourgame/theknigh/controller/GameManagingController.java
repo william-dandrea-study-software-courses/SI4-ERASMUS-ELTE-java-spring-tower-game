@@ -38,6 +38,10 @@ public class GameManagingController {
 
     @GetMapping(path="/game-infos")
     public ResponseEntity<Game> getGameInfos() {
+
+
+
+
         return ResponseEntity.ok(this.gameService.getGame());
     }
 

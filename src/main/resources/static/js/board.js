@@ -664,8 +664,6 @@ function drawInit(canvas) {
         for (let x = 0; x < SIZE_BOARD; x++) {
 
 
-
-
             let isNeededToDrawRect = true;
             const x_top_left = board[y][x].x_top_left - 1
             const y_top_left = board[y][x].y_top_left - 1

@@ -13,6 +13,7 @@ import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.Fre
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.NormalTowerSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.SniperTowerSettings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.TowerMainSettings;
+import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class GameService {
     private Settings settings;
 
     private GameService() {
+
         this.game = new Game(setupSettings());
     }
 

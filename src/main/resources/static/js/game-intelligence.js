@@ -14,13 +14,20 @@ const URL_NEXT_ROUND = 'http://localhost:8080/manager/next-round';
 const PLAYER_1_COLOR = "#5970E9";
 const PLAYER_2_COLOR = "#E95962";
 
+const NORMAL_TOWER_COLOR = "#82DA7B";
+const FREEZE_TOWER_COLOR = "#9CE5DC";
+const SNIPER_TOWER_COLOR = "#ff0013";
+const GOLDMINE_COLOR = "#FFB200";
 
 let gameInfos = {};
-let currentPlayer = 1;
 let currentPlayerColor = PLAYER_1_COLOR;
 
 let board = undefined;
-const CANVA_SIZE = 700;
+const CANVA_SIZE = 500;
+let SIZE_ONE_TILE = 0;
+let canvas = document.getElementById('game-canvas');
+
+let currentPlayer = undefined;
 
 
 
@@ -34,18 +41,180 @@ function mainLoop() {
     setInfosRound().then(() => {
         console.log(gameInfos)
 
-        setupTheBoard();
+        setupTheBoardAndPlayingUser();
         console.log(board);
+        drawBoard();
+
+        listenTheCanvasClicks();
     })
 
-    verifyAvailabilityTail(-1,-1).then(r => {
+    verifyAvailabilityTail(2,2).then(r => {
         console.log(r);
     })
-
 }
 
 
 
+
+
+/** Draw board **/
+function drawBoard() {
+    canvas.setAttribute('width', CANVA_SIZE+'px');
+    canvas.setAttribute('height', CANVA_SIZE+'px');
+    canvas.style.border = "3px solid black";
+
+    let ctx = canvas.getContext('2d')
+    let size = canvas.offsetWidth;
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, size, size);
+
+    board.tiles.forEach(tile => {
+        const x_top_left = tile.xTopLeft - 1
+        const y_top_left = tile.yTopLeft - 1
+        const length = tile.yBottomRight - tile.yTopLeft - 1
+
+        /*
+        if (tile.positionX === 1 && tile.positionY === 1)
+            tile.isPlayer1GoldMine = true;
+        if (tile.positionX === 1 && tile.positionY === 2)
+            tile.isPlayer2GoldMine = true;
+        if (tile.positionX === 1 && tile.positionY === 3)
+            tile.isPlayer1FreezeTower = true;
+        if (tile.positionX === 1 && tile.positionY === 4)
+            tile.isPlayer2FreezeTower = true;
+        if (tile.positionX === 1 && tile.positionY === 5)
+            tile.isPlayer1NormalTower = true;
+        if (tile.positionX === 1 && tile.positionY === 6)
+            tile.isPlayer2NormalTower = true;
+        if (tile.positionX === 2 && tile.positionY === 1)
+            tile.isPlayer1SniperTower = true;
+        if (tile.positionX === 2 && tile.positionY === 2)
+            tile.isPlayer2SniperTower = true;
+
+        if (tile.positionX === 2 && tile.positionY === 3) {
+            tile.addPlayer1FastSoldier(30);
+            tile.addPlayer2FastSoldier(30);
+        }
+
+        if (tile.positionX === 2 && tile.positionY === 4) {
+            tile.addPlayer1FastSoldier(30);
+        }
+
+        if (tile.positionX === 2 && tile.positionY === 5) {
+            tile.addPlayer2FastSoldier(30);
+        } */
+
+
+        ctx.globalCompositeOperation = 'source-over';
+
+        // initial color
+        if (tile.isEmpty) {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(x_top_left, y_top_left, length, length);
+        }
+
+        if (tile.isObstacle) {
+            ctx.fillStyle = 'grey';
+            ctx.fillRect(x_top_left, y_top_left, length, length);
+        }
+
+        if (tile.isPlayer1Castle) {
+            ctx.fillStyle = PLAYER_1_COLOR;
+            ctx.fillRect(x_top_left, y_top_left, length, length);
+        }
+
+        if (tile.isPlayer2Castle) {
+            ctx.fillStyle = PLAYER_2_COLOR;
+            ctx.fillRect(x_top_left, y_top_left, length, length);
+        }
+
+        if (tile.isPlayer1FreezeTower) {
+            ctx.fillStyle = FREEZE_TOWER_COLOR;
+            ctx.fillRect(x_top_left, y_top_left, length, length);
+            ctx.fillStyle = PLAYER_1_COLOR;
+            ctx.fillRect(x_top_left + 20, y_top_left + 20, length-40, length-40);
+        }
+
+        if (tile.isPlayer2FreezeTower) {
+            ctx.fillStyle = FREEZE_TOWER_COLOR;
+            ctx.fillRect(x_top_left, y_top_left, length, length);
+            ctx.fillStyle = PLAYER_2_COLOR;
+            ctx.fillRect(x_top_left + 20, y_top_left + 20, length-40, length-40);
+        }
+
+        if (tile.isPlayer1NormalTower) {
+            ctx.fillStyle = NORMAL_TOWER_COLOR;
+            ctx.fillRect(x_top_left, y_top_left, length, length);
+            ctx.fillStyle = PLAYER_1_COLOR;
+            ctx.fillRect(x_top_left + 20, y_top_left + 20, length-40, length-40);
+        }
+
+        if (tile.isPlayer2NormalTower) {
+            ctx.fillStyle = NORMAL_TOWER_COLOR;
+            ctx.fillRect(x_top_left, y_top_left, length, length);
+            ctx.fillStyle = PLAYER_2_COLOR;
+            ctx.fillRect(x_top_left + 20, y_top_left + 20, length-40, length-40);
+        }
+
+        if (tile.isPlayer1SniperTower) {
+            ctx.fillStyle = SNIPER_TOWER_COLOR;
+            ctx.fillRect(x_top_left, y_top_left, length, length);
+            ctx.fillStyle = PLAYER_1_COLOR;
+            ctx.fillRect(x_top_left + 20, y_top_left + 20, length-40, length-40);
+        }
+
+        if (tile.isPlayer2SniperTower) {
+            ctx.fillStyle = SNIPER_TOWER_COLOR;
+            ctx.fillRect(x_top_left, y_top_left, length, length);
+            ctx.fillStyle = PLAYER_2_COLOR;
+            ctx.fillRect(x_top_left + 20, y_top_left + 20, length-40, length-40);
+        }
+
+        if (tile.isPlayer1GoldMine) {
+            ctx.fillStyle = GOLDMINE_COLOR;
+            ctx.fillRect(x_top_left, y_top_left, length, length);
+            ctx.fillStyle = PLAYER_1_COLOR;
+            ctx.fillRect(x_top_left + 20, y_top_left + 20, length-40, length-40);
+        }
+
+        if (tile.isPlayer2GoldMine) {
+            ctx.fillStyle = GOLDMINE_COLOR;
+            ctx.fillRect(x_top_left, y_top_left, length, length);
+            ctx.fillStyle = PLAYER_2_COLOR;
+            ctx.fillRect(x_top_left + 20, y_top_left + 20, length-40, length-40);
+        }
+
+
+
+        if (tile.player1FastSoldier.length > 0 || tile.player1KillerSoldier.length > 0 || tile.player1FlightSoldier.length > 0) {
+            ctx.beginPath();
+            ctx.fillStyle = PLAYER_1_COLOR;
+            ctx.arc(x_top_left + (SIZE_ONE_TILE/2) , y_top_left + (SIZE_ONE_TILE/2), (SIZE_ONE_TILE/4), 0, Math.PI, true);
+            ctx.fill();
+        }
+
+        if (tile.player2FastSoldier.length > 0 || tile.player2KillerSoldier.length > 0 || tile.player2FlightSoldier.length > 0) {
+            ctx.beginPath();
+            ctx.fillStyle = PLAYER_2_COLOR;
+            ctx.arc(x_top_left + (SIZE_ONE_TILE/2) , y_top_left + (SIZE_ONE_TILE/2), (SIZE_ONE_TILE/4), 0, Math.PI, false);
+            ctx.fill();
+
+        }
+    });
+}
+
+/** Listen when someone click on the board and get the tile */
+function listenTheCanvasClicks() {
+    canvas.addEventListener('mousedown', (e) => {
+        const [xMouse, yMouse] = getCursorPosition(canvas, e)
+
+        board.tiles.forEach(tile => {
+            if (isInTheRectangle(xMouse, yMouse, tile.xTopLeft, tile.yTopLeft, tile.xBottomRight, tile.yBottomRight)) {
+                console.log(tile);
+            }
+        });
+    })
+}
 
 
 
@@ -59,11 +228,17 @@ function verifyIfAPlayerWon() {
 }
 
 /** Setup the board with the informations in the gameInfo */
-function setupTheBoard() {
+function setupTheBoardAndPlayingUser() {
+
+    if (gameInfos.player1.playing)
+        currentPlayer = 1
+    else
+        currentPlayer = 2
 
     board = new Board(gameInfos.board.dimension.width, gameInfos.board.dimension.width);
-
     const square_length = (CANVA_SIZE + 2) / (gameInfos.board.dimension.width);
+
+    SIZE_ONE_TILE = (CANVA_SIZE / gameInfos.board.dimension.width)
 
     // Setup the tiles
     gameInfos.board.tiles.forEach(tileGameInfo => {
@@ -81,6 +256,7 @@ function setupTheBoard() {
         let tileBoard = board.getTileAtPosition(tileObstacle.position.x, tileObstacle.position.y);
         if (tileBoard) {
             tileBoard.isObstacle = true;
+            tileBoard.isEmpty = false;
         }
     });
 
@@ -88,11 +264,13 @@ function setupTheBoard() {
     let tileBoardCastle1 = board.getTileAtPosition(gameInfos.player1.castle.position.x, gameInfos.player1.castle.position.y);
     if (tileBoardCastle1) {
         tileBoardCastle1.isPlayer1Castle = true;
+        tileBoardCastle1.isEmpty = false;
     }
 
     let tileBoardCastle2 = board.getTileAtPosition(gameInfos.player2.castle.position.x, gameInfos.player2.castle.position.y);
     if (tileBoardCastle2) {
         tileBoardCastle2.isPlayer2Castle = true;
+        tileBoardCastle2.isEmpty = false;
     }
 
     // Setup the towers
@@ -102,14 +280,17 @@ function setupTheBoard() {
         if (tileBoard) {
             if (towerGI.name === "freeze_tower_entity") {
                 tileBoard.isPlayer1FreezeTower = true;
+                tileBoard.isEmpty = false;
             }
 
             if (towerGI.name === "normal_tower_entity") {
                 tileBoard.isPlayer1NormalTower = true;
+                tileBoard.isEmpty = false;
             }
 
             if (towerGI.name === "sniper_tower_entity") {
                 tileBoard.isPlayer1SniperTower = true;
+                tileBoard.isEmpty = false;
             }
         }
     });
@@ -120,14 +301,17 @@ function setupTheBoard() {
         if (tileBoard) {
             if (towerGI.name === "freeze_tower_entity") {
                 tileBoard.isPlayer2FreezeTower = true;
+                tileBoard.isEmpty = false;
             }
 
             if (towerGI.name === "normal_tower_entity") {
                 tileBoard.isPlayer2NormalTower = true;
+                tileBoard.isEmpty = false;
             }
 
             if (towerGI.name === "sniper_tower_entity") {
                 tileBoard.isPlayer2SniperTower = true;
+                tileBoard.isEmpty = false;
             }
         }
     });
@@ -138,6 +322,7 @@ function setupTheBoard() {
 
         if (tileBoard) {
             tileBoard.isPlayer1GoldMine = true;
+            tileBoard.isEmpty = false;
         }
     });
     gameInfos.player2.allGoldMines.forEach(goldMineGI => {
@@ -145,6 +330,7 @@ function setupTheBoard() {
 
         if (tileBoard) {
             tileBoard.isPlayer2GoldMine = true;
+            tileBoard.isEmpty = false;
         }
     });
 
@@ -183,51 +369,68 @@ function setupTheBoard() {
 
 }
 
-
 /** Go to the next round and update the gameInfos variable */
-async function nextRound() {
+async function APInextRound() {
     gameInfos = await GETRequest(URL_NEXT_ROUND);
 }
 /** Delete the tower from current user at (positionX, positionY) and return a Promise on Integer (number of gold remaining, if fail, 0) */
-async function deleteTower(positionX, positionY) {
+async function APIdeleteTower(positionX, positionY) {
     return POSTRequest(URL_DELETE_TOWER, positionAndPlayerJSON(positionX, positionY));
 }
 /** Increase the tower from current user at (positionX, positionY) and return a Promise on Boolean (false if fail) */
-async function increaseTower(positionX, positionY) {
+async function APIincreaseTower(positionX, positionY) {
     return POSTRequest(URL_INCREASE_TOWER, positionAndPlayerJSON(positionX, positionY));
 }
 /** Add new killer unit and return a Promise on Boolean (false if fail to add new unit) */
-async function addKillerUnit() {
+async function APIaddKillerUnit() {
     return POSTRequest(URL_ADD_KILLER_UNIT, positionAndPlayerJSON(0, 0));
 }
 /** Add new flight unit and return a Promise on Boolean (false if fail to add new unit) */
-async function addFlightUnit() {
+async function APIaddFlightUnit() {
     return POSTRequest(URL_ADD_FLIGHT_UNIT, positionAndPlayerJSON(0, 0));
 }
 /** Add new fast unit and return a Promise on Boolean (false if fail to add new unit) */
-async function addFastUnit() {
+async function APIaddFastUnit() {
     return POSTRequest(URL_ADD_FAST_UNIT, positionAndPlayerJSON(0, 0));
 }
 /** Add new gold mine and return a Promise on Boolean (false if fail to add new gold mine) */
-async function addGoldMine(positionX, positionY) {
+async function APIaddGoldMine(positionX, positionY) {
     return POSTRequest(URL_ADD_GOLD_MINE, positionAndPlayerJSON(positionX, positionY));
 }
 /** Add new freeze tower and return a Promise on Boolean (false if fail to add new tower) */
-async function addFreezeTower(positionX, positionY) {
+async function APIaddFreezeTower(positionX, positionY) {
     return POSTRequest(URL_ADD_FREEZE_TOWER, positionAndPlayerJSON(positionX, positionY));
 }
 /** Add new sniper tower and return a Promise on Boolean (false if fail to add new tower) */
-async function addSniperTower(positionX, positionY) {
+async function APIaddSniperTower(positionX, positionY) {
     return POSTRequest(URL_ADD_SNIPER_TOWER, positionAndPlayerJSON(positionX, positionY));
 }
 /** Add new normal tower and return a Promise on Boolean (false if fail to add new tower) */
-async function addNormalTower(positionX, positionY) {
+async function APIaddNormalTower(positionX, positionY) {
     return POSTRequest(URL_ADD_NORMAL_TOWER, positionAndPlayerJSON(positionX, positionY));
 }
 /** Update the info round */
 async function setInfosRound() {
     gameInfos = await GETRequest(URL_GAME_INFOS);
 }
+
+/** Get the relative position in the canvas */
+function getCursorPosition(canvas, event) {
+    const rect = canvas.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+    return [x, y]
+}
+/** Watch if the click is situated into a tile */
+function isInTheRectangle(mouseX, mouseY, rectangleXTopLeft, rectangleYTopLeft, rectangleXBottomRight, rectangleYBottomRight) {
+    const cond1 = mouseX >= rectangleXTopLeft;
+    const cond2 = mouseX < rectangleXBottomRight;
+    const cond3 = mouseY >= rectangleYTopLeft;
+    const cond4 = mouseY < rectangleYBottomRight;
+
+    return cond1 && cond2 && cond3 && cond4
+}
+
 /** Verify if the current user can place a building in the (positionX, positionY) tail, return false if he can't*/
 async function verifyAvailabilityTail(positionX, positionY) {
     return POSTRequest(URL_VERIFY_TILE_AVAILABILITY, positionAndPlayerJSON(positionX, positionY));
@@ -292,9 +495,9 @@ class Board {
 
 
 }
-
 class Tile {
 
+    _isEmpty = true;
     _isObstacle = false;
     _isPlayer1NormalTower = false;
     _isPlayer1FreezeTower = false;
@@ -323,6 +526,15 @@ class Tile {
         this.yBottomRight = yBottomRight;
         this.xTopLeft = xTopLeft;
         this.yTopLeft = yTopLeft;
+    }
+
+
+    get isEmpty() {
+        return this._isEmpty;
+    }
+
+    set isEmpty(value) {
+        this._isEmpty = value;
     }
 
     addPlayer1FastSoldier(healthPoint) {
@@ -396,6 +608,79 @@ class Tile {
 
     set numberOfMonsters(value) {
         this._numberOfMonsters = value;
+    }
+
+
+    get isObstacle() {
+        return this._isObstacle;
+    }
+
+    get isPlayer1NormalTower() {
+        return this._isPlayer1NormalTower;
+    }
+
+    get isPlayer1FreezeTower() {
+        return this._isPlayer1FreezeTower;
+    }
+
+    get isPlayer1SniperTower() {
+        return this._isPlayer1SniperTower;
+    }
+
+    get isPlayer2NormalTower() {
+        return this._isPlayer2NormalTower;
+    }
+
+    get isPlayer2FreezeTower() {
+        return this._isPlayer2FreezeTower;
+    }
+
+    get isPlayer2SniperTower() {
+        return this._isPlayer2SniperTower;
+    }
+
+    get isPlayer1Castle() {
+        return this._isPlayer1Castle;
+    }
+
+    get isPlayer2Castle() {
+        return this._isPlayer2Castle;
+    }
+
+    get isPlayer1GoldMine() {
+        return this._isPlayer1GoldMine;
+    }
+
+    get isPlayer2GoldMine() {
+        return this._isPlayer2GoldMine;
+    }
+
+    get player1FastSoldier() {
+        return this._player1FastSoldier;
+    }
+
+    get player1KillerSoldier() {
+        return this._player1KillerSoldier;
+    }
+
+    get player1FlightSoldier() {
+        return this._player1FlightSoldier;
+    }
+
+    get player2FastSoldier() {
+        return this._player2FastSoldier;
+    }
+
+    get player2KillerSoldier() {
+        return this._player2KillerSoldier;
+    }
+
+    get player2FlightSoldier() {
+        return this._player2FlightSoldier;
+    }
+
+    get numberOfMonsters() {
+        return this._numberOfMonsters;
     }
 }
 

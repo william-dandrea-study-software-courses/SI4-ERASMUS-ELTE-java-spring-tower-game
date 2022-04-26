@@ -13,21 +13,151 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <!--    end libs for stomp and sockjs-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css} "/>
 
     <link href="../static/css/style.css" rel="stylesheet" th:href="@{css/style.css}">
     <link href="../static/css/game.css" rel="stylesheet" th:href="@{css/game.css}">
 </head>
 <body>
 
-    bonjour
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Player 1 - 250GLD</div>
+                    <div class="card-body row">
+                        <div class="card col">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Fast Units : 1</li>
+                                <li class="list-group-item">Killer Units : 1</li>
+                                <li class="list-group-item">Flight Units : 1</li>
+                            </ul>
+                        </div>
+
+                        <div class="card col">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Freeze Tower : 1</li>
+                                <li class="list-group-item">Normal Tower : 1</li>
+                                <li class="list-group-item">Sniper Tower : 1</li>
+                            </ul>
+                        </div>
+
+                        <div class="card col">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Total units health point : 100</li>
+                                <li class="list-group-item">Castle Health Points : 200</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Player 2 - 250GLD</div>
+                    <div class="card-body row">
+                        <div class="card col">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Fast Units : 1</li>
+                                <li class="list-group-item">Killer Units : 1</li>
+                                <li class="list-group-item">Flight Units : 1</li>
+                            </ul>
+                        </div>
+
+                        <div class="card col">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Freeze Tower : 1</li>
+                                <li class="list-group-item">Normal Tower : 1</li>
+                                <li class="list-group-item">Sniper Tower : 1</li>
+                            </ul>
+                        </div>
+
+                        <div class="card col">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Total units health point : 100</li>
+                                <li class="list-group-item">Castle Health Points : 200</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <canvas id="game-canvas"></canvas>
+            </div>
+            <div class="col">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col m-1">
+                            <div class="card text-center">
+                                <div class="card-header" style="background-color: #9CE5DC">Freeze tower</div>
+                                <div class="card-img"><img src="../static/ressources/tower/freeze_tower_image.png" th:src="@{ressources/tower/freeze_tower_image.png}" style="object-fit: contain;width: 40px; height: 40px;"  ></div>
+                                <div class="card-body" id="freeze-tower-price">
+                                    200GLD<br>20HP
+                                </div>
+                                <a class="btn btn-primary m-1" id="freeze-tower-button">ADD</a>
+                            </div>
+                        </div>
+                        <div class="col m-1">
+                            <div class="card text-center">
+                                <div class="card-header" style="background-color: #82DA7B">Normal tower</div>
+                                <div class="card-img"><img src="../static/ressources/tower/normal_tower_image.png" th:src="@{ressources/tower/normal_tower_image.png}" style="object-fit: contain;width: 40px; height: 40px;"  ></div>
+                                <div class="card-body" id="normal-tower-price">
+                                    200GLD<br>20HP
+                                </div>
+                                <a class="btn btn-primary m-1" id="normal-tower-button">ADD</a>
+                            </div>
+                        </div>
+                        <div class="col m-1">
+                            <div class="card text-center">
+                                <div class="card-header" style="background-color: #ff0013">Sniper tower</div>
+                                <div class="card-img"><img src="../static/ressources/tower/sniper_tower_image.png" th:src="@{ressources/tower/sniper_tower_image.png}" style="object-fit: contain;width: 40px; height: 40px;"  ></div>
+                                <div class="card-body" id="sniper-tower-price">
+                                    200GLD<br>20HP
+                                </div>
+                                <a class="btn btn-primary m-1" id="sniper-tower-button">ADD</a>
+                            </div>
+                        </div>
+                        <div class="col m-1">
+                            <div class="card text-center">
+                                <div class="card-header" style="background-color: #FFB200">Gold Mine</div>
+                                <div class="card-img"><img src="../static/ressources/coin.png" th:src="@{ressources/coin.png}" style="object-fit: contain;width: 40px; height: 40px;"  ></div>
+                                <div class="card-body" id="gold-mine-price">
+                                    200GLD<br>20HP
+                                </div>
+                                <a class="btn btn-primary m-1" id="gold-mine-button">ADD</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col card m-1">Fast Unit</div>
+                        <div class="col card m-1">Killer Unit</div>
+                        <div class="col card m-1">Flight Unit</div>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-primary col">Next</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <canvas id="game-canvas-monsters-and-units" class="m-1" style="height: 500px; width: 500px;"></canvas>
 
 
     <script src="../static/js/game-intelligence.js" th:src="@{js/game-intelligence.js}"></script>
-
-
-
-
-
+    <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
 </body>
 </html>
 
