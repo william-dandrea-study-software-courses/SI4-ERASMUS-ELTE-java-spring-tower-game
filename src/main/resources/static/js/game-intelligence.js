@@ -29,7 +29,7 @@ let canvas = document.getElementById('game-canvas');
 
 let currentPlayer = undefined;
 
-let mode = 0;
+let informationMode = true;
 
 
 
@@ -40,6 +40,7 @@ function mainLoop() {
     addUnits();
     addTowerAndGoldMine();
     nextButtonHandler();
+    activateInformationCanvasClicks()
     // listenTheCanvasClicks()
     // listenTheCanvasClicks().then(() => {console.log("Clicked")});
 
@@ -114,13 +115,13 @@ function addTowerAndGoldMine() {
 
         board.tiles.forEach(tile => {
             if (isInTheRectangle(xMouse, yMouse, tile.xTopLeft, tile.yTopLeft, tile.xBottomRight, tile.yBottomRight)) {
-                console.log(tile);
                 APIFunction(tile.positionX, tile.positionY).then((result) => {
                     if (result)
                         alert("Entity placed with success");
                     else
                         alert("You cannot place the entity")
                     refreshScreen();
+                    informationMode = true;
                 });
             }
         });
@@ -130,23 +131,28 @@ function addTowerAndGoldMine() {
 
 
     freezeTowerButton.addEventListener("click", (ev) => {
+        informationMode = false;
         alert("Click on a tile");
-        canvas.addEventListener("click", e => listenerHandler(e, APIaddFreezeTower), {once: true})
+        canvas.addEventListener("click", e => listenerHandler(e, APIaddFreezeTower), {once: true});
+
     });
 
     normalTowerButton.addEventListener("click", (ev) => {
+        informationMode = false;
         alert("Click on a tile");
-        canvas.addEventListener("click", e => listenerHandler(e, APIaddNormalTower), {once: true})
+        canvas.addEventListener("click", e => listenerHandler(e, APIaddNormalTower), {once: true});
     });
 
     sniperTowerButton.addEventListener("click", (ev) => {
+        informationMode = false;
         alert("Click on a tile");
-        canvas.addEventListener("click", e => listenerHandler(e, APIaddSniperTower), {once: true})
+        canvas.addEventListener("click", e => listenerHandler(e, APIaddSniperTower), {once: true});
     });
 
     goldMineButton.addEventListener("click", (ev) => {
+        informationMode = false;
         alert("Click on a tile");
-        canvas.addEventListener("click", e => listenerHandler(e, APIaddGoldMine), {once: true})
+        canvas.addEventListener("click", e => listenerHandler(e, APIaddGoldMine), {once: true});
     });
 
 }
@@ -382,20 +388,24 @@ function drawBoard() {
     });
 }
 
-/** Listen when someone click on the board and get the tile */
-function listenTheCanvasClicks() {
 
+/** Activate Listening when someone click on the board for having informations */
+function activateInformationCanvasClicks() {
     canvas.addEventListener('click', (e) => {
-        const [xMouse, yMouse] = getCursorPosition(canvas, e)
 
+        if (informationMode) {
+            const [xMouse, yMouse] = getCursorPosition(canvas, e)
 
-        board.tiles.forEach(tile => {
-            if (isInTheRectangle(xMouse, yMouse, tile.xTopLeft, tile.yTopLeft, tile.xBottomRight, tile.yBottomRight)) {
-                console.log(tile)
-            }
-        });
+            board.tiles.forEach(tile => {
+                if (isInTheRectangle(xMouse, yMouse, tile.xTopLeft, tile.yTopLeft, tile.xBottomRight, tile.yBottomRight)) {
+                    console.log("infos", tile);
+                }
+            });
+        }
     })
 }
+
+
 
 
 /** Verify if a player won, return the number of the winner or 0 if any winner */
