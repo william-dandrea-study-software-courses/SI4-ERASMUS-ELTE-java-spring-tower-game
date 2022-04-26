@@ -1,3 +1,10 @@
+# ⚠️ If you cannot launch the project
+
+- Leave intellij
+- Delete the .idea and the .mvn folder
+- Launch again intellj
+
+
 # Project The Knight
 
 Goal is to create a tower defence game in Java

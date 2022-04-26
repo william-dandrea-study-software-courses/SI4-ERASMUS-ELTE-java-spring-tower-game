@@ -1,0 +1,49 @@
+* {
+
+
+    font-family: "DIN 2014", serif;
+}
+
+
+.main-title {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+
+
+.main-button {
+
+    background: #000000;
+    border: 8px solid #000000;
+    box-sizing: border-box;
+    border-radius: 10px;
+
+    font-style: normal;
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+
+    padding: 20px 200px;
+
+    cursor: pointer;
+}
+
+.text-button {
+    all: unset;
+
+    cursor: pointer;
+
+    color: black;
+    text-decoration: underline;
+    font-size: 18px;
+
+
+}
+
+
