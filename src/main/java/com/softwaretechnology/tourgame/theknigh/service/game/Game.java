@@ -55,8 +55,6 @@ public class Game {
         this.board = new Board(new BoardDimension(this.settings.getGeneralSettings().getLengthBoard(), this.settings.getGeneralSettings().getWidthBoard()), this.setupObstacles());
         this.setupTheCastle();
 
-
-
         this.launchGame();
     }
 
@@ -68,21 +66,6 @@ public class Game {
         // We initialize, the player 1 start first
         this.player1.setPlaying(true);
         this.player2.setPlaying(false);
-
-        /*
-        Position positionCastlePlayer1 = this.player1.getCastle().getPosition();
-        int xP1 = positionCastlePlayer1.getX();
-        int yP1 = positionCastlePlayer1.getY();
-        this.addNewNormalTowerPlayer(new Position(xP1, yP1+1), 1);
-        this.addNewFreezeTowerPlayer(new Position(xP1, yP1+2), 1);
-        this.addNewSniperTowerPlayer(new Position(xP1, yP1+3), 1);
-
-        Position positionCastlePlayer2 = this.player2.getCastle().getPosition();
-        int xP2 = positionCastlePlayer2.getX();
-        int yP2 = positionCastlePlayer2.getY();
-        this.addNewNormalTowerPlayer(new Position(xP2, yP2-1), 1);
-        this.addNewFreezeTowerPlayer(new Position(xP2, yP2-2), 1);
-        this.addNewSniperTowerPlayer(new Position(xP2, yP2-3), 1); */
 
     }
 
@@ -847,6 +830,9 @@ public class Game {
 
         return true;
     }
+
+
+
 
     /**
      * Getting a list of all the building entities including the obstacles

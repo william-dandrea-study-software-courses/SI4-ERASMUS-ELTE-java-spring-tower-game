@@ -24,28 +24,28 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Player 1 - 250GLD</div>
+                    <div class="card-header" style="background-color: #5970E9">Player 1<a id="player-1-is-playing"></a></div>
                     <div class="card-body row">
                         <div class="card col">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Fast Units : 1</li>
-                                <li class="list-group-item">Killer Units : 1</li>
-                                <li class="list-group-item">Flight Units : 1</li>
+                                <li class="list-group-item">Fast Units : <a id="numbers-fast-unit-player-1">0</a></li>
+                                <li class="list-group-item">Killer Units : <a id="numbers-killer-unit-player-1">0</a></li>
+                                <li class="list-group-item">Flight Units : <a id="numbers-flight-unit-player-1">0</a></li>
                             </ul>
                         </div>
 
                         <div class="card col">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Freeze Tower : 1</li>
-                                <li class="list-group-item">Normal Tower : 1</li>
-                                <li class="list-group-item">Sniper Tower : 1</li>
+                                <li class="list-group-item">Freeze Tower : <a id="numbers-freeze-tower-player-1">0</a></li>
+                                <li class="list-group-item">Normal Tower : <a id="numbers-normal-tower-player-1">0</a></li>
+                                <li class="list-group-item">Sniper Tower : <a id="numbers-sniper-tower-player-1">0</a></li>
                             </ul>
                         </div>
 
                         <div class="card col">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Total units health point : 100</li>
-                                <li class="list-group-item">Castle Health Points : 200</li>
+                                <li class="list-group-item">Total units health point : <a id="hp-player-1">0</a></li>
+                                <li class="list-group-item">Castle Health Points : <a id="castle-hp-player-1">0</a></li>
                             </ul>
                         </div>
                     </div>
@@ -53,28 +53,28 @@
             </div>
             <div class="col">
                 <div class="card">
-                    <div class="card-header">Player 2 - 250GLD</div>
+                    <div class="card-header" style="background-color: #E95962">Player 2<a id="player-2-is-playing"></a></div>
                     <div class="card-body row">
                         <div class="card col">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Fast Units : 1</li>
-                                <li class="list-group-item">Killer Units : 1</li>
-                                <li class="list-group-item">Flight Units : 1</li>
+                                <li class="list-group-item">Fast Units : <a id="numbers-fast-unit-player-2">0</a></li>
+                                <li class="list-group-item">Killer Units : <a id="numbers-killer-unit-player-2">0</a></li>
+                                <li class="list-group-item">Flight Units : <a id="numbers-flight-unit-player-2">0</a></li>
                             </ul>
                         </div>
 
                         <div class="card col">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Freeze Tower : 1</li>
-                                <li class="list-group-item">Normal Tower : 1</li>
-                                <li class="list-group-item">Sniper Tower : 1</li>
+                                <li class="list-group-item">Freeze Tower : <a id="numbers-freeze-tower-player-2">0</a></li>
+                                <li class="list-group-item">Normal Tower : <a id="numbers-normal-tower-player-2">0</a></li>
+                                <li class="list-group-item">Sniper Tower : <a id="numbers-sniper-tower-player-2">0</a></li>
                             </ul>
                         </div>
 
                         <div class="card col">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Total units health point : 100</li>
-                                <li class="list-group-item">Castle Health Points : 200</li>
+                                <li class="list-group-item">Total units health point : <a id="hp-player-2">0</a></li>
+                                <li class="list-group-item">Castle Health Points : <a id="castle-hp-player-2">0</a></li>
                             </ul>
                         </div>
                     </div>
@@ -90,9 +90,9 @@
             </div>
             <div class="col">
 
-                <div class="container">
+                <div class="container" style="margin-top: 20px;">
                     <div class="row">
-                        <div class="col m-1">
+                        <div class="col" style="margin-right: 10px">
                             <div class="card text-center">
                                 <div class="card-header" style="background-color: #9CE5DC">Freeze tower</div>
                                 <div class="card-img"><img src="../static/ressources/tower/freeze_tower_image.png" th:src="@{ressources/tower/freeze_tower_image.png}" style="object-fit: contain;width: 40px; height: 40px;"  ></div>
@@ -102,7 +102,7 @@
                                 <a class="btn btn-primary m-1" id="freeze-tower-button">ADD</a>
                             </div>
                         </div>
-                        <div class="col m-1">
+                        <div class="col" style="margin-right: 10px">
                             <div class="card text-center">
                                 <div class="card-header" style="background-color: #82DA7B">Normal tower</div>
                                 <div class="card-img"><img src="../static/ressources/tower/normal_tower_image.png" th:src="@{ressources/tower/normal_tower_image.png}" style="object-fit: contain;width: 40px; height: 40px;"  ></div>
@@ -112,7 +112,7 @@
                                 <a class="btn btn-primary m-1" id="normal-tower-button">ADD</a>
                             </div>
                         </div>
-                        <div class="col m-1">
+                        <div class="col" style="margin-right: 10px">
                             <div class="card text-center">
                                 <div class="card-header" style="background-color: #ff0013">Sniper tower</div>
                                 <div class="card-img"><img src="../static/ressources/tower/sniper_tower_image.png" th:src="@{ressources/tower/sniper_tower_image.png}" style="object-fit: contain;width: 40px; height: 40px;"  ></div>
@@ -122,7 +122,7 @@
                                 <a class="btn btn-primary m-1" id="sniper-tower-button">ADD</a>
                             </div>
                         </div>
-                        <div class="col m-1">
+                        <div class="col">
                             <div class="card text-center">
                                 <div class="card-header" style="background-color: #FFB200">Gold Mine</div>
                                 <div class="card-img"><img src="../static/ressources/coin.png" th:src="@{ressources/coin.png}" style="object-fit: contain;width: 40px; height: 40px;"  ></div>
@@ -134,9 +134,36 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col card m-1">Fast Unit</div>
-                        <div class="col card m-1">Killer Unit</div>
-                        <div class="col card m-1">Flight Unit</div>
+                        <div class="col m-1">
+                            <div class="card text-center">
+                                <div class="card-header" >Fast Unit</div>
+                                <div class="card-img"><img src="../static/ressources/unit/fast_unit_image.png" th:src="@{ressources/unit/fast_unit_image.png}" style="object-fit: contain;width: 40px; height: 40px;"  ></div>
+                                <div class="card-body" id="fast-unit-price">
+                                    200GLD<br>20HP
+                                </div>
+                                <a class="btn btn-primary m-1" id="fast-unit-button">ADD</a>
+                            </div>
+                        </div>
+                        <div class="col m-1">
+                            <div class="card text-center">
+                                <div class="card-header" >Killer Unit</div>
+                                <div class="card-img"><img src="../static/ressources/unit/killer_unit_image.jpg" th:src="@{ressources/unit/killer_unit_image.jpg}" style="object-fit: contain;width: 40px; height: 40px;"  ></div>
+                                <div class="card-body" id="killer-unit-price">
+                                    200GLD<br>20HP
+                                </div>
+                                <a class="btn btn-primary m-1" id="killer-unit-button">ADD</a>
+                            </div>
+                        </div>
+                        <div class="col m-1">
+                            <div class="card text-center">
+                                <div class="card-header" >Flight Unit</div>
+                                <div class="card-img"><img src="../static/ressources/unit/flight_unit_image.png" th:src="@{ressources/unit/flight_unit_image.png}" style="object-fit: contain;width: 40px; height: 40px;"  ></div>
+                                <div class="card-body" id="flight-unit-price">
+                                    200GLD<br>20HP
+                                </div>
+                                <a class="btn btn-primary m-1" id="flight-unit-button">ADD</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <button class="btn btn-primary col">Next</button>

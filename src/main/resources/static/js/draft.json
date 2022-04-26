@@ -673,41 +673,6 @@
     "obstacles": [
       {
         "position": {
-          "x": 1,
-          "y": 4
-        },
-        "name": "obstacle_entity"
-      },
-      {
-        "position": {
-          "x": 0,
-          "y": 5
-        },
-        "name": "obstacle_entity"
-      },
-      {
-        "position": {
-          "x": 1,
-          "y": 5
-        },
-        "name": "obstacle_entity"
-      },
-      {
-        "position": {
-          "x": 2,
-          "y": 5
-        },
-        "name": "obstacle_entity"
-      },
-      {
-        "position": {
-          "x": 1,
-          "y": 6
-        },
-        "name": "obstacle_entity"
-      },
-      {
-        "position": {
           "x": 6,
           "y": 4
         },
@@ -740,6 +705,41 @@
           "y": 6
         },
         "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 1,
+          "y": 4
+        },
+        "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 0,
+          "y": 5
+        },
+        "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 1,
+          "y": 5
+        },
+        "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 2,
+          "y": 5
+        },
+        "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 1,
+          "y": 6
+        },
+        "name": "obstacle_entity"
       }
     ]
   },
@@ -755,34 +755,118 @@
       "healthPoint": 200
     },
     "entities": [],
+    "playing": true,
+    "allFreezeTowers": [],
+    "allNormalTowers": [],
+    "allSniperTowers": [],
+    "allKillerSoldiers": [],
+    "allFlightSoldiers": [],
+    "allFastSoldiers": [],
     "allSoldiers": [],
     "allTowers": [],
     "allGoldMines": [],
-    "buildingEntities": [],
-    "playing": true
+    "buildingEntities": []
   },
   "player2": {
     "id": 1,
     "currentGold": 100,
     "castle": {
       "position": {
-        "x": 4,
+        "x": 8,
         "y": 9
       },
       "name": "castle_entity",
       "healthPoint": 200
     },
     "entities": [],
+    "playing": false,
+    "allFreezeTowers": [],
+    "allNormalTowers": [],
+    "allSniperTowers": [],
+    "allKillerSoldiers": [],
+    "allFlightSoldiers": [],
+    "allFastSoldiers": [],
     "allSoldiers": [],
     "allTowers": [],
     "allGoldMines": [],
-    "buildingEntities": [],
-    "playing": false
+    "buildingEntities": []
   },
   "isPlayer1Won": false,
   "isPlayer2Won": false,
   "round": 0,
   "soldiersAreFreezeUntilTheRound": [],
+  "allBuildingEntities": [
+    {
+      "position": {
+        "x": 6,
+        "y": 4
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 7,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 6
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 4
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 0,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 2,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 6
+      },
+      "name": "obstacle_entity"
+    }
+  ],
   "monsterTurn": false,
   "allFreePositions": [
     {
@@ -1184,78 +1268,6 @@
     {
       "x": 9,
       "y": 9
-    }
-  ],
-  "allBuildingEntities": [
-    {
-      "position": {
-        "x": 1,
-        "y": 4
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 0,
-        "y": 5
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 1,
-        "y": 5
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 2,
-        "y": 5
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 1,
-        "y": 6
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 6,
-        "y": 4
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 5,
-        "y": 5
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 6,
-        "y": 5
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 7,
-        "y": 5
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 6,
-        "y": 6
-      },
-      "name": "obstacle_entity"
     }
   ]
 }

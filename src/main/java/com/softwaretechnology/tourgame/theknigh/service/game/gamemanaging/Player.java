@@ -5,7 +5,13 @@ import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.game
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.PlayerEntity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.BuildingEntity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.goldmines.GoldMine;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.FreezeTower;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.NormalTower;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.SniperTower;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.Tower;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.FastSoldier;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.FlightSoldier;
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.KillerSoldier;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.Soldier;
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 
@@ -119,6 +125,86 @@ public class Player {
 
         return towers;
     }
+
+
+    public List<FreezeTower> getAllFreezeTowers() {
+
+        List<FreezeTower> towers =  new ArrayList<>();
+
+        for (Entity e : getAllTowers()) {
+            if (e instanceof FreezeTower) {
+                towers.add((FreezeTower) e);
+            }
+        }
+
+        return towers;
+    }
+
+    public List<NormalTower> getAllNormalTowers() {
+
+        List<NormalTower> towers =  new ArrayList<>();
+
+        for (Entity e : getAllTowers()) {
+            if (e instanceof NormalTower) {
+                towers.add((NormalTower) e);
+            }
+        }
+
+        return towers;
+    }
+
+    public List<SniperTower> getAllSniperTowers() {
+
+        List<SniperTower> towers =  new ArrayList<>();
+
+        for (Entity e : getAllTowers()) {
+            if (e instanceof SniperTower) {
+                towers.add((SniperTower) e);
+            }
+        }
+
+        return towers;
+    }
+
+    public List<KillerSoldier> getAllKillerSoldiers() {
+
+        List<KillerSoldier> soldiers =  new ArrayList<>();
+
+        for (Entity e : getAllSoldiers()) {
+            if (e instanceof KillerSoldier) {
+                soldiers.add((KillerSoldier) e);
+            }
+        }
+
+        return soldiers;
+    }
+
+    public List<FlightSoldier> getAllFlightSoldiers() {
+
+        List<FlightSoldier> soldiers =  new ArrayList<>();
+
+        for (Entity e : getAllSoldiers()) {
+            if (e instanceof FlightSoldier) {
+                soldiers.add((FlightSoldier) e);
+            }
+        }
+
+        return soldiers;
+    }
+
+    public List<FastSoldier> getAllFastSoldiers() {
+
+        List<FastSoldier> soldiers =  new ArrayList<>();
+
+        for (Entity e : getAllSoldiers()) {
+            if (e instanceof FastSoldier) {
+                soldiers.add((FastSoldier) e);
+            }
+        }
+
+        return soldiers;
+    }
+
 
 
 

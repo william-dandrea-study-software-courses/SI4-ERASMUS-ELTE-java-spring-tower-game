@@ -31,11 +31,6 @@ let currentPlayer = undefined;
 
 
 
-
-
-
-
-
 function mainLoop() {
 
     setInfosRound().then(() => {
@@ -44,8 +39,10 @@ function mainLoop() {
         setupTheBoardAndPlayingUser();
         console.log(board);
         drawBoard();
+        setFrontendVariables();
 
         listenTheCanvasClicks();
+
     })
 
     verifyAvailabilityTail(2,2).then(r => {
@@ -55,6 +52,68 @@ function mainLoop() {
 
 
 
+function setFrontendVariables() {
+
+    const freezeTowerPrice = document.getElementById("freeze-tower-price");
+    const normalTowerPrice = document.getElementById("normal-tower-price");
+    const sniperTowerPrice = document.getElementById("sniper-tower-price");
+    const goldMinePrice = document.getElementById("gold-mine-price");
+    const fastUnitPrice = document.getElementById("fast-unit-price");
+    const killerUnitPrice = document.getElementById("killer-unit-price");
+    const flightUnitPrice = document.getElementById("flight-unit-price");
+
+
+    const numbers_fast_unit_player_1 = document.getElementById("numbers-fast-unit-player-1");
+    const numbers_killer_unit_player_1 = document.getElementById("numbers-killer-unit-player-1");
+    const numbers_flight_unit_player_1 = document.getElementById("numbers-flight-unit-player-1");
+    const numbers_freeze_tower_player_1 = document.getElementById("numbers-freeze-tower-player-1");
+    const numbers_normal_tower_player_1 = document.getElementById("numbers-normal-tower-player-1");
+    const numbers_sniper_tower_player_1 = document.getElementById("numbers-sniper-tower-player-1");
+    const hp_player_1 = document.getElementById("hp-player-1");
+    const castle_hp_player_1 = document.getElementById("castle-hp-player-1");
+    const is_playing_player_1 = document.getElementById("player-1-is-playing");
+
+    const numbers_fast_unit_player_2 = document.getElementById("numbers-fast-unit-player-2");
+    const numbers_killer_unit_player_2 = document.getElementById("numbers-killer-unit-player-2");
+    const numbers_flight_unit_player_2 = document.getElementById("numbers-flight-unit-player-2");
+    const numbers_freeze_tower_player_2 = document.getElementById("numbers-freeze-tower-player-2");
+    const numbers_normal_tower_player_2 = document.getElementById("numbers-normal-tower-player-2");
+    const numbers_sniper_tower_player_2 = document.getElementById("numbers-sniper-tower-player-2");
+    const hp_player_2 = document.getElementById("hp-player-2");
+    const castle_hp_player_2 = document.getElementById("castle-hp-player-2");
+    const is_playing_player_2 = document.getElementById("player-2-is-playing");
+
+    numbers_fast_unit_player_1.textContent = gameInfos.player1.allFastSoldiers.length;
+    numbers_killer_unit_player_1.textContent = gameInfos.player1.allKillerSoldiers.length;
+    numbers_flight_unit_player_1.textContent = gameInfos.player1.allFlightSoldiers.length;
+    numbers_freeze_tower_player_1.textContent = gameInfos.player1.allFreezeTowers.length;
+    numbers_normal_tower_player_1.textContent = gameInfos.player1.allNormalTowers.length;
+    numbers_sniper_tower_player_1.textContent = gameInfos.player1.allSniperTowers.length;
+    hp_player_1.textContent = gameInfos.player1.currentGold;
+    castle_hp_player_1.textContent = gameInfos.player1.castle.healthPoint;
+    is_playing_player_1.textContent = gameInfos.player1.playing ? " - CURRENT PLAYER" : "";
+
+    numbers_fast_unit_player_2.textContent = gameInfos.player2.allFastSoldiers.length;
+    numbers_killer_unit_player_2.textContent = gameInfos.player2.allKillerSoldiers.length;
+    numbers_flight_unit_player_2.textContent = gameInfos.player2.allFlightSoldiers.length;
+    numbers_freeze_tower_player_2.textContent = gameInfos.player2.allFreezeTowers.length;
+    numbers_normal_tower_player_2.textContent = gameInfos.player2.allNormalTowers.length;
+    numbers_sniper_tower_player_2.textContent = gameInfos.player2.allSniperTowers.length;
+    hp_player_2.textContent = gameInfos.player2.currentGold;
+    castle_hp_player_2.textContent = gameInfos.player2.castle.healthPoint;
+    is_playing_player_2.textContent = gameInfos.player2.playing ? " - CURRENT PLAYER" : "";
+
+    freezeTowerPrice.textContent = gameInfos.settings.freezeTowerSettings.price + "GLD" ;
+    normalTowerPrice.textContent = gameInfos.settings.normalTowerSettings.price + "GLD" ;
+    sniperTowerPrice.textContent = gameInfos.settings.sniperTowerSettings.price + "GLD" ;
+    goldMinePrice.textContent = gameInfos.settings.goldSettings.priceOfGoldMine + "GLD";
+    fastUnitPrice.textContent = gameInfos.settings.fastSoldierSettings.price + "GLD" + gameInfos.settings.fastSoldierSettings.initialHealthPoints + "HP";
+    killerUnitPrice.textContent = gameInfos.settings.killerSoldierSettings.price + "GLD" + gameInfos.settings.killerSoldierSettings.initialHealthPoints + "HP";
+    flightUnitPrice.textContent = gameInfos.settings.flightSoldierSettings.price + "GLD" + gameInfos.settings.flightSoldierSettings.initialHealthPoints + "HP";
+
+
+
+}
 
 
 /** Draw board **/
