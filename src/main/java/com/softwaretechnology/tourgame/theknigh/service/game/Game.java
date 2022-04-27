@@ -540,18 +540,19 @@ public class Game {
         } else {
             player = player2;
         }
+        if(isPlaceAvailable(position)){
+            if (player.getCurrentGold() >= this.settings.getGoldSettings().getPriceOfGoldMine()) {
+                GoldMine goldMine = new GoldMine(position, this.settings.getGoldSettings());
+                player.getEntities().add(goldMine);
 
-        if (player.getCurrentGold() >= this.settings.getGoldSettings().getPriceOfGoldMine()) {
-            GoldMine goldMine = new GoldMine(position, this.settings.getGoldSettings());
-            player.getEntities().add(goldMine);
-
-            if (this.verifyIfPathBetween2Castles()) {
-                if (verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(position)) {
-                    player.decreaseCurrentGold(this.settings.getGoldSettings().getPriceOfGoldMine());
-                    return true;
+                if (this.verifyIfPathBetween2Castles()) {
+                    if (verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(position)) {
+                        player.decreaseCurrentGold(this.settings.getGoldSettings().getPriceOfGoldMine());
+                        return true;
+                    }
                 }
+                player.getEntities().remove(goldMine);
             }
-            player.getEntities().remove(goldMine);
         }
         return false;
     }
@@ -573,18 +574,21 @@ public class Game {
             player = player2;
         }
 
-        if (player.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
-            Tower tower = new FreezeTower(position, this.settings.getFreezeTowerSettings());
-            player.getEntities().add(tower);
+        if (canPlayerPutNewEntityAtThePosition(position, indexPlayer)){
+            if (player.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
+                Tower tower = new FreezeTower(position, this.settings.getFreezeTowerSettings());
+                player.getEntities().add(tower);
 
-            if (this.verifyIfPathBetween2Castles()) {
-                if (verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(position)) {
-                    player.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
-                    return true;
+                if (this.verifyIfPathBetween2Castles()) {
+                    if (verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(position)) {
+                        player.decreaseCurrentGold(this.settings.getFreezeTowerSettings().getPrice());
+                        return true;
+                    }
                 }
+                player.getEntities().remove(tower);
             }
-            player.getEntities().remove(tower);
         }
+
         return false;
     }
 
@@ -605,18 +609,21 @@ public class Game {
             player = player2;
         }
 
-        if (player.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
-            Tower tower = new NormalTower(position, this.settings.getNormalTowerSettings());
-            player.getEntities().add(tower);
+        if (canPlayerPutNewEntityAtThePosition(position, indexPlayer)){
+            if (player.getCurrentGold() >= this.settings.getFreezeTowerSettings().getPrice()) {
+                Tower tower = new NormalTower(position, this.settings.getNormalTowerSettings());
+                player.getEntities().add(tower);
 
-            if (this.verifyIfPathBetween2Castles()) {
-                if (verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(position)) {
-                    player.decreaseCurrentGold(this.settings.getNormalTowerSettings().getPrice());
-                    return true;
+                if (this.verifyIfPathBetween2Castles()) {
+                    if (verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(position)) {
+                        player.decreaseCurrentGold(this.settings.getNormalTowerSettings().getPrice());
+                        return true;
+                    }
                 }
+                player.getEntities().remove(tower);
             }
-            player.getEntities().remove(tower);
         }
+
         return false;
     }
 
@@ -637,19 +644,22 @@ public class Game {
             player = player2;
         }
 
-        if (player.getCurrentGold() >= this.settings.getSniperTowerSettings().getPrice()) {
-            Tower tower = new SniperTower(position, this.settings.getSniperTowerSettings());
-            player.getEntities().add(tower);
+        if (canPlayerPutNewEntityAtThePosition(position, indexPlayer)){
+            if (player.getCurrentGold() >= this.settings.getSniperTowerSettings().getPrice()) {
+                Tower tower = new SniperTower(position, this.settings.getSniperTowerSettings());
+                player.getEntities().add(tower);
 
-            if (this.verifyIfPathBetween2Castles()) {
+                if (this.verifyIfPathBetween2Castles()) {
 
-                if (verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(position)) {
-                    player.decreaseCurrentGold(this.settings.getSniperTowerSettings().getPrice());
-                    return true;
+                    if (verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntity(position)) {
+                        player.decreaseCurrentGold(this.settings.getSniperTowerSettings().getPrice());
+                        return true;
+                    }
                 }
+                player.getEntities().remove(tower);
             }
-            player.getEntities().remove(tower);
         }
+
         return false;
     }
 
@@ -664,10 +674,13 @@ public class Game {
      */
     public boolean canPlayerPutNewEntityAtThePosition(Position position, int indexPlayer) {
         Player player = null;
+        Player enemy = null;
         if (indexPlayer == 1) {
-            player = player1;
+            player = this.player1;
+            enemy = this.player2;
         } else {
-            player = player2;
+            player = this.player2;
+            enemy = this.player1;
         }
 
         int radius = settings.getGeneralSettings().getRadiusToPlaceBuilding();
@@ -675,11 +688,18 @@ public class Game {
         if (isPlaceAvailable(position)) {
             Position castlePosition = player.getCastle().getPosition();
             List<Position> positionsAvailable = (new Radius(radius, castlePosition.getX(), castlePosition.getY())).getPositions();
-
-
             for (Entity entity : player.getBuildingEntities()) {
                 positionsAvailable.addAll((new Radius(radius, entity.getPosition().getX(), entity.getPosition().getY())).getPositions());
             }
+
+            //cannot build in 2 square vicinity of the enemy towers or castle
+            Position EnemyCastlePosition = enemy.getCastle().getPosition();
+            List<Position> positionsNotAvailable = (new Radius(radius, EnemyCastlePosition.getX(), EnemyCastlePosition.getY())).getPositions();
+            for (Entity entity : enemy.getBuildingEntities()) {
+                positionsNotAvailable.addAll((new Radius(radius, entity.getPosition().getX(), entity.getPosition().getY())).getPositions());
+            }
+
+            positionsAvailable.removeAll(positionsNotAvailable);
 
             return positionsAvailable.contains(position);
         }
