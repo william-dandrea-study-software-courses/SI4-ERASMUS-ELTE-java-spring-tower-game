@@ -46,6 +46,7 @@ public class Game {
     private boolean isPlayer2Won = false;
 
     private boolean isMonsterTurn = false;
+    private List<Entity> monsters = new ArrayList<>();
 
     private int round = 0;
     private List<FreezeSoldierInTheGame> soldiersAreFreezeUntilTheRound = new ArrayList<>();
@@ -54,7 +55,6 @@ public class Game {
         this.settings = settings;
         this.board = new Board(new BoardDimension(this.settings.getGeneralSettings().getLengthBoard(), this.settings.getGeneralSettings().getWidthBoard()), this.setupObstacles());
         this.setupTheCastle();
-
 
         this.launchGame();
     }
@@ -67,8 +67,12 @@ public class Game {
         // We initialize, the player 1 start first
         this.player1.setPlaying(true);
         this.player2.setPlaying(false);
+
     }
 
+    public Board getBoard() {
+        return board;
+    }
 
     /**
      * Processing the behaviors of all the units on the board,
@@ -94,8 +98,7 @@ public class Game {
         manageKillerSoldier(1);
         manageKillerSoldier(2);
 
-        System.out.println(this.player1.getCastle().getHealthPoint());
-        System.out.println(this.player2.getCastle().getHealthPoint());
+
 
         return this;
 
@@ -153,7 +156,7 @@ public class Game {
             Collections.shuffle(allFreePositions);
 
             for (int i = 0; i < this.settings.getMonsterSettings().getPoppingMonsterAtEachNRounds(); i++) {
-
+                this.monsters.add(new Monster(allFreePositions.get(i)));
                 List<Soldier> player1UnitsAtThisPosition = player1.getEntitiesInThisPosition(allFreePositions.get(i));
                 List<Soldier> player2UnitsAtThisPosition = player2.getEntitiesInThisPosition(allFreePositions.get(i));
 
@@ -166,10 +169,11 @@ public class Game {
             }
         } else {
             this.isMonsterTurn = false;
+            this.monsters = new ArrayList<>();
         }
-
-
     }
+
+
 
     /**
      * This method remove health point to the soldier if there are in the area of a tower
@@ -273,13 +277,13 @@ public class Game {
                 List<Position> pathSoldier = path.stream().limit(soldier.getNumberOfMoveAtEachRound()).collect(Collectors.toList());
 
                 if (pathSoldier.contains(player2.getCastle().getPosition())) {
-                    System.out.println("Chateau atteint !");
+
                     soldier.setPosition(player2.getCastle().getPosition());
 
                     this.player2.getCastle().removeHealthPoint(this.settings.getCastelSettings().getHealthPointsRemovedWhenSoldierReachCastle());
 
                     if (this.player2.getCastle().getHealthPoint() <= 0) {
-                        System.out.println("Player 1 won");
+
                         isPlayer1Won = true;
                     }
                 } else {
@@ -299,13 +303,13 @@ public class Game {
                 List<Position> pathSoldier = path.stream().limit(soldier.getNumberOfMoveAtEachRound()).collect(Collectors.toList());
 
                 if (pathSoldier.contains(player1.getCastle().getPosition())) {
-                    System.out.println("Chateau atteint !");
+
                     soldier.setPosition(player1.getCastle().getPosition());
 
                     this.player1.getCastle().removeHealthPoint(this.settings.getCastelSettings().getHealthPointsRemovedWhenSoldierReachCastle());
 
                     if (this.player1.getCastle().getHealthPoint() <= 0) {
-                        System.out.println("Player 2 won");
+
                         isPlayer2Won = true;
                     }
                 } else {
@@ -828,6 +832,9 @@ public class Game {
         return true;
     }
 
+
+
+
     /**
      * Getting a list of all the building entities including the obstacles
      * @return
@@ -909,5 +916,9 @@ public class Game {
 
     public boolean isMonsterTurn() {
         return isMonsterTurn;
+    }
+
+    public List<Entity> getMonsters() {
+        return monsters;
     }
 }

@@ -1,0 +1,1345 @@
+{
+  "settings": {
+    "generalSettings": {
+      "widthBoard": 10,
+      "lengthBoard": 10,
+      "radiusToPlaceBuilding": 3,
+      "ennemyForbiddenRadiusForBuilding": 2
+    },
+    "castelSettings": {
+      "initialHealthPoints": 200,
+      "healthPointsRemovedWhenSoldierReachCastle": 10
+    },
+    "goldSettings": {
+      "initialAmountOfGold": 100,
+      "addedGoldAtEachRound": 30,
+      "priceOfGoldMine": 200,
+      "addedGoldAtEachRoundWithGoldMine": 30
+    },
+    "monsterSettings": {
+      "poppingMonsterAtEachNRounds": 10,
+      "roundsFrequencyOfPopping": 3
+    },
+    "obstacleSettings": {
+      "numberOfObstacles": 2,
+      "radiusOfObstacles": 2
+    },
+    "soldierMainSettings": {
+      "anything": 0
+    },
+    "fastSoldierSettings": {
+      "price": 50,
+      "initialHealthPoints": 30,
+      "numberOfMovesAtEachRound": 5,
+      "numberOfTileHeCanJump": 2
+    },
+    "flightSoldierSettings": {
+      "price": 30,
+      "initialHealthPoints": 20,
+      "numberOfMovesAtEachRound": 5
+    },
+    "killerSoldierSettings": {
+      "price": 50,
+      "initialHealthPoints": 40,
+      "numberOfMovesAtEachRound": 5,
+      "damagesInflictedToOtherSoldiers": 5
+    },
+    "towerMainSettings": {
+      "anything": 0
+    },
+    "freezeTowerSettings": {
+      "price": 30,
+      "shootingRange": 3,
+      "numberOfRoundsWhereTheSoldierInTheAreaAreFreeze": 1
+    },
+    "normalTowerSettings": {
+      "price": 25,
+      "shootingRange": 3,
+      "numberOfSimultaneousStrikes": 3
+    },
+    "sniperTowerSettings": {
+      "price": 50,
+      "shootingRange": 5,
+      "numberOfSimultaneousStrikes": 2
+    }
+  },
+  "board": {
+    "dimension": {
+      "length": 10,
+      "width": 10
+    },
+    "tiles": [
+      {
+        "position": {
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "position": {
+          "x": 1,
+          "y": 0
+        }
+      },
+      {
+        "position": {
+          "x": 2,
+          "y": 0
+        }
+      },
+      {
+        "position": {
+          "x": 3,
+          "y": 0
+        }
+      },
+      {
+        "position": {
+          "x": 4,
+          "y": 0
+        }
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 0
+        }
+      },
+      {
+        "position": {
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "position": {
+          "x": 7,
+          "y": 0
+        }
+      },
+      {
+        "position": {
+          "x": 8,
+          "y": 0
+        }
+      },
+      {
+        "position": {
+          "x": 9,
+          "y": 0
+        }
+      },
+      {
+        "position": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "position": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      {
+        "position": {
+          "x": 2,
+          "y": 1
+        }
+      },
+      {
+        "position": {
+          "x": 3,
+          "y": 1
+        }
+      },
+      {
+        "position": {
+          "x": 4,
+          "y": 1
+        }
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 1
+        }
+      },
+      {
+        "position": {
+          "x": 6,
+          "y": 1
+        }
+      },
+      {
+        "position": {
+          "x": 7,
+          "y": 1
+        }
+      },
+      {
+        "position": {
+          "x": 8,
+          "y": 1
+        }
+      },
+      {
+        "position": {
+          "x": 9,
+          "y": 1
+        }
+      },
+      {
+        "position": {
+          "x": 0,
+          "y": 2
+        }
+      },
+      {
+        "position": {
+          "x": 1,
+          "y": 2
+        }
+      },
+      {
+        "position": {
+          "x": 2,
+          "y": 2
+        }
+      },
+      {
+        "position": {
+          "x": 3,
+          "y": 2
+        }
+      },
+      {
+        "position": {
+          "x": 4,
+          "y": 2
+        }
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 2
+        }
+      },
+      {
+        "position": {
+          "x": 6,
+          "y": 2
+        }
+      },
+      {
+        "position": {
+          "x": 7,
+          "y": 2
+        }
+      },
+      {
+        "position": {
+          "x": 8,
+          "y": 2
+        }
+      },
+      {
+        "position": {
+          "x": 9,
+          "y": 2
+        }
+      },
+      {
+        "position": {
+          "x": 0,
+          "y": 3
+        }
+      },
+      {
+        "position": {
+          "x": 1,
+          "y": 3
+        }
+      },
+      {
+        "position": {
+          "x": 2,
+          "y": 3
+        }
+      },
+      {
+        "position": {
+          "x": 3,
+          "y": 3
+        }
+      },
+      {
+        "position": {
+          "x": 4,
+          "y": 3
+        }
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 3
+        }
+      },
+      {
+        "position": {
+          "x": 6,
+          "y": 3
+        }
+      },
+      {
+        "position": {
+          "x": 7,
+          "y": 3
+        }
+      },
+      {
+        "position": {
+          "x": 8,
+          "y": 3
+        }
+      },
+      {
+        "position": {
+          "x": 9,
+          "y": 3
+        }
+      },
+      {
+        "position": {
+          "x": 0,
+          "y": 4
+        }
+      },
+      {
+        "position": {
+          "x": 1,
+          "y": 4
+        }
+      },
+      {
+        "position": {
+          "x": 2,
+          "y": 4
+        }
+      },
+      {
+        "position": {
+          "x": 3,
+          "y": 4
+        }
+      },
+      {
+        "position": {
+          "x": 4,
+          "y": 4
+        }
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 4
+        }
+      },
+      {
+        "position": {
+          "x": 6,
+          "y": 4
+        }
+      },
+      {
+        "position": {
+          "x": 7,
+          "y": 4
+        }
+      },
+      {
+        "position": {
+          "x": 8,
+          "y": 4
+        }
+      },
+      {
+        "position": {
+          "x": 9,
+          "y": 4
+        }
+      },
+      {
+        "position": {
+          "x": 0,
+          "y": 5
+        }
+      },
+      {
+        "position": {
+          "x": 1,
+          "y": 5
+        }
+      },
+      {
+        "position": {
+          "x": 2,
+          "y": 5
+        }
+      },
+      {
+        "position": {
+          "x": 3,
+          "y": 5
+        }
+      },
+      {
+        "position": {
+          "x": 4,
+          "y": 5
+        }
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 5
+        }
+      },
+      {
+        "position": {
+          "x": 6,
+          "y": 5
+        }
+      },
+      {
+        "position": {
+          "x": 7,
+          "y": 5
+        }
+      },
+      {
+        "position": {
+          "x": 8,
+          "y": 5
+        }
+      },
+      {
+        "position": {
+          "x": 9,
+          "y": 5
+        }
+      },
+      {
+        "position": {
+          "x": 0,
+          "y": 6
+        }
+      },
+      {
+        "position": {
+          "x": 1,
+          "y": 6
+        }
+      },
+      {
+        "position": {
+          "x": 2,
+          "y": 6
+        }
+      },
+      {
+        "position": {
+          "x": 3,
+          "y": 6
+        }
+      },
+      {
+        "position": {
+          "x": 4,
+          "y": 6
+        }
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 6
+        }
+      },
+      {
+        "position": {
+          "x": 6,
+          "y": 6
+        }
+      },
+      {
+        "position": {
+          "x": 7,
+          "y": 6
+        }
+      },
+      {
+        "position": {
+          "x": 8,
+          "y": 6
+        }
+      },
+      {
+        "position": {
+          "x": 9,
+          "y": 6
+        }
+      },
+      {
+        "position": {
+          "x": 0,
+          "y": 7
+        }
+      },
+      {
+        "position": {
+          "x": 1,
+          "y": 7
+        }
+      },
+      {
+        "position": {
+          "x": 2,
+          "y": 7
+        }
+      },
+      {
+        "position": {
+          "x": 3,
+          "y": 7
+        }
+      },
+      {
+        "position": {
+          "x": 4,
+          "y": 7
+        }
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 7
+        }
+      },
+      {
+        "position": {
+          "x": 6,
+          "y": 7
+        }
+      },
+      {
+        "position": {
+          "x": 7,
+          "y": 7
+        }
+      },
+      {
+        "position": {
+          "x": 8,
+          "y": 7
+        }
+      },
+      {
+        "position": {
+          "x": 9,
+          "y": 7
+        }
+      },
+      {
+        "position": {
+          "x": 0,
+          "y": 8
+        }
+      },
+      {
+        "position": {
+          "x": 1,
+          "y": 8
+        }
+      },
+      {
+        "position": {
+          "x": 2,
+          "y": 8
+        }
+      },
+      {
+        "position": {
+          "x": 3,
+          "y": 8
+        }
+      },
+      {
+        "position": {
+          "x": 4,
+          "y": 8
+        }
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 8
+        }
+      },
+      {
+        "position": {
+          "x": 6,
+          "y": 8
+        }
+      },
+      {
+        "position": {
+          "x": 7,
+          "y": 8
+        }
+      },
+      {
+        "position": {
+          "x": 8,
+          "y": 8
+        }
+      },
+      {
+        "position": {
+          "x": 9,
+          "y": 8
+        }
+      },
+      {
+        "position": {
+          "x": 0,
+          "y": 9
+        }
+      },
+      {
+        "position": {
+          "x": 1,
+          "y": 9
+        }
+      },
+      {
+        "position": {
+          "x": 2,
+          "y": 9
+        }
+      },
+      {
+        "position": {
+          "x": 3,
+          "y": 9
+        }
+      },
+      {
+        "position": {
+          "x": 4,
+          "y": 9
+        }
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 9
+        }
+      },
+      {
+        "position": {
+          "x": 6,
+          "y": 9
+        }
+      },
+      {
+        "position": {
+          "x": 7,
+          "y": 9
+        }
+      },
+      {
+        "position": {
+          "x": 8,
+          "y": 9
+        }
+      },
+      {
+        "position": {
+          "x": 9,
+          "y": 9
+        }
+      }
+    ],
+    "obstacles": [
+      {
+        "position": {
+          "x": 6,
+          "y": 4
+        },
+        "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 5
+        },
+        "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 6,
+          "y": 5
+        },
+        "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 7,
+          "y": 5
+        },
+        "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 6,
+          "y": 6
+        },
+        "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 4
+        },
+        "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 4,
+          "y": 5
+        },
+        "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 5
+        },
+        "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 6,
+          "y": 5
+        },
+        "name": "obstacle_entity"
+      },
+      {
+        "position": {
+          "x": 5,
+          "y": 6
+        },
+        "name": "obstacle_entity"
+      }
+    ]
+  },
+  "player1": {
+    "id": 1,
+    "currentGold": 130,
+    "castle": {
+      "position": {
+        "x": 4,
+        "y": 0
+      },
+      "name": "castle_entity",
+      "healthPoint": 200
+    },
+    "entities": [],
+    "allSoldiers": [],
+    "allTowers": [],
+    "allGoldMines": [],
+    "buildingEntities": [],
+    "allFreezeTowers": [],
+    "allNormalTowers": [],
+    "allSniperTowers": [],
+    "allKillerSoldiers": [],
+    "allFlightSoldiers": [],
+    "allFastSoldiers": [],
+    "playing": false
+  },
+  "player2": {
+    "id": 1,
+    "currentGold": 130,
+    "castle": {
+      "position": {
+        "x": 0,
+        "y": 9
+      },
+      "name": "castle_entity",
+      "healthPoint": 200
+    },
+    "entities": [],
+    "allSoldiers": [],
+    "allTowers": [],
+    "allGoldMines": [],
+    "buildingEntities": [],
+    "allFreezeTowers": [],
+    "allNormalTowers": [],
+    "allSniperTowers": [],
+    "allKillerSoldiers": [],
+    "allFlightSoldiers": [],
+    "allFastSoldiers": [],
+    "playing": true
+  },
+  "isPlayer1Won": false,
+  "isPlayer2Won": false,
+  "monsters": [
+    {
+      "position": {
+        "x": 6,
+        "y": 0
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 6
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 8,
+        "y": 8
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 8
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 1
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 9,
+        "y": 7
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 2
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 2
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 7
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 4
+      },
+      "name": "monster_entity"
+    }
+  ],
+  "round": 3,
+  "soldiersAreFreezeUntilTheRound": [],
+  "monsterTurn": true,
+  "allFreePositions": [
+    {
+      "x": 0,
+      "y": 0
+    },
+    {
+      "x": 1,
+      "y": 0
+    },
+    {
+      "x": 2,
+      "y": 0
+    },
+    {
+      "x": 3,
+      "y": 0
+    },
+    {
+      "x": 4,
+      "y": 0
+    },
+    {
+      "x": 5,
+      "y": 0
+    },
+    {
+      "x": 6,
+      "y": 0
+    },
+    {
+      "x": 7,
+      "y": 0
+    },
+    {
+      "x": 8,
+      "y": 0
+    },
+    {
+      "x": 9,
+      "y": 0
+    },
+    {
+      "x": 0,
+      "y": 1
+    },
+    {
+      "x": 1,
+      "y": 1
+    },
+    {
+      "x": 2,
+      "y": 1
+    },
+    {
+      "x": 3,
+      "y": 1
+    },
+    {
+      "x": 4,
+      "y": 1
+    },
+    {
+      "x": 5,
+      "y": 1
+    },
+    {
+      "x": 6,
+      "y": 1
+    },
+    {
+      "x": 7,
+      "y": 1
+    },
+    {
+      "x": 8,
+      "y": 1
+    },
+    {
+      "x": 9,
+      "y": 1
+    },
+    {
+      "x": 0,
+      "y": 2
+    },
+    {
+      "x": 1,
+      "y": 2
+    },
+    {
+      "x": 2,
+      "y": 2
+    },
+    {
+      "x": 3,
+      "y": 2
+    },
+    {
+      "x": 4,
+      "y": 2
+    },
+    {
+      "x": 5,
+      "y": 2
+    },
+    {
+      "x": 6,
+      "y": 2
+    },
+    {
+      "x": 7,
+      "y": 2
+    },
+    {
+      "x": 8,
+      "y": 2
+    },
+    {
+      "x": 9,
+      "y": 2
+    },
+    {
+      "x": 0,
+      "y": 3
+    },
+    {
+      "x": 1,
+      "y": 3
+    },
+    {
+      "x": 2,
+      "y": 3
+    },
+    {
+      "x": 3,
+      "y": 3
+    },
+    {
+      "x": 4,
+      "y": 3
+    },
+    {
+      "x": 5,
+      "y": 3
+    },
+    {
+      "x": 6,
+      "y": 3
+    },
+    {
+      "x": 7,
+      "y": 3
+    },
+    {
+      "x": 8,
+      "y": 3
+    },
+    {
+      "x": 9,
+      "y": 3
+    },
+    {
+      "x": 0,
+      "y": 4
+    },
+    {
+      "x": 1,
+      "y": 4
+    },
+    {
+      "x": 2,
+      "y": 4
+    },
+    {
+      "x": 3,
+      "y": 4
+    },
+    {
+      "x": 4,
+      "y": 4
+    },
+    {
+      "x": 5,
+      "y": 4
+    },
+    {
+      "x": 6,
+      "y": 4
+    },
+    {
+      "x": 7,
+      "y": 4
+    },
+    {
+      "x": 8,
+      "y": 4
+    },
+    {
+      "x": 9,
+      "y": 4
+    },
+    {
+      "x": 0,
+      "y": 5
+    },
+    {
+      "x": 1,
+      "y": 5
+    },
+    {
+      "x": 2,
+      "y": 5
+    },
+    {
+      "x": 3,
+      "y": 5
+    },
+    {
+      "x": 4,
+      "y": 5
+    },
+    {
+      "x": 5,
+      "y": 5
+    },
+    {
+      "x": 6,
+      "y": 5
+    },
+    {
+      "x": 7,
+      "y": 5
+    },
+    {
+      "x": 8,
+      "y": 5
+    },
+    {
+      "x": 9,
+      "y": 5
+    },
+    {
+      "x": 0,
+      "y": 6
+    },
+    {
+      "x": 1,
+      "y": 6
+    },
+    {
+      "x": 2,
+      "y": 6
+    },
+    {
+      "x": 3,
+      "y": 6
+    },
+    {
+      "x": 4,
+      "y": 6
+    },
+    {
+      "x": 5,
+      "y": 6
+    },
+    {
+      "x": 6,
+      "y": 6
+    },
+    {
+      "x": 7,
+      "y": 6
+    },
+    {
+      "x": 8,
+      "y": 6
+    },
+    {
+      "x": 9,
+      "y": 6
+    },
+    {
+      "x": 0,
+      "y": 7
+    },
+    {
+      "x": 1,
+      "y": 7
+    },
+    {
+      "x": 2,
+      "y": 7
+    },
+    {
+      "x": 3,
+      "y": 7
+    },
+    {
+      "x": 4,
+      "y": 7
+    },
+    {
+      "x": 5,
+      "y": 7
+    },
+    {
+      "x": 6,
+      "y": 7
+    },
+    {
+      "x": 7,
+      "y": 7
+    },
+    {
+      "x": 8,
+      "y": 7
+    },
+    {
+      "x": 9,
+      "y": 7
+    },
+    {
+      "x": 0,
+      "y": 8
+    },
+    {
+      "x": 1,
+      "y": 8
+    },
+    {
+      "x": 2,
+      "y": 8
+    },
+    {
+      "x": 3,
+      "y": 8
+    },
+    {
+      "x": 4,
+      "y": 8
+    },
+    {
+      "x": 5,
+      "y": 8
+    },
+    {
+      "x": 6,
+      "y": 8
+    },
+    {
+      "x": 7,
+      "y": 8
+    },
+    {
+      "x": 8,
+      "y": 8
+    },
+    {
+      "x": 9,
+      "y": 8
+    },
+    {
+      "x": 0,
+      "y": 9
+    },
+    {
+      "x": 1,
+      "y": 9
+    },
+    {
+      "x": 2,
+      "y": 9
+    },
+    {
+      "x": 3,
+      "y": 9
+    },
+    {
+      "x": 4,
+      "y": 9
+    },
+    {
+      "x": 5,
+      "y": 9
+    },
+    {
+      "x": 6,
+      "y": 9
+    },
+    {
+      "x": 7,
+      "y": 9
+    },
+    {
+      "x": 8,
+      "y": 9
+    },
+    {
+      "x": 9,
+      "y": 9
+    }
+  ],
+  "allBuildingEntities": [
+    {
+      "position": {
+        "x": 6,
+        "y": 4
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 7,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 6
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 4
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 6
+      },
+      "name": "obstacle_entity"
+    }
+  ]
+}
