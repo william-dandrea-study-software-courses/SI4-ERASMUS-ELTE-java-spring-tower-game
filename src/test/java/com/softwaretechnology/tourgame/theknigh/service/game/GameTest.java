@@ -1,5 +1,6 @@
 package com.softwaretechnology.tourgame.theknigh.service.game;
 
+import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.Entity;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.Settings;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.game.*;
 import com.softwaretechnology.tourgame.theknigh.service.game.settings.soldiers.FastSoldierSettings;
@@ -13,6 +14,9 @@ import com.softwaretechnology.tourgame.theknigh.service.game.settings.towers.Tow
 import com.softwaretechnology.tourgame.theknigh.service.game.utils.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -195,18 +199,22 @@ class GameTest {
 
         assertEquals(this.game.getBoard().getObstacles(), this.game.getAllBuildingEntities());
     }
-//    @Test
-//    void getAllFreePositionsTest(){
-//        this.game.launchGame();
-//
-//        this.game.nextRound();
-//        List<Position> allBuildingsPositions = this.game.getAllBuildingEntities().stream().map(Entity::getPosition).collect(Collectors.toList());
-//        List<Position> allFreePositions = this.game.getAllFreePositions();
-//
-//        for(Position pos: allBuildingsPositions){
-//            assertTrue(allFreePositions.contains(pos));
-//        }
-//    }
+
+
+    @Test
+    void getAllFreePositionsTest(){
+        this.game.launchGame();
+
+        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
+        assertTrue(this.game.addNewSniperTowerPlayer(position,1));
+
+        List<Position> allBuildingsPositions = this.game.getAllBuildingEntities().stream().map(Entity::getPosition).collect(Collectors.toList());
+        List<Position> allFreePositions = this.game.getAllFreePositions();
+        System.out.println(allFreePositions.size());
+        for(Position pos: allBuildingsPositions){
+            assertFalse(allFreePositions.contains(pos));
+        }
+    }
 
 
 }

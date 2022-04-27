@@ -866,9 +866,10 @@ public class Game {
         List<Position> allBuildingEntitiesP = allBuildingEntities.stream().map(Entity::getPosition).collect(Collectors.toList());
 
         List<Position> allPositions = this.board.getTiles().stream().map(Tile::getPosition).collect(Collectors.toList());
-        allPositions.addAll(allBuildingEntitiesP);
-
-        return allPositions.stream().distinct().collect(Collectors.toList());
+//        allPositions.addAll(allBuildingEntitiesP);
+        allPositions.removeAll(allBuildingEntitiesP);
+//        return allPositions.stream().distinct().collect(Collectors.toList());
+        return allPositions;
     }
 
     /**
