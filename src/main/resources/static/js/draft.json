@@ -708,35 +708,35 @@
       },
       {
         "position": {
-          "x": 1,
+          "x": 5,
           "y": 4
         },
         "name": "obstacle_entity"
       },
       {
         "position": {
-          "x": 0,
+          "x": 4,
           "y": 5
         },
         "name": "obstacle_entity"
       },
       {
         "position": {
-          "x": 1,
+          "x": 5,
           "y": 5
         },
         "name": "obstacle_entity"
       },
       {
         "position": {
-          "x": 2,
+          "x": 6,
           "y": 5
         },
         "name": "obstacle_entity"
       },
       {
         "position": {
-          "x": 1,
+          "x": 5,
           "y": 6
         },
         "name": "obstacle_entity"
@@ -745,129 +745,129 @@
   },
   "player1": {
     "id": 1,
-    "currentGold": 100,
+    "currentGold": 130,
     "castle": {
       "position": {
-        "x": 5,
+        "x": 4,
         "y": 0
       },
       "name": "castle_entity",
       "healthPoint": 200
     },
     "entities": [],
-    "playing": true,
+    "allSoldiers": [],
+    "allTowers": [],
+    "allGoldMines": [],
+    "buildingEntities": [],
     "allFreezeTowers": [],
     "allNormalTowers": [],
     "allSniperTowers": [],
     "allKillerSoldiers": [],
     "allFlightSoldiers": [],
     "allFastSoldiers": [],
-    "allSoldiers": [],
-    "allTowers": [],
-    "allGoldMines": [],
-    "buildingEntities": []
+    "playing": false
   },
   "player2": {
     "id": 1,
-    "currentGold": 100,
+    "currentGold": 130,
     "castle": {
       "position": {
-        "x": 8,
+        "x": 0,
         "y": 9
       },
       "name": "castle_entity",
       "healthPoint": 200
     },
     "entities": [],
-    "playing": false,
+    "allSoldiers": [],
+    "allTowers": [],
+    "allGoldMines": [],
+    "buildingEntities": [],
     "allFreezeTowers": [],
     "allNormalTowers": [],
     "allSniperTowers": [],
     "allKillerSoldiers": [],
     "allFlightSoldiers": [],
     "allFastSoldiers": [],
-    "allSoldiers": [],
-    "allTowers": [],
-    "allGoldMines": [],
-    "buildingEntities": []
+    "playing": true
   },
   "isPlayer1Won": false,
   "isPlayer2Won": false,
-  "round": 0,
-  "soldiersAreFreezeUntilTheRound": [],
-  "allBuildingEntities": [
+  "monsters": [
     {
       "position": {
         "x": 6,
-        "y": 4
+        "y": 0
       },
-      "name": "obstacle_entity"
+      "name": "monster_entity"
     },
     {
       "position": {
         "x": 5,
-        "y": 5
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 6,
-        "y": 5
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 7,
-        "y": 5
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 6,
         "y": 6
       },
-      "name": "obstacle_entity"
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 8,
+        "y": 8
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 1,
+        "y": 8
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 1
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 9,
+        "y": 7
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 3,
+        "y": 2
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 2
+      },
+      "name": "monster_entity"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 7
+      },
+      "name": "monster_entity"
     },
     {
       "position": {
         "x": 1,
         "y": 4
       },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 0,
-        "y": 5
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 1,
-        "y": 5
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 2,
-        "y": 5
-      },
-      "name": "obstacle_entity"
-    },
-    {
-      "position": {
-        "x": 1,
-        "y": 6
-      },
-      "name": "obstacle_entity"
+      "name": "monster_entity"
     }
   ],
-  "monsterTurn": false,
+  "round": 3,
+  "soldiersAreFreezeUntilTheRound": [],
+  "monsterTurn": true,
   "allFreePositions": [
     {
       "x": 0,
@@ -1268,6 +1268,78 @@
     {
       "x": 9,
       "y": 9
+    }
+  ],
+  "allBuildingEntities": [
+    {
+      "position": {
+        "x": 6,
+        "y": 4
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 7,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 6
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 4
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 4,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 6,
+        "y": 5
+      },
+      "name": "obstacle_entity"
+    },
+    {
+      "position": {
+        "x": 5,
+        "y": 6
+      },
+      "name": "obstacle_entity"
     }
   ]
 }

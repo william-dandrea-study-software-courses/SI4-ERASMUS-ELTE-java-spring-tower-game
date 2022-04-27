@@ -31,6 +31,8 @@ let currentPlayer = undefined;
 
 let informationMode = true;
 
+let modalWrap = null;
+
 
 
 function mainLoop() {
@@ -164,6 +166,10 @@ function nextButtonHandler() {
     nextButton.addEventListener("click", () => {
         APInextRound().then(() => {
             refreshScreen();
+
+            if (gameInfos.monsterTurn) {
+                alert("Monsters pop on the map!");
+            }
 
             if (verifyIfAPlayerWon() === 1) {
                 alert("Player 1 won");
@@ -369,6 +375,11 @@ function drawBoard() {
             ctx.fillRect(x_top_left + 20, y_top_left + 20, length-40, length-40);
         }
 
+        if (tile.numberOfMonsters > 0) {
+            ctx.fillStyle = "#7fd46e";
+            ctx.fillRect(x_top_left + 20, y_top_left + 20, length-40, length-40);
+        }
+
 
 
         if (tile.player1FastSoldier.length > 0 || tile.player1KillerSoldier.length > 0 || tile.player1FlightSoldier.length > 0) {
@@ -383,14 +394,19 @@ function drawBoard() {
             ctx.fillStyle = PLAYER_2_COLOR;
             ctx.arc(x_top_left + (SIZE_ONE_TILE/2) , y_top_left + (SIZE_ONE_TILE/2), (SIZE_ONE_TILE/4), 0, Math.PI, false);
             ctx.fill();
-
         }
+
+
+
     });
 }
 
 
 /** Activate Listening when someone click on the board for having informations */
 function activateInformationCanvasClicks() {
+
+    const md = document.getElementById("exampleModal");
+
     canvas.addEventListener('click', (e) => {
 
         if (informationMode) {
@@ -399,6 +415,7 @@ function activateInformationCanvasClicks() {
             board.tiles.forEach(tile => {
                 if (isInTheRectangle(xMouse, yMouse, tile.xTopLeft, tile.yTopLeft, tile.xBottomRight, tile.yBottomRight)) {
                     console.log("infos", tile);
+                    showModal(tile, () => console.log("Success"));
                 }
             });
         }
@@ -555,6 +572,13 @@ function setupTheBoardAndPlayingUser() {
         }
     });
 
+    gameInfos.monsters.forEach(monsterGI => {
+        let tileBoard = board.getTileAtPosition(monsterGI.position.x, monsterGI.position.y);
+
+        if (tileBoard) {
+            tileBoard.addMonster();
+        }
+    });
 
 
 }
@@ -664,6 +688,174 @@ async function GETRequest(url) {
 }
 
 
+
+const showModal = (tile, callback) => {
+    if (modalWrap !== null) {
+        modalWrap.remove();
+    }
+
+    modalWrap = document.createElement('div');
+
+    let desc = "";
+    if (tile.isEmpty)
+        desc += "No building entities on this tile";
+    if (tile.isObstacle)
+        desc += "This tile is an obstacle";
+    if (tile.isPlayer1NormalTower)
+        desc += "Player 1 Normal Tower";
+    if (tile.isPlayer2NormalTower)
+        desc += "Player 2 Normal Tower";
+    if (tile.isPlayer1FreezeTower)
+        desc += "Player 1 Freeze Tower";
+    if (tile.isPlayer2FreezeTower)
+        desc += "Player 2 Freeze Tower";
+    if (tile.isPlayer1SniperTower)
+        desc += "Player 1 Sniper Tower";
+    if (tile.isPlayer2SniperTower)
+        desc += "Player 2 Sniper Tower";
+    if (tile.isPlayer1GoldMine)
+        desc += "Player 1 Gold Mine";
+    if (tile.isPlayer2GoldMine)
+        desc += "Player 2 Gold Mine";
+
+    desc += "<br>Player 1 fast soldiers lifes : " + tile.player1FastSoldier;
+    desc += "<br>Player 1 flight soldiers lifes : " + tile.player1FlightSoldier;
+    desc += "<br>Player 1 killer soldiers lifes : " + tile.player1KillerSoldier;
+    desc += "<br>Player 2 fast soldiers lifes : " + tile.player2FastSoldier;
+    desc += "<br>Player 2 flight soldiers lifes : " + tile.player2FlightSoldier;
+    desc += "<br>Player 2 killer soldiers lifes : " + tile.player2KillerSoldier;
+
+    desc += "<br>Number of monsters on this tile : " + tile.numberOfMonsters;
+
+    let buttons = ""
+
+    if ((tile.isPlayer1NormalTower || tile.isPlayer1FreezeTower || tile.isPlayer1SniperTower) && currentPlayer === 1) {
+        buttons = `
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="player-1-increase-tower">Increase Tower</button>
+            <button type="button" class="btn btn-primary modal-success-btn" data-bs-dismiss="modal" id="player-1-delete-tower">Delete Tower</button>
+        `
+    }
+
+    if ((tile.isPlayer2NormalTower || tile.isPlayer2FreezeTower || tile.isPlayer2SniperTower) && currentPlayer === 2) {
+        buttons = `
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="player-2-increase-tower">Increase Tower</button>
+            <button type="button" class="btn btn-primary modal-success-btn" data-bs-dismiss="modal" id="player-2-delete-tower">Delete Tower</button>
+        `
+
+
+    }
+
+
+    modalWrap.innerHTML = `
+    <div class="modal fade" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-light">
+            <h5 class="modal-title">Tile : x = ${tile.positionX} & y = ${tile.positionY}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ${desc}
+          </div>
+          <div class="modal-footer bg-light">
+            ${buttons}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+
+
+    // modalWrap.querySelector('.modal-success-btn').onclick = callback;
+
+    document.body.append(modalWrap);
+    var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
+
+
+    if ((tile.isPlayer1NormalTower || tile.isPlayer1FreezeTower || tile.isPlayer1SniperTower) && currentPlayer === 1) {
+        const increaseTowerPlayer1 = document.getElementById("player-1-increase-tower");
+        const deleteTowerPlayer1 = document.getElementById("player-1-delete-tower");
+
+        function increaseTowerPlayer1Handler(e) {
+            APIincreaseTower(tile.positionX, tile.positionY).then((result) => {
+                if (result){
+                    refreshScreen();
+                    alert("Tower increased");
+                }
+                else {
+                    refreshScreen();
+                    alert("You cannot increase this tower")
+                }
+            })
+
+
+            deleteTowerPlayer1.removeEventListener("click", deleteTowerPlayer1Handler)
+        }
+
+        function deleteTowerPlayer1Handler(e) {
+            APIdeleteTower(tile.positionX, tile.positionY).then((result) => {
+                if (result){
+                    refreshScreen();
+                    alert("Tower deleted");
+                }
+                else {
+                    refreshScreen();
+                    alert("You cannot delete this tower")
+                }
+            })
+
+            increaseTowerPlayer1.removeEventListener("click", increaseTowerPlayer1Handler)
+        }
+
+        increaseTowerPlayer1.addEventListener("click", increaseTowerPlayer1Handler, {once: true});
+        deleteTowerPlayer1.addEventListener("click", deleteTowerPlayer1Handler, {once: true});
+
+
+    }
+
+    if ((tile.isPlayer2NormalTower || tile.isPlayer2FreezeTower || tile.isPlayer2SniperTower) && currentPlayer === 2) {
+        const increaseTowerPlayer2 = document.getElementById("player-2-increase-tower");
+        const deleteTowerPlayer2 = document.getElementById("player-2-delete-tower");
+
+        function increaseTowerPlayer2Handler(e) {
+            APIincreaseTower(tile.positionX, tile.positionY).then((result) => {
+                if (result){
+                    refreshScreen();
+                    alert("Tower increased");
+                }
+                else {
+                    refreshScreen();
+                    alert("You cannot increase this tower")
+                }
+            })
+
+
+            deleteTowerPlayer2.removeEventListener("click", deleteTowerPlayer1Handler)
+        }
+
+        function deleteTowerPlayer2Handler(e) {
+            APIdeleteTower(tile.positionX, tile.positionY).then((result) => {
+                if (result){
+                    refreshScreen();
+                    alert("Tower deleted");
+                }
+                else {
+                    refreshScreen();
+                    alert("You cannot delete this tower")
+                }
+            })
+
+            increaseTowerPlayer2.removeEventListener("click", increaseTowerPlayer1Handler)
+        }
+
+        increaseTowerPlayer2.addEventListener("click", increaseTowerPlayer2Handler, {once: true});
+        deleteTowerPlayer2.addEventListener("click", deleteTowerPlayer2Handler, {once: true});
+    }
+
+
+    modal.show();
+}
 
 class Board {
 
@@ -798,6 +990,10 @@ class Tile {
 
     set numberOfMonsters(value) {
         this._numberOfMonsters = value;
+    }
+
+    addMonster() {
+        this._numberOfMonsters += 1;
     }
 
 
