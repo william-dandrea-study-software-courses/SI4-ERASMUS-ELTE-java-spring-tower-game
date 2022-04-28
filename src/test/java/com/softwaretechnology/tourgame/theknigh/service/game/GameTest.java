@@ -52,10 +52,7 @@ class GameTest {
 
     @Test
     void launchGame() {
-
         this.game.launchGame();
-
-//        this.game.nextRound();
 
         this.game.addFastUnit(1);
         Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
@@ -68,7 +65,7 @@ class GameTest {
     @Test
     void increaseTower(){
         this.game.launchGame();
-//        this.game.nextRound();
+
         Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
         this.game.addNewNormalTowerPlayer(position, 1);
         assertTrue(this.game.increaseTower(1, this.game.getPlayer1().getCastle().getPosition().getX(),1));
@@ -80,7 +77,7 @@ class GameTest {
     @Test
     void deleteTowerTest(){
         this.game.launchGame();
-//        this.game.nextRound();
+
         Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
         assertEquals(0, this.game.deleteTower(1,1,1));
         this.game.addNewNormalTowerPlayer(position, 1);
@@ -90,7 +87,6 @@ class GameTest {
     @Test
     void addKillerUnit(){
         this.game.launchGame();
-//        this.game.nextRound();
 
         //without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
@@ -100,7 +96,6 @@ class GameTest {
     @Test
     void addFastUnit(){
         this.game.launchGame();
-//        this.game.nextRound();
 
         //without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
@@ -110,7 +105,6 @@ class GameTest {
     @Test
     void addFlightUnitTest(){
         this.game.launchGame();
-//        this.game.nextRound();
 
         //without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
@@ -121,7 +115,6 @@ class GameTest {
     void verifyAndMoveSoldierOnThePlaceWhereThePlayerWantToAddBuildingEntityTest(){
         this.game.launchGame();
 
-//        this.game.nextRound();
         this.game.getPlayer1().increaseCurrentGold(1000);
         this.game.addFastUnit(1);
 
@@ -140,7 +133,6 @@ class GameTest {
     @Test
     void addGoldMinePlayerTest(){
         this.game.launchGame();
-//        this.game.nextRound();
 
         //Position is good, but without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
@@ -152,7 +144,6 @@ class GameTest {
     @Test
     void addNewFreezeTowerPlayerTest(){
         this.game.launchGame();
-//        this.game.nextRound();
 
         //Position is good, but without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
@@ -164,7 +155,6 @@ class GameTest {
     @Test
     void addNewNormalTowerPlayerTest(){
         this.game.launchGame();
-//        this.game.nextRound();
 
         //Position is good, but without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
@@ -176,7 +166,6 @@ class GameTest {
     @Test
     void addNewSniperTowerPlayerTest(){
         this.game.launchGame();
-//        this.game.nextRound();
 
         //Position is good, but without enough gold
         this.game.getPlayer1().decreaseCurrentGold(100);
@@ -196,7 +185,6 @@ class GameTest {
 
     @Test
     void getAllBuildingEntitiesTest(){
-
         assertEquals(this.game.getBoard().getObstacles(), this.game.getAllBuildingEntities());
     }
 

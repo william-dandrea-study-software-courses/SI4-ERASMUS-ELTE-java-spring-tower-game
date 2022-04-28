@@ -75,25 +75,33 @@ public class Player {
 
     public List<Entity> getBuildingEntities() {
 
-        List<Entity> bEntities = new ArrayList<>();
-        // bEntities.add(castle);
-        bEntities.addAll(this.entities.stream().filter(e -> e instanceof BuildingEntity).collect(Collectors.toList()));
+        List<Entity> bEntities = this.entities.stream().filter(e -> e instanceof BuildingEntity).collect(Collectors.toList());
+        List<Entity> BuildingEntities = new ArrayList<>();
 
-        return bEntities;
+//        bEntities.addAll(this.entities.stream().filter(e -> e instanceof BuildingEntity).collect(Collectors.toList()));
+        for (Entity s : bEntities) {
+            if (s instanceof BuildingEntity) {
+                BuildingEntities.add((BuildingEntity) s);
+            }
+        }
+
+        return BuildingEntities;
 
     }
 
     public List<GoldMine> getAllGoldMines() {
 
-        List<GoldMine> bEntities = new ArrayList<>();
+        List<Entity> goldmineP = this.entities.stream().filter(e -> e instanceof GoldMine).collect(Collectors.toList());
 
-        for (Entity entity : this.entities) {
-            if (entity instanceof GoldMine) {
-                bEntities.add((GoldMine) entity);
+        List<GoldMine> goldMines = new ArrayList<>();
+
+        for (Entity s : goldmineP) {
+            if (s instanceof GoldMine) {
+                goldMines.add((GoldMine) s);
             }
         }
 
-        return bEntities;
+        return goldMines;
     }
 
 
@@ -115,9 +123,12 @@ public class Player {
     }
 
     public List<Tower> getAllTowers() {
+
+        List<Entity> towersP = this.entities.stream().filter(e -> e instanceof Tower).collect(Collectors.toList());
+
         List<Tower> towers =  new ArrayList<>();
 
-        for (Entity e : this.entities) {
+        for (Entity e : towersP) {
             if (e instanceof Tower) {
                 towers.add((Tower) e);
             }
