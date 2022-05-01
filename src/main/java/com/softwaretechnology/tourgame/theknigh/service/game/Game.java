@@ -112,8 +112,8 @@ public class Game {
      * The current player
      */
     private void manageKillerSoldier(int indexPlayer) {
-        Player player = null;
-        Player playerEnemy = null;
+        Player player;
+        Player playerEnemy;
         if (indexPlayer == 1) {
             player = player1;
             playerEnemy = player2;
@@ -180,8 +180,8 @@ public class Game {
      */
     private void updateHealthPointsOfUnitBecauseOfTowers(int indexPlayer) {
 
-        Player player = null;
-        Player playerEnemy = null;
+        Player player;
+        Player playerEnemy;
         if (indexPlayer == 1) {
             player = player1;
             playerEnemy = player2;
@@ -202,8 +202,6 @@ public class Game {
 
                 if (towerPlayer instanceof FreezeTower) {
 
-                    towerPlayer = (FreezeTower) towerPlayer;
-
                     for (Soldier frozeSoldier : enemySoldiersInThisArea) {
 
                         FreezeSoldierInTheGame freezeSoldierInTheGame = new FreezeSoldierInTheGame(frozeSoldier.getPosition(), this.round + ((FreezeTower) towerPlayer).getNumberOfTurnWhereTheSoldierIsFreeze(), frozeSoldier);
@@ -216,9 +214,7 @@ public class Game {
 
                 } else {
 
-                    Player finalPlayerEnemy = playerEnemy;
-                    Tower finalTowerPlayer = towerPlayer;
-                    enemySoldiersInThisArea.forEach(s -> finalPlayerEnemy.removeHealthPointToSoldier(s, finalTowerPlayer.getSimultaneousStrike()));
+                    enemySoldiersInThisArea.forEach(s -> playerEnemy.removeHealthPointToSoldier(s, towerPlayer.getSimultaneousStrike()));
                 }
             }
 
@@ -339,7 +335,7 @@ public class Game {
      * if the upgrading is success or not
      */
     public boolean increaseTower(int indexPlayer, int x, int y) {
-        Player player = null;
+        Player player;
         if (indexPlayer == 1) {
             player = player1;
         } else {
@@ -374,7 +370,7 @@ public class Game {
      * the recycling gold of the tower, if fail then return 0
      */
     public int deleteTower(int indexPlayer, int x, int y) {
-        Player player = null;
+        Player player;
         if (indexPlayer == 1) {
             player = player1;
         } else {
@@ -403,7 +399,7 @@ public class Game {
      * if the creating is successful
      */
     public Boolean addKillerUnit(int indexPlayer) {
-        Player player = null;
+        Player player;
         if (indexPlayer == 1) {
             player = player1;
         } else {
@@ -430,7 +426,7 @@ public class Game {
      * if the creating is successful
      */
     public Boolean addFastUnit(int indexPlayer) {
-        Player player = null;
+        Player player;
         if (indexPlayer == 1) {
             player = player1;
         } else {
@@ -459,7 +455,7 @@ public class Game {
      * if the creating is successful
      */
     public Boolean addFlightUnit(int indexPlayer) {
-        Player player = null;
+        Player player;
         if (indexPlayer == 1) {
             player = player1;
         } else {
@@ -497,7 +493,7 @@ public class Game {
                 // We'll have 4 try (4 potential moves : POSITION_WE_CAN_GO), if we find any way, we cannot place the tower here
                 int numberOfTry = 0;
 
-                // We try to watch the position arounds
+                // We try to watch the position round
                 for (Position possiblePosition : POSITION_WE_CAN_GO) {
                     possiblePosition.setX(position.getX() + possiblePosition.getX());
                     possiblePosition.setY(position.getY() + possiblePosition.getY());
@@ -534,7 +530,7 @@ public class Game {
      * if the creating is successful
      */
     public boolean addGoldMinePlayer(Position position, int indexPlayer) {
-        Player player = null;
+        Player player;
         if (indexPlayer == 1) {
             player = player1;
         } else {
@@ -567,7 +563,7 @@ public class Game {
      * if the creating is successful
      */
     public boolean addNewFreezeTowerPlayer(Position position, int indexPlayer) {
-        Player player = null;
+        Player player;
         if (indexPlayer == 1) {
             player = player1;
         } else {
@@ -602,7 +598,7 @@ public class Game {
      * if the creating is successful
      */
     public boolean addNewNormalTowerPlayer(Position position, int indexPlayer) {
-        Player player = null;
+        Player player;
         if (indexPlayer == 1) {
             player = player1;
         } else {
@@ -637,7 +633,7 @@ public class Game {
      * if the creating is successful
      */
     public boolean addNewSniperTowerPlayer(Position position, int indexPlayer) {
-        Player player = null;
+        Player player;
         if (indexPlayer == 1) {
             player = player1;
         } else {
@@ -673,8 +669,8 @@ public class Game {
      * if the position is available
      */
     public boolean canPlayerPutNewEntityAtThePosition(Position position, int indexPlayer) {
-        Player player = null;
-        Player enemy = null;
+        Player player;
+        Player enemy;
         if (indexPlayer == 1) {
             player = this.player1;
             enemy = this.player2;
@@ -740,16 +736,12 @@ public class Game {
         Optional<Tile> opTilePlayer2 = this.board.tileAtPosition(positionCastlePlayer2);
 
         if (opTilePlayer1.isPresent()) {
-            Tile tile = opTilePlayer1.get();
             Castle castle1 = new Castle(positionCastlePlayer1, this.settings.getCastelSettings().getInitialHealthPoints());
-            // tile.addEntityOnTheTile(castle1);
             this.player1 = new Player(1, this.settings.getGoldSettings().getInitialAmountOfGold(), castle1);
         }
 
         if (opTilePlayer2.isPresent()) {
-            Tile tile = opTilePlayer2.get();
             Castle castle2 = new Castle(positionCastlePlayer2, this.settings.getCastelSettings().getInitialHealthPoints());
-            // tile.addEntityOnTheTile(castle2);
             this.player2 = new Player(1, this.settings.getGoldSettings().getInitialAmountOfGold(), castle2);
         }
     }
@@ -846,10 +838,7 @@ public class Game {
         if (buildingEntityPlayer1.contains(position))
             return false;
 
-        if (buildingEntityPlayer2.contains(position))
-            return false;
-
-        return true;
+        return !buildingEntityPlayer2.contains(position);
     }
 
 
