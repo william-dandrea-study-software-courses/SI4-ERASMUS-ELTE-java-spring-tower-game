@@ -1,8 +1,6 @@
 package com.softwaretechnology.tourgame.theknigh.service.game.gamemanaging;
 
 import com.softwaretechnology.tourgame.theknigh.service.game.Game;
-import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.Entity;
-import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.goldmines.GoldMine;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.NormalTower;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.Tower;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.soldiers.FastSoldier;
