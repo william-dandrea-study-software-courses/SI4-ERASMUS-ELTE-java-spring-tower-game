@@ -74,17 +74,17 @@ public class PlayerTest {
         assertEquals(100, this.game.getPlayer2().getCurrentGold());
     }
 
-    @Test
-    void getBuildingEntitiesTest(){
-        this.game.launchGame();
-
-        assertEquals(0, this.game.getPlayer1().getBuildingEntities().size());
-        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
-        assertTrue(this.game.addNewNormalTowerPlayer(position,1));
-        this.game.addFastUnit(1);
-        assertEquals(1, this.game.getPlayer1().getBuildingEntities().size());
-        assertTrue(this.game.getPlayer1().getBuildingEntities().get(0) instanceof NormalTower);
-    }
+//    @Test
+//    void getBuildingEntitiesTest(){
+//        this.game.launchGame();
+//
+//        assertEquals(0, this.game.getPlayer1().getBuildingEntities().size());
+//        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
+//        assertTrue(this.game.addNewNormalTowerPlayer(position,1));
+//        this.game.addFastUnit(1);
+//        assertEquals(1, this.game.getPlayer1().getBuildingEntities().size());
+//        assertTrue(this.game.getPlayer1().getBuildingEntities().get(0) instanceof NormalTower);
+//    }
 
 //    @Test
 //    void getAllGoldMinesTest(){
