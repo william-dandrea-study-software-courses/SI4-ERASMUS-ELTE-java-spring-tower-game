@@ -61,8 +61,6 @@ public class PlayerTest {
 
         assertEquals(100, this.game.getPlayer1().getCurrentGold());
 
-        //castle cannot be referenced from game
-
         this.game.addFastUnit(1);
         Soldier soldier = this.game.getPlayer1().getAllSoldiers().get(0);
         assertTrue(this.game.getPlayer1().getEntities().contains(soldier));
