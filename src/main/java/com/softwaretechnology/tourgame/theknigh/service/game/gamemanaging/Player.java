@@ -73,10 +73,10 @@ public class Player {
     }
 
 
-    public List<Entity> getBuildingEntities() {
+    public List<BuildingEntity> getBuildingEntities() {
 
         List<Entity> bEntities = this.entities.stream().filter(e -> e instanceof BuildingEntity).collect(Collectors.toList());
-        List<Entity> BuildingEntities = new ArrayList<>();
+        List<BuildingEntity> BuildingEntities = new ArrayList<>();
 
 //        bEntities.addAll(this.entities.stream().filter(e -> e instanceof BuildingEntity).collect(Collectors.toList()));
         for (Entity s : bEntities) {
