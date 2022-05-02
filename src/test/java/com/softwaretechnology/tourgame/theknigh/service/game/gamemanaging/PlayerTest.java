@@ -79,7 +79,7 @@ public class PlayerTest {
         this.game.launchGame();
 
         assertEquals(0, this.game.getPlayer1().getBuildingEntities().size());
-        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 2);
+        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
         assertTrue(this.game.addNewNormalTowerPlayer(position,1));
         this.game.addFastUnit(1);
         assertEquals(1, this.game.getPlayer1().getBuildingEntities().size());
