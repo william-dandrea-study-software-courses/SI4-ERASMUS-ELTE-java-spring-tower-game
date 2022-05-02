@@ -7,7 +7,6 @@ import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.game
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.monsters.Monster;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.gameentities.obstacles.Obstacle;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.PlayerEntity;
-import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.BuildingEntity;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.goldmines.GoldMine;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.FreezeTower;
 import com.softwaretechnology.tourgame.theknigh.service.game.board.entities.playerentities.building.towers.NormalTower;
