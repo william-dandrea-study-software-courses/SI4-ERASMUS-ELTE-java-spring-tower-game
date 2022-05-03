@@ -2,4 +2,4 @@ run_unit_test:
     stage: test
     image: maven:3-jdk-11
     script:
-        - mvn test
+        - mvn clean package
