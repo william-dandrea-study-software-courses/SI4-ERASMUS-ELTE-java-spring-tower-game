@@ -198,7 +198,7 @@ class GameTest {
 
         List<Position> allBuildingsPositions = this.game.getAllBuildingEntities().stream().map(Entity::getPosition).collect(Collectors.toList());
         List<Position> allFreePositions = this.game.getAllFreePositions();
-        System.out.println(allFreePositions.size());
+        // System.out.println(allFreePositions.size());
         for(Position pos: allBuildingsPositions){
             assertFalse(allFreePositions.contains(pos));
         }

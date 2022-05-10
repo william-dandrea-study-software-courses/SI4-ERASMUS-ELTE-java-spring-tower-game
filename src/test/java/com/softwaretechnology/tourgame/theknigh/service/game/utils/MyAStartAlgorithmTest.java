@@ -56,9 +56,9 @@ class MyAStartAlgorithmTest {
         Position startPosition = this.game.getPlayer1().getCastle().getPosition();
         Position endPosition = this.game.getPlayer2().getCastle().getPosition();
 
-        System.out.println(startPosition);
-        System.out.println(endPosition);
-        System.out.println(this.game.getBoard().getObstacles());
+        // System.out.println(startPosition);
+        // System.out.println(endPosition);
+        // System.out.println(this.game.getBoard().getObstacles());
 
         MyAStartAlgorithm aStartAlgorithm = new MyAStartAlgorithm(this.game, startPosition, endPosition);
 
@@ -66,7 +66,7 @@ class MyAStartAlgorithmTest {
 
         List<MyNode> path = aStartAlgorithm.generatePath();
 
-        System.out.println(path);
+        // System.out.println(path);
 
         List<Position> obstaclesP = this.game.getBoard().getObstacles().stream().map(Entity::getPosition).collect(Collectors.toList());
         List<Position> pathP = path.stream().map(n -> n.position).collect(Collectors.toList());
