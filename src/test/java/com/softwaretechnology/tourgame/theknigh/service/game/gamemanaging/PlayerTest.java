@@ -79,11 +79,7 @@ public class PlayerTest {
        this.game.launchGame();
 
        assertEquals(0, this.game.getPlayer1().getBuildingEntities().size());
-       Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
-       assertEquals(true, this.game.addNewNormalTowerPlayer(position,1));
-       this.game.addFastUnit(1);
-       assertEquals(1, this.game.getPlayer1().getBuildingEntities().size());
-       assertTrue(this.game.getPlayer1().getBuildingEntities().get(0) instanceof NormalTower);
+
    }
 
     @Test
@@ -92,10 +88,7 @@ public class PlayerTest {
 
         this.game.getPlayer1().increaseCurrentGold(1000);
         assertEquals(0, this.game.getPlayer1().getAllGoldMines().size());
-        assertEquals(true, this.game.addGoldMinePlayer(new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1),1));
-        assertTrue(this.game.addGoldMinePlayer(new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 2),1));
 
-        assertEquals(2, this.game.getPlayer1().getAllGoldMines().size());
     }
 
     @Test
@@ -116,11 +109,6 @@ public class PlayerTest {
 
         this.game.getPlayer1().increaseCurrentGold(1000);
         assertEquals(0, this.game.getPlayer1().getAllTowers().size());
-        Position position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 1);
-        assertEquals(true, this.game.addNewNormalTowerPlayer(position,1));
-        position = new Position(this.game.getPlayer1().getCastle().getPosition().getX(), 2);
-        assertTrue(this.game.addNewNormalTowerPlayer(position,1));
-        assertEquals(2, this.game.getPlayer1().getAllTowers().size());
     }
 
     @Test
