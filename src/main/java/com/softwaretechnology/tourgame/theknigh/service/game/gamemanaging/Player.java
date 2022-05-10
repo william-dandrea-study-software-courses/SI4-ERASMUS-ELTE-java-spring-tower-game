@@ -274,9 +274,4 @@ public class Player {
 
         return entitiesAtThisPosition;
     }
-
-
-
-
-
 }

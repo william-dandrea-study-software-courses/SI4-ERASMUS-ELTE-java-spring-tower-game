@@ -72,7 +72,7 @@ function addUnits() {
     killerUnitButton.addEventListener("click", (e) => {
         APIaddKillerUnit().then(isAdded => {
             if (isAdded) {
-                alert("Killer Unit added")
+                // alert("Killer Unit added")
             } else {
                 alert("You cannot add a killer unit")
             }
@@ -83,7 +83,7 @@ function addUnits() {
     fastUnitButton.addEventListener("click", (e) => {
         APIaddFastUnit().then(isAdded => {
             if (isAdded) {
-                alert("Fast Unit added")
+                // alert("Fast Unit added")
             } else {
                 alert("You cannot add a fast unit")
             }
@@ -94,7 +94,7 @@ function addUnits() {
     flightUnitButton.addEventListener("click", (e) => {
         APIaddFlightUnit().then(isAdded => {
             if (isAdded) {
-                alert("Flight Unit added")
+                // alert("Flight Unit added")
             } else {
                 alert("You cannot add a flight unit")
             }
@@ -118,10 +118,12 @@ function addTowerAndGoldMine() {
         board.tiles.forEach(tile => {
             if (isInTheRectangle(xMouse, yMouse, tile.xTopLeft, tile.yTopLeft, tile.xBottomRight, tile.yBottomRight)) {
                 APIFunction(tile.positionX, tile.positionY).then((result) => {
-                    if (result)
-                        alert("Entity placed with success");
-                    else
+                    if (!result)
                         alert("You cannot place the entity")
+                        // alert("Entity placed with success");
+                        /*
+                    else
+                        alert("You cannot place the entity") */
                     refreshScreen();
                     informationMode = true;
                 });
@@ -134,26 +136,26 @@ function addTowerAndGoldMine() {
 
     freezeTowerButton.addEventListener("click", (ev) => {
         informationMode = false;
-        alert("Click on a tile");
+        // alert("Click on a tile");
         canvas.addEventListener("click", e => listenerHandler(e, APIaddFreezeTower), {once: true});
 
     });
 
     normalTowerButton.addEventListener("click", (ev) => {
         informationMode = false;
-        alert("Click on a tile");
+        // alert("Click on a tile");
         canvas.addEventListener("click", e => listenerHandler(e, APIaddNormalTower), {once: true});
     });
 
     sniperTowerButton.addEventListener("click", (ev) => {
         informationMode = false;
-        alert("Click on a tile");
+        // alert("Click on a tile");
         canvas.addEventListener("click", e => listenerHandler(e, APIaddSniperTower), {once: true});
     });
 
     goldMineButton.addEventListener("click", (ev) => {
         informationMode = false;
-        alert("Click on a tile");
+        // alert("Click on a tile");
         canvas.addEventListener("click", e => listenerHandler(e, APIaddGoldMine), {once: true});
     });
 
@@ -781,7 +783,7 @@ const showModal = (tile, callback) => {
             APIincreaseTower(tile.positionX, tile.positionY).then((result) => {
                 if (result){
                     refreshScreen();
-                    alert("Tower increased");
+                    // alert("Tower increased");
                 }
                 else {
                     refreshScreen();
@@ -797,7 +799,7 @@ const showModal = (tile, callback) => {
             APIdeleteTower(tile.positionX, tile.positionY).then((result) => {
                 if (result){
                     refreshScreen();
-                    alert("Tower deleted");
+                    // alert("Tower deleted");
                 }
                 else {
                     refreshScreen();
@@ -822,7 +824,7 @@ const showModal = (tile, callback) => {
             APIincreaseTower(tile.positionX, tile.positionY).then((result) => {
                 if (result){
                     refreshScreen();
-                    alert("Tower increased");
+                    // alert("Tower increased");
                 }
                 else {
                     refreshScreen();
@@ -838,7 +840,7 @@ const showModal = (tile, callback) => {
             APIdeleteTower(tile.positionX, tile.positionY).then((result) => {
                 if (result){
                     refreshScreen();
-                    alert("Tower deleted");
+                    // alert("Tower deleted");
                 }
                 else {
                     refreshScreen();
